@@ -1,0 +1,34 @@
+[
+  {
+    "profile": {
+      "education": "Post Graduate",
+      "budget": "500000",
+      "land": "5",
+      "interest": "Technology"
+    },
+    "suggestion": {
+      "title": "Smart Hydroponic Farm Operator",
+      "desc": "Establish a tech-driven hydroponic farm on a portion of the land, cultivating high-value crops with IoT-based monitoring and automation for optimal yield and resource efficiency.",
+      "salary": "\u20b98-18L",
+      "demand": "High",
+      "training": "6-12 months for setup and initial operations"
+    },
+    "_id": "6aa0e51e4cbb26bc39dfb727"
+  },
+  {
+    "profile": {
+      "education": "Post Graduate",
+      "budget": "500000",
+      "land": "5",
+      "interest": "Farming"
+    },
+    "suggestion": {
+      "title": "Polyhouse Cultivation of High-Value Crops",
+      "desc": "Establish and manage a polyhouse for cultivating high-demand, high-value crops like exotic vegetables (bell peppers, cherry tomatoes) or cut flowers for urban and export markets.",
+      "salary": "\u20b97-15L",
+      "demand": "Very High",
+      "training": "6-12 months for setup, technical training, and initial market establishment"
+    },
+    "_id": "6aa3cc53266b6db5f7ae5040"
+  }
+]

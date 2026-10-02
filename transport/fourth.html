@@ -1,0 +1,1482 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan DrivePro • Driver Registration & Booking</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d0b1a 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .driver-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .road-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 107, 53, 0.1) 50px,
+                    rgba(239, 71, 111, 0.1) 100px);
+            animation: roadMove 20s linear infinite;
+        }
+
+        @keyframes roadMove {
+            0% {
+                transform: translateX(-100px);
+            }
+
+            100% {
+                transform: translateX(100px);
+            }
+        }
+
+        .floating-cars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-car {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.03);
+            font-size: 3rem;
+            animation: carFloat 15s linear infinite;
+        }
+
+        .floating-car:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-car:nth-child(2) {
+            top: 50%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .floating-car:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        .floating-car:nth-child(4) {
+            top: 70%;
+            right: 30%;
+            animation-delay: 3s;
+        }
+
+        @keyframes carFloat {
+            0% {
+                transform: translateX(-100px) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.3;
+            }
+
+            90% {
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translateX(calc(100vw + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .driver-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            min-height: 100vh;
+        }
+
+        /* Glass Panel Effect */
+        .glass-panel {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header */
+        .driver-header {
+            margin-bottom: 32px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 107, 53, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .driver-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .driver-header h1 span {
+            font-size: 1.4rem;
+            color: #FF6B35;
+            display: block;
+            font-weight: 400;
+            margin-top: 8px;
+        }
+
+        .driver-header h1 span i {
+            color: #06D6A0;
+            margin: 0 5px;
+        }
+
+        /* Progress Bar */
+        .registration-progress {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .registration-progress::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+        .progress-step.active .step-circle {
+            background: #FF6B35;
+            border-color: #FF6B35;
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+        }
+
+        .progress-step.completed .step-circle {
+            background: #06D6A0;
+            border-color: #06D6A0;
+            color: white;
+        }
+
+        .step-label {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .progress-step.active .step-label {
+            color: #FF6B35;
+        }
+
+        .progress-step.completed .step-label {
+            color: #06D6A0;
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #FF6B35;
+            font-size: 1.5rem;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group label i {
+            color: #FF6B35;
+            margin-right: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 14px 18px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #FF6B35;
+            background: rgba(255, 107, 53, 0.05);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Phone Input Group */
+        .phone-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .country-code {
+            width: 100px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF6B35;
+            font-weight: 600;
+        }
+
+        /* File Upload */
+        .file-upload-area {
+            background: rgba(255, 107, 53, 0.05);
+            border: 2px dashed rgba(255, 107, 53, 0.3);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .file-upload-area:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #FF6B35;
+        }
+
+        .file-upload-area i {
+            font-size: 3rem;
+            color: #FF6B35;
+            margin-bottom: 15px;
+        }
+
+        .file-upload-area h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .file-upload-area p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Document Preview */
+        .doc-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .doc-preview-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .doc-preview-item i {
+            font-size: 2rem;
+            color: #06D6A0;
+            margin-bottom: 8px;
+        }
+
+        .doc-preview-item span {
+            display: block;
+            color: white;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .doc-preview-item small {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+        }
+
+        .doc-status {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .doc-status.verified {
+            background: #06D6A0;
+            box-shadow: 0 0 10px #06D6A0;
+        }
+
+        .doc-status.pending {
+            background: #FF6B35;
+            box-shadow: 0 0 10px #FF6B35;
+        }
+
+        /* Vehicle Selection Cards */
+        .vehicle-type-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .vehicle-type-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .vehicle-type-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vehicle-type-card.selected {
+            background: rgba(255, 107, 53, 0.15);
+            border-color: #FF6B35;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .vehicle-type-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .vehicle-type-card:nth-child(1) i {
+            color: #FF6B35;
+        }
+
+        .vehicle-type-card:nth-child(2) i {
+            color: #EF476F;
+        }
+
+        .vehicle-type-card:nth-child(3) i {
+            color: #9D4EDD;
+        }
+
+        .vehicle-type-card:nth-child(4) i {
+            color: #06D6A0;
+        }
+
+        .vehicle-type-card span {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .nav-btn {
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .nav-btn.prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn.prev:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-5px);
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(45deg, #FF6B35, #EF476F);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .nav-btn.next:hover {
+            transform: translateX(5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .nav-btn.submit {
+            background: linear-gradient(45deg, #06D6A0, #FF6B35);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Right Panel - Profile Preview */
+        .profile-panel {
+            background: rgba(26, 26, 46, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, #FF6B35, #EF476F);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            border: 3px solid #9D4EDD;
+            position: relative;
+        }
+
+        .online-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 15px;
+            height: 15px;
+            background: #06D6A0;
+            border-radius: 50%;
+            border: 2px solid #1a1a2e;
+        }
+
+        .profile-info h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: #FF6B35;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rating {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .rating i {
+            color: #FFD700;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-card i {
+            font-size: 1.8rem;
+            color: #FF6B35;
+            margin-bottom: 8px;
+        }
+
+        .stat-card h4 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Document Status */
+        .document-status {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-info i {
+            width: 30px;
+            color: #06D6A0;
+        }
+
+        .status-info span {
+            color: white;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-badge.verified {
+            background: rgba(6, 214, 160, 0.15);
+            color: #06D6A0;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 107, 53, 0.15);
+            color: #FF6B35;
+        }
+
+        /* Earnings Preview */
+        .earnings-preview {
+            background: linear-gradient(145deg, rgba(255, 107, 53, 0.15), rgba(6, 214, 160, 0.15));
+            border-radius: 24px;
+            padding: 20px;
+        }
+
+        .earnings-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .earnings-header h3 {
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .earnings-header span {
+            color: #06D6A0;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .earning-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .earning-progress {
+            height: 100%;
+            width: 75%;
+            background: linear-gradient(90deg, #FF6B35, #06D6A0);
+            border-radius: 10px;
+            animation: progressPulse 2s infinite;
+        }
+
+        @keyframes progressPulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Tips Card */
+        .tips-card {
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 20px;
+            padding: 15px;
+            margin-top: 24px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .tips-card i {
+            color: #FF6B35;
+            margin-right: 8px;
+        }
+
+        .tips-card p {
+            color: white;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .driver-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .vehicle-type-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .driver-header h1 {
+                font-size: 2rem;
+            }
+
+            .doc-preview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="driver-bg">
+        <div class="road-lines"></div>
+        <div class="floating-cars">
+            <div class="floating-car"><i class="fas fa-car-side"></i></div>
+            <div class="floating-car"><i class="fas fa-motorcycle"></i></div>
+            <div class="floating-car"><i class="fas fa-truck"></i></div>
+            <div class="floating-car"><i class="fas fa-taxi"></i></div>
+        </div>
+    </div>
+
+    <div class="driver-container">
+        <!-- Left Panel - Registration Form -->
+        <div class="glass-panel">
+            <div class="driver-header">
+                <a href="#" class="back-button" onclick="event.preventDefault(); history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+                <h1>
+                    Driver Registration
+                    <span><i class="fas fa-id-card"></i> Join Our Fleet <i class="fas fa-truck"></i></span>
+                </h1>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="registration-progress">
+                <div class="progress-step active" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Personal</div>
+                </div>
+                <div class="progress-step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Vehicle</div>
+                </div>
+                <div class="progress-step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Documents</div>
+                </div>
+                <div class="progress-step" id="step4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">Review</div>
+                </div>
+            </div>
+
+            <!-- Form Section 1: Personal Details -->
+            <div class="form-section active" id="section1">
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Personal Information</span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" value="Raju Sharma">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar"></i> Date of Birth</label>
+                        <input type="date" id="dob" value="1990-05-15">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-phone"></i> Phone Number</label>
+                        <div class="phone-input-group">
+                            <div class="country-code">+91</div>
+                            <input type="tel" id="phone" placeholder="98765 43210" value="9876543210">
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" placeholder="driver@example.com" value="raju.sharma@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-map-pin"></i> City</label>
+                        <input type="text" id="city" placeholder="Your city" value="Tanuku">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-language"></i> Languages</label>
+                        <select id="languages">
+                            <option value="telugu" selected>Telugu, English</option>
+                            <option value="hindi">Hindi, English</option>
+                            <option value="english">English Only</option>
+                            <option value="all">All Languages</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-map-marker-alt"></i> Full Address</label>
+                        <textarea id="address"
+                            placeholder="Enter your complete address">3-42, Main Road, Tanuku, West Godavari</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Section 2: Vehicle Details -->
+            <div class="form-section" id="section2">
+                <div class="section-title">
+                    <i class="fas fa-truck"></i>
+                    <span>Vehicle Information</span>
+                </div>
+
+                <div class="vehicle-type-grid">
+                    <div class="vehicle-type-card selected" onclick="selectVehicleType(this, 'auto')">
+                        <i class="fas fa-motorcycle"></i>
+                        <span>Auto</span>
+                    </div>
+                    <div class="vehicle-type-card" onclick="selectVehicleType(this, 'bike')">
+                        <i class="fas fa-bicycle"></i>
+                        <span>Bike</span>
+                    </div>
+                    <div class="vehicle-type-card" onclick="selectVehicleType(this, 'car')">
+                        <i class="fas fa-car-side"></i>
+                        <span>Car</span>
+                    </div>
+                    <div class="vehicle-type-card" onclick="selectVehicleType(this, 'tractor')">
+                        <i class="fas fa-tractor"></i>
+                        <span>Tractor</span>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-car"></i> Vehicle Model</label>
+                        <input type="text" id="vehicleModel" placeholder="e.g., Bajaj Auto, Mahindra Tractor"
+                            value="Bajaj RE Auto">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-id-card"></i> Vehicle Number</label>
+                        <input type="text" id="vehicleNumber" placeholder="AP05 AB 1234" value="AP05 AB 1234">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-palette"></i> Vehicle Color</label>
+                        <input type="text" id="vehicleColor" placeholder="Color" value="Yellow">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-calendar-alt"></i> Manufacturing Year</label>
+                        <select id="vehicleYear">
+                            <option value="2024">2024</option>
+                            <option value="2023" selected>2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-users"></i> Passenger Capacity</label>
+                        <select id="passengerCapacity">
+                            <option value="3" selected>3 Passengers</option>
+                            <option value="4">4 Passengers</option>
+                            <option value="6">6 Passengers</option>
+                            <option value="8">8+ Passengers</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fas fa-tachometer-alt"></i> Vehicle Condition</label>
+                        <select id="vehicleCondition">
+                            <option value="excellent" selected>Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label><i class="fas fa-wrench"></i> Additional Features</label>
+                        <textarea id="vehicleFeatures"
+                            placeholder="AC, Music System, etc.">AC, Music System, GPS</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Section 3: Documents -->
+            <div class="form-section" id="section3">
+                <div class="section-title">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Document Upload</span>
+                </div>
+
+                <!-- Driving License -->
+                <div class="file-upload-area" onclick="document.getElementById('dlUpload').click()">
+                    <i class="fas fa-id-card"></i>
+                    <h3>Upload Driving License</h3>
+                    <p>Click to upload or drag and drop</p>
+                    <input type="file" id="dlUpload" style="display: none;" accept="image/*,.pdf">
+                </div>
+
+                <!-- RC Book -->
+                <div class="file-upload-area" onclick="document.getElementById('rcUpload').click()">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Upload RC Book</h3>
+                    <p>Click to upload or drag and drop</p>
+                    <input type="file" id="rcUpload" style="display: none;" accept="image/*,.pdf">
+                </div>
+
+                <!-- Insurance -->
+                <div class="file-upload-area" onclick="document.getElementById('insuranceUpload').click()">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Upload Insurance</h3>
+                    <p>Click to upload or drag and drop</p>
+                    <input type="file" id="insuranceUpload" style="display: none;" accept="image/*,.pdf">
+                </div>
+
+                <!-- Document Preview -->
+                <div class="doc-preview-grid">
+                    <div class="doc-preview-item">
+                        <div class="doc-status verified"></div>
+                        <i class="fas fa-id-card"></i>
+                        <span>Driving License</span>
+                        <small>Uploaded: DL12345</small>
+                    </div>
+                    <div class="doc-preview-item">
+                        <div class="doc-status pending"></div>
+                        <i class="fas fa-file-contract"></i>
+                        <span>RC Book</span>
+                        <small>Pending</small>
+                    </div>
+                    <div class="doc-preview-item">
+                        <div class="doc-status verified"></div>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Insurance</span>
+                        <small>Valid till 2025</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Section 4: Review & Submit -->
+            <div class="form-section" id="section4">
+                <div class="section-title">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Review Information</span>
+                </div>
+
+                <div
+                    style="background: rgba(255,255,255,0.03); border-radius: 24px; padding: 24px; margin-bottom: 24px;">
+                    <h3 style="color: #FF6B35; margin-bottom: 15px;">Personal Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; color: white;">
+                        <div><span style="color: rgba(255,255,255,0.5);">Name:</span> Raju Sharma</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">Phone:</span> +91 9876543210</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">Email:</span> raju.sharma@email.com</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">City:</span> Tanuku</div>
+                    </div>
+                </div>
+
+                <div
+                    style="background: rgba(255,255,255,0.03); border-radius: 24px; padding: 24px; margin-bottom: 24px;">
+                    <h3 style="color: #EF476F; margin-bottom: 15px;">Vehicle Details</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; color: white;">
+                        <div><span style="color: rgba(255,255,255,0.5);">Type:</span> Auto</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">Model:</span> Bajaj RE Auto</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">Number:</span> AP05 AB 1234</div>
+                        <div><span style="color: rgba(255,255,255,0.5);">Year:</span> 2023</div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border-radius: 24px; padding: 24px;">
+                    <h3 style="color: #06D6A0; margin-bottom: 15px;">Documents</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <span
+                            style="background: rgba(6,214,160,0.1); padding: 8px 16px; border-radius: 40px; color: #06D6A0;">
+                            <i class="fas fa-check-circle"></i> Driving License
+                        </span>
+                        <span
+                            style="background: rgba(255,107,53,0.1); padding: 8px 16px; border-radius: 40px; color: #FF6B35;">
+                            <i class="fas fa-clock"></i> RC Book (Pending)
+                        </span>
+                        <span
+                            style="background: rgba(6,214,160,0.1); padding: 8px 16px; border-radius: 40px; color: #06D6A0;">
+                            <i class="fas fa-check-circle"></i> Insurance
+                        </span>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 30px; padding: 20px; background: linear-gradient(145deg, rgba(255,107,53,0.1), rgba(6,214,160,0.1)); border-radius: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="color: rgba(255,255,255,0.7);">Registration Fee</p>
+                            <h2 style="color: white; font-size: 2rem;">₹499</h2>
+                        </div>
+                        <i class="fas fa-credit-card" style="font-size: 3rem; color: #FF6B35;"></i>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-top: 10px;">
+                        <i class="fas fa-info-circle"></i> One-time registration fee, includes verification and profile
+                        boost
+                    </p>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="form-navigation">
+                <button class="nav-btn prev" onclick="prevSection()" id="prevBtn">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="nav-btn next" onclick="nextSection()" id="nextBtn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="nav-btn submit" onclick="submitRegistration()" id="submitBtn" style="display: none;">
+                    <i class="fas fa-check-circle"></i> Submit Registration
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Panel - Profile Preview & Stats -->
+        <div class="profile-panel">
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                        <span class="online-badge"></span>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="previewName">Raju Sharma</h3>
+                        <p><i class="fas fa-star"></i> 4.8 · <span class="rating">(1,234 rides)</span></p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span
+                        style="background: rgba(255,107,53,0.1); padding: 6px 12px; border-radius: 20px; color: #FF6B35; font-size: 0.85rem;">
+                        <i class="fas fa-motorcycle"></i> Auto
+                    </span>
+                    <span
+                        style="background: rgba(6,214,160,0.1); padding: 6px 12px; border-radius: 20px; color: #06D6A0; font-size: 0.85rem;">
+                        <i class="fas fa-check-circle"></i> Verified
+                    </span>
+                    <span
+                        style="background: rgba(157,78,221,0.1); padding: 6px 12px; border-radius: 20px; color: #9D4EDD; font-size: 0.85rem;">
+                        <i class="fas fa-clock"></i> 2 years exp
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-trophy"></i>
+                    <h4>1,234</h4>
+                    <p>Total Rides</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h4>2,456</h4>
+                    <p>Hours Online</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <h4>4.8</h4>
+                    <p>Rating</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h4>₹45K+</h4>
+                    <p>Monthly</p>
+                </div>
+            </div>
+
+            <!-- Document Status -->
+            <div class="document-status">
+                <h3 style="color: white; margin-bottom: 15px;">Document Status</h3>
+                <div class="status-item">
+                    <div class="status-info">
+                        <i class="fas fa-id-card"></i>
+                        <span>Driving License</span>
+                    </div>
+                    <span class="status-badge verified">Verified</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <i class="fas fa-file-contract"></i>
+                        <span>RC Book</span>
+                    </div>
+                    <span class="status-badge pending">Pending</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Insurance</span>
+                    </div>
+                    <span class="status-badge verified">Verified</span>
+                </div>
+                <div class="status-item">
+                    <div class="status-info">
+                        <i class="fas fa-id-badge"></i>
+                        <span>Background Check</span>
+                    </div>
+                    <span class="status-badge verified">Clear</span>
+                </div>
+            </div>
+
+            <!-- Earnings Preview -->
+            <div class="earnings-preview">
+                <div class="earnings-header">
+                    <h3>Today's Earnings</h3>
+                    <span>₹1,250</span>
+                </div>
+                <div class="earning-bar">
+                    <div class="earning-progress" style="width: 75%;"></div>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.5); font-size: 0.85rem;">
+                    <span>Target: ₹1,600</span>
+                    <span>75% completed</span>
+                </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="tips-card">
+                <i class="fas fa-lightbulb"></i>
+                <p><strong>Pro Tip:</strong> Complete all document verification to get priority bookings and higher
+                    earnings potential. Verified drivers get 30% more ride requests.</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <span
+                    style="background: rgba(255,107,53,0.1); padding: 8px 15px; border-radius: 40px; color: white; font-size: 0.85rem;">
+                    <i class="fas fa-map-pin" style="color: #FF6B35;"></i> Tanuku Region
+                </span>
+                <span
+                    style="background: rgba(6,214,160,0.1); padding: 8px 15px; border-radius: 40px; color: white; font-size: 0.85rem;">
+                    <i class="fas fa-language" style="color: #06D6A0;"></i> Telugu, English
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 4;
+
+        // Update preview name in real-time
+        document.getElementById('fullName').addEventListener('input', function () {
+            document.getElementById('previewName').textContent = this.value || 'Raju Sharma';
+        });
+
+        // Navigation functions
+        function nextSection() {
+            if (currentSection < totalSections) {
+                // Validate current section
+                if (!validateSection(currentSection)) {
+                    return;
+                }
+
+                // Hide current section
+                document.getElementById(`section${currentSection}`).classList.remove('active');
+                document.getElementById(`step${currentSection}`).classList.remove('active');
+                document.getElementById(`step${currentSection}`).classList.add('completed');
+
+                // Show next section
+                currentSection++;
+                document.getElementById(`section${currentSection}`).classList.add('active');
+                document.getElementById(`step${currentSection}`).classList.add('active');
+
+                // Update buttons
+                updateButtons();
+            }
+        }
+
+        function prevSection() {
+            if (currentSection > 1) {
+                // Hide current section
+                document.getElementById(`section${currentSection}`).classList.remove('active');
+                document.getElementById(`step${currentSection}`).classList.remove('active');
+
+                // Show previous section
+                currentSection--;
+                document.getElementById(`section${currentSection}`).classList.add('active');
+                document.getElementById(`step${currentSection}`).classList.add('active');
+                document.getElementById(`step${currentSection}`).classList.remove('completed');
+
+                // Update buttons
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (currentSection === 1) {
+                prevBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+            }
+
+            if (currentSection === totalSections) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'flex';
+            } else {
+                nextBtn.style.display = 'flex';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Validation function
+        function validateSection(section) {
+            switch (section) {
+                case 1:
+                    const name = document.getElementById('fullName').value;
+                    const phone = document.getElementById('phone').value;
+                    if (!name || !phone) {
+                        alert('Please fill in all required fields');
+                        return false;
+                    }
+                    break;
+                case 2:
+                    const vehicleNumber = document.getElementById('vehicleNumber').value;
+                    if (!vehicleNumber) {
+                        alert('Please enter vehicle number');
+                        return false;
+                    }
+                    break;
+            }
+            return true;
+        }
+
+        // Vehicle type selection
+        function selectVehicleType(element, type) {
+            document.querySelectorAll('.vehicle-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        // File upload handlers
+        document.getElementById('dlUpload').addEventListener('change', function (e) {
+            if (e.target.files.length > 0) {
+                alert('Driving License uploaded successfully!');
+            }
+        });
+
+        document.getElementById('rcUpload').addEventListener('change', function (e) {
+            if (e.target.files.length > 0) {
+                alert('RC Book uploaded successfully!');
+            }
+        });
+
+        document.getElementById('insuranceUpload').addEventListener('change', function (e) {
+            if (e.target.files.length > 0) {
+                alert('Insurance document uploaded successfully!');
+            }
+        });
+
+        // Submit registration
+        async function submitRegistration() {
+            // Collect all form data
+            const formData = {
+                name: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                vehicleType: document.querySelector('.vehicle-type-card.selected span').textContent,
+                vehicleNumber: document.getElementById('vehicleNumber').value,
+                city: document.getElementById('city').value
+            };
+
+            try {
+                const response = await fetch('/api/register_driver', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`✅ Registration Submitted Successfully!\n\nDear ${formData.name},\nYour application has been received and stored in our Datebase (ID: ${data.id}).\nVehicle: ${formData.vehicleType} (${formData.vehicleNumber})\nRegion: ${formData.city}\n\nRedirecting to your Driver Dashboard now...`);
+                    // Redirect to driver dashboard
+                    window.location.href = 'driver_dashboard.html';
+                } else {
+                    alert('❌ Error occurred while submitting your registration. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Backend is not running or network error occurred!');
+            }
+        }
+
+        // Real-time validation effects
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                if (this.value.trim() !== '') {
+                    this.style.borderColor = '#06D6A0';
+                } else {
+                    this.style.borderColor = 'rgba(255,255,255,0.1)';
+                }
+            });
+        });
+
+        // Initialize buttons
+        updateButtons();
+
+        // Animated counter for stats
+        function animateValue(element, start, end, duration) {
+            const range = end - start;
+            const increment = range / (duration / 10);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    clearInterval(timer);
+                    element.textContent = end.toLocaleString();
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 10);
+        }
+
+        // Animate the stat numbers
+        setTimeout(() => {
+            animateValue(document.querySelectorAll('.stat-card h4')[0], 0, 1234, 2000);
+            animateValue(document.querySelectorAll('.stat-card h4')[1], 0, 2456, 2000);
+        }, 500);
+    </script>
+</body>
+
+</html>
+

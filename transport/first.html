@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="te">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Transport • స్మార్ట్ రవాణా</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Noto Sans Telugu', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Full-screen background image with artistic overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, rgba(0, 30, 20, 0.5) 0%, rgba(0, 15, 10, 0.3) 50%, rgba(20, 10, 0, 0.4) 100%),
+                url('transport_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-position: center 30%;
+            z-index: -1;
+            animation: slowZoom 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes slowZoom {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Main container */
+        .smart-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Top navigation row - transparent glass */
+        .nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 215, 140, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .location-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 200, 100, 0.25);
+        }
+
+        .location-selector:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .location-selector i {
+            color: #ffd966;
+            font-size: 1.2rem;
+        }
+
+        .location-selector span {
+            color: white;
+            font-weight: 500;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notif-badge {
+            background: rgba(255, 255, 255, 0.15);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 200, 100, 0.25);
+        }
+
+        .notif-badge:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: rotate(5deg);
+        }
+
+        .profile-circle {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(145deg, #f5b042, #d4731a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            border: 3px solid rgba(255, 215, 140, 0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-circle:hover {
+            transform: scale(1.05);
+            border-color: #ffd966;
+        }
+
+        /* Hero section - transparent glass */
+        .hero-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 60px;
+            border: 1px solid rgba(255, 215, 140, 0.2);
+            margin-bottom: 10px;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+
+        .hero-section h1 small {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #ffd966;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .hero-section p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Main content card - FULLY TRANSPARENT GLASS */
+        .content-card {
+            background: rgba(255, 255, 245, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 50px;
+            padding: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 140, 0.2);
+        }
+
+        /* Category tabs - interactive slider with transparency */
+        .category-slider {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 5px 20px 5px;
+            scrollbar-width: thin;
+            scrollbar-color: #ffd966 rgba(255, 255, 255, 0.2);
+        }
+
+        .category-slider::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .category-slider::-webkit-scrollbar-thumb {
+            background: #ffd966;
+            border-radius: 10px;
+        }
+
+        .category-slider::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .category-pill {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(5px);
+            border: 1.5px solid rgba(255, 215, 140, 0.3);
+            border-radius: 60px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-pill i {
+            color: #ffd966;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-pill.active {
+            background: rgba(181, 118, 44, 0.7);
+            border-color: #ffd966;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-pill.active i {
+            color: white;
+        }
+
+        .category-pill:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: #ffd966;
+            transform: translateY(-2px);
+        }
+
+        .category-pill:active {
+            transform: translateY(2px);
+        }
+
+        /* Vehicle grid - transparent cards */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 10px 5px;
+        }
+
+        .vehicle-grid::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .vehicle-grid::-webkit-scrollbar-thumb {
+            background: #ffd966;
+            border-radius: 10px;
+        }
+
+        .vehicle-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .vehicle-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 30px;
+            padding: 22px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 1px solid rgba(255, 215, 140, 0.25);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vehicle-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ffd966, #ffb347);
+            transform: translateX(-100%);
+            transition: transform 0.4s;
+        }
+
+        .vehicle-item:hover::before {
+            transform: translateX(0);
+        }
+
+        .vehicle-item:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ffd966;
+        }
+
+        .vehicle-item:active {
+            transform: translateY(0);
+        }
+
+        .vehicle-icon-large {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 215, 140, 0.15);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #ffd966;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .vehicle-details {
+            flex: 1;
+        }
+
+        .vehicle-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .vehicle-title .telugu {
+            color: #ffd966;
+            font-weight: 600;
+        }
+
+        .vehicle-tag {
+            background: rgba(255, 215, 140, 0.2);
+            color: #ffd966;
+            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 215, 140, 0.3);
+        }
+
+        .vehicle-specs {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin: 8px 0;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .vehicle-specs i {
+            color: #ffd966;
+        }
+
+        .vehicle-price-large {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            margin-top: 10px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .vehicle-price-large span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Driver registration - transparent redesign */
+        .driver-card {
+            background: rgba(31, 71, 51, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 30px 35px;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 207, 122, 0.4);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .driver-card:hover {
+            background: rgba(40, 92, 64, 0.5);
+            transform: scale(1.02);
+            border-color: #ffdb9f;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .driver-card:active {
+            transform: scale(0.99);
+        }
+
+        .driver-info {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .driver-icon-large {
+            width: 90px;
+            height: 90px;
+            background: rgba(255, 240, 180, 0.15);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border: 2px solid rgba(255, 219, 159, 0.5);
+            color: #ffdfa0;
+        }
+
+        .driver-text h2 {
+            font-size: 2rem;
+            color: #ffd966;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .driver-text p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.1rem;
+            margin: 8px 0 12px 0;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .driver-badge {
+            background: rgba(43, 84, 57, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 60px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 205, 129, 0.5);
+            color: #ffefd0;
+            font-weight: 600;
+        }
+
+        .driver-arrow {
+            font-size: 2.5rem;
+            color: #ffdb9f;
+            opacity: 0.9;
+        }
+
+        /* Footer stats - transparent */
+        .footer-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 5px 0;
+            color: #ffffff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 200, 100, 0.25);
+            color: white;
+        }
+
+        .stat-item i {
+            color: #ffd966;
+        }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section h1 small {
+                font-size: 1.3rem;
+            }
+
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .driver-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .driver-info {
+                justify-content: center;
+            }
+
+            .footer-stats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="smart-container">
+        <!-- Top navigation - transparent -->
+        <div class="nav-row">
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div class="location-selector" onclick="window.location.href='../home_page/index.html'"
+                    style="padding: 8px 15px;" title="Go to Home Page">
+                    <i class="fas fa-home"></i>
+                    <span>హోమ్ / Home</span>
+                </div>
+                <div class="location-selector" onclick="alert('📍 Change location')">
+                    <i class="fas fa-map-pin"></i>
+                    <span>తణుకు / Tanuku · 2 km</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <div
+                    style="display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 245, 0.1); padding: 6px 16px 6px 6px; border-radius: 50px; border: 1px solid rgba(255, 215, 140, 0.3);">
+                    <div class="profile-circle native-profile-avatar"
+                        style="width: 40px; height: 40px; font-size: 1.2rem;" title="Profile">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; line-height: 1.2;">
+                        <span class="native-profile-name"
+                            style="color: white; font-weight: 700; font-size: 0.95rem;">Guest</span>
+                        <span class="native-profile-occ"
+                            style="color: #ffd966; font-size: 0.75rem; font-weight: 500;">User</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero section - transparent -->
+        <div class="hero-section">
+            <h1>
+                స్మార్ట్ రవాణా
+                <small>Aarohan Transport</small>
+            </h1>
+            <p>
+                <i class="fas fa-tractor"></i>
+                <span>మీ ఊరికి స్మార్ట్ సేవలు · Smart services for your village</span>
+            </p>
+        </div>
+
+        <!-- Main content card - FULLY TRANSPARENT as requested -->
+        <div class="content-card">
+            <!-- Category tabs - interactive with transparency -->
+            <div class="category-slider">
+                <button class="category-pill active" onclick="setActivePill(this)"><i class="fas fa-car"></i> ప్రయాణం /
+                    Ride</button>
+                <button class="category-pill" onclick="setActivePill(this)"><i class="fas fa-tractor"></i> వ్యవసాయం /
+                    Farm</button>
+                <button class="category-pill" onclick="setActivePill(this)"><i class="fas fa-motorcycle"></i> బైక్ & ఆటో
+                    / Bike & Auto</button>
+                <button class="category-pill" onclick="setActivePill(this)"><i class="fas fa-clock"></i> అవర్లీ /
+                    Hourly</button>
+                <span class="category-pill" style="background:rgba(255,255,255,0.08); border:1px dashed #ffd966;"><i
+                        class="fas fa-language"></i> తెంగ్లిష్</span>
+            </div>
+
+            <!-- Vehicle grid - transparent cards -->
+            <div class="vehicle-grid">
+                <!-- Auto -->
+                <div class="vehicle-item" onclick="bookVehicle('Auto')">
+                    <div class="vehicle-icon-large"><i class="fas fa-motorcycle"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">ఆటో</span> Auto
+                            <span class="vehicle-tag">3 seater</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-route"></i> ₹12/km</span>
+                            <span><i class="fas fa-users"></i> 3 + luggage</span>
+                        </div>
+                        <div class="vehicle-price-large">₹96 <span>est.</span></div>
+                    </div>
+                </div>
+
+                <!-- Bike -->
+                <div class="vehicle-item" onclick="bookVehicle('Bike')">
+                    <div class="vehicle-icon-large"><i class="fas fa-bicycle"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">బైక్</span> Bike
+                            <span class="vehicle-tag">1 pax</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-route"></i> ₹8/km</span>
+                            <span><i class="fas fa-user"></i> 1 passenger</span>
+                        </div>
+                        <div class="vehicle-price-large">₹48 <span>est.</span></div>
+                    </div>
+                </div>
+
+                <!-- Car -->
+                <div class="vehicle-item" onclick="bookVehicle('Car')">
+                    <div class="vehicle-icon-large"><i class="fas fa-car-side"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">కారు</span> Car (UberX)
+                            <span class="vehicle-tag">AC</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-route"></i> ₹14/km</span>
+                            <span><i class="fas fa-users"></i> 4+1</span>
+                        </div>
+                        <div class="vehicle-price-large">₹112 <span>est.</span></div>
+                    </div>
+                </div>
+
+                <!-- Tractor -->
+                <div class="vehicle-item" onclick="bookVehicle('Tractor')">
+                    <div class="vehicle-icon-large"><i class="fas fa-tractor"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">ట్రాక్టర్</span> Tractor
+                            <span class="vehicle-tag">utility</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-hourglass-half"></i> ₹550/hr</span>
+                            <span><i class="fas fa-weight-hanging"></i> 1.5 ton</span>
+                        </div>
+                        <div class="vehicle-price-large">₹550<span>/hr</span></div>
+                    </div>
+                </div>
+
+                <!-- Combine Harvester -->
+                <div class="vehicle-item" onclick="bookVehicle('Harvester')">
+                    <div class="vehicle-icon-large"><i class="fas fa-fan"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">కంబైన్</span> Combine
+                            <span class="vehicle-tag">multi-crop</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-hourglass-half"></i> ₹2200/hr</span>
+                            <span><i class="fas fa-seedling"></i> 6ft cut</span>
+                        </div>
+                        <div class="vehicle-price-large">₹2200<span>/hr</span></div>
+                    </div>
+                </div>
+
+                <!-- Reaper + Thresher -->
+                <div class="vehicle-item" onclick="bookVehicle('Reaper')">
+                    <div class="vehicle-icon-large"><i class="fas fa-cut"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">రీపర్+థ్రెషర్</span> Combo
+                            <span class="vehicle-tag">combo</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-hourglass-half"></i> ₹1750/hr</span>
+                            <span><i class="fas fa-bolt"></i> 4ft/min</span>
+                        </div>
+                        <div class="vehicle-price-large">₹1750<span>/hr</span></div>
+                    </div>
+                </div>
+
+                <!-- Drone -->
+                <div class="vehicle-item" onclick="bookVehicle('Drone')">
+                    <div class="vehicle-icon-large"><i class="fas fa-spray-can"></i></div>
+                    <div class="vehicle-details">
+                        <div class="vehicle-title">
+                            <span class="telugu">డ్రోన్</span> Drone
+                            <span class="vehicle-tag">pest control</span>
+                        </div>
+                        <div class="vehicle-specs">
+                            <span><i class="fas fa-hourglass-half"></i> ₹900/hr</span>
+                            <span><i class="fas fa-water"></i> 10L tank</span>
+                        </div>
+                        <div class="vehicle-price-large">₹900<span>/hr</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Driver registration - transparent -->
+            <div class="driver-card" onclick="registerDriver()">
+                <div class="driver-info">
+                    <div class="driver-icon-large">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="driver-text">
+                        <h2>డ్రైవర్ నమోదు</h2>
+                        <p>మీ వాహనం, నంబర్, ఊరు నమోదు చేయండి · Register vehicle & number</p>
+                        <span class="driver-badge"><i class="fas fa-bell"></i> తక్షణ నోటిఫికేషన్ · instant alerts</span>
+                    </div>
+                </div>
+                <div class="driver-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer stats - transparent -->
+        <div class="footer-stats">
+            <span class="stat-item"><i class="fas fa-road"></i> Ride: distance</span>
+            <span class="stat-item"><i class="fas fa-clock"></i> Farm: hourly</span>
+            <span class="stat-item"><i class="fas fa-map"></i> AP & TS</span>
+            <span class="stat-item"><i class="fas fa-bell"></i> Instant notification</span>
+        </div>
+    </div>
+
+    <script>
+        // Interactive functions
+        function setActivePill(selected) {
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                if (pill.classList) pill.classList.remove('active');
+            });
+            selected.classList.add('active');
+        }
+
+        function bookVehicle(type) {
+            if (['Auto', 'Bike', 'Car'].includes(type)) {
+                window.location.href = 'second.html';
+            } else {
+                window.location.href = 'third.html';
+            }
+        }
+
+        function registerDriver() {
+            window.location.href = 'fourth.html';
+        }
+    </script>
+</body>
+
+</html>

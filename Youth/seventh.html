@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Youth - Smart Agriculture Opportunities</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* ===== RESET & VARIABLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Modern Agricultural Color Palette - Enhanced */
+            --primary-light: #e8f5e9;
+            --primary-soft: #a5d6a7;
+            --primary-main: #2e7d32;
+            --primary-dark: #1b5e20;
+            --primary-deep: #0a3d0a;
+
+            --secondary-sunrise: #ffb74d;
+            --secondary-sunset: #ff8a65;
+            --secondary-earth: #8d6e63;
+
+            --accent-sky: #4fc3f7;
+            --accent-water: #4dd0e1;
+            --accent-energy: #ffd54f;
+            --accent-success: #66bb6a;
+            --accent-warning: #ffa726;
+            --accent-hot: #ff6b6b;
+
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #eeeeee;
+            --neutral-300: #e0e0e0;
+            --neutral-400: #bdbdbd;
+            --neutral-500: #9e9e9e;
+            --neutral-600: #757575;
+            --neutral-700: #616161;
+            --neutral-800: #424242;
+            --neutral-900: #212121;
+
+            /* Gradients - Enhanced */
+            --gradient-farm: linear-gradient(135deg, #2e7d32 0%, #4caf50 60%, #8bc34a 100%);
+            --gradient-sunset: linear-gradient(135deg, #ff8a65 0%, #ffb74d 60%, #ffd54f 100%);
+            --gradient-tech: linear-gradient(135deg, #29b6f6 0%, #4fc3f7 60%, #4dd0e1 100%);
+            --gradient-govt: linear-gradient(135deg, #5c6bc0 0%, #7986cb 60%, #9fa8da 100%);
+            --gradient-startup: linear-gradient(135deg, #ab47bc 0%, #ba68c8 60%, #ce93d8 100%);
+            --gradient-hot: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 60%, #ffd93d 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+
+            /* Shadows - Enhanced */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 20px 40px rgba(46, 125, 50, 0.15);
+
+            /* Spacing - Optimized */
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 2.5rem;
+
+            /* Border Radius - Enhanced */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+
+            /* Typography */
+            --text-xs: 0.7rem;
+            --text-sm: 0.8rem;
+            --text-md: 0.9rem;
+            --text-lg: 1rem;
+            --text-xl: 1.2rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 2rem;
+        }
+
+        /* ===== GLOBAL STYLES ===== */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f8faf8 0%, #f0f7f0 100%);
+            color: var(--neutral-900);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Custom Scrollbar - Enhanced */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--neutral-100);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-main), var(--primary-dark));
+            border-radius: var(--radius-full);
+            border: 2px solid var(--neutral-100);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Background Elements */
+        .bg-gradient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(46, 125, 50, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 183, 77, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(79, 195, 247, 0.05) 0%, transparent 40%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* ===== NAVIGATION - ENHANCED ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: var(--space-sm) 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-farm);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: var(--text-lg);
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(180deg);
+        }
+
+        .logo-text {
+            font-family: 'Calistoga', cursive;
+            font-size: var(--text-xl);
+            background: var(--gradient-farm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--space-lg);
+            list-style: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--neutral-700);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-full);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient-farm);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-main);
+            background: rgba(46, 125, 50, 0.05);
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-farm);
+            color: white !important;
+            padding: var(--space-xs) var(--space-lg) !important;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        /* ===== HERO SECTION - ENHANCED ===== */
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: var(--space-2xl) 0;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: var(--space-2xl);
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(46, 125, 50, 0.1);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            color: var(--primary-main);
+            font-weight: 600;
+            font-size: var(--text-xs);
+            margin-bottom: var(--space-sm);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: var(--space-sm);
+        }
+
+        .gradient-text {
+            background: var(--gradient-farm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-md);
+            color: var(--neutral-600);
+            margin-bottom: var(--space-lg);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: var(--text-2xl);
+            font-weight: 800;
+            color: var(--primary-main);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-farm);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-main);
+            color: var(--primary-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-main);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .floating-cards {
+            position: relative;
+            height: 350px;
+        }
+
+        .float-card {
+            position: absolute;
+            width: 160px;
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: float 6s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .float-card:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .float-card:nth-child(1) {
+            top: 5%;
+            right: 5%;
+            animation-delay: 0s;
+        }
+
+        .float-card:nth-child(2) {
+            top: 30%;
+            right: 25%;
+            animation-delay: 2s;
+        }
+
+        .float-card:nth-child(3) {
+            top: 55%;
+            right: 10%;
+            animation-delay: 4s;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-farm);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: var(--space-xs);
+            font-size: var(--text-lg);
+        }
+
+        .card-value {
+            font-size: var(--text-xl);
+            font-weight: 800;
+            color: var(--primary-main);
+        }
+
+        .card-label {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ===== BUYER FORM SECTION - ENHANCED ===== */
+        .buyer-form-section {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            margin: -2rem auto var(--space-xl);
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            border: 1px solid rgba(46, 125, 50, 0.1);
+        }
+
+        .form-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--primary-dark);
+        }
+
+        .form-title i {
+            color: var(--primary-main);
+            font-size: var(--text-2xl);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--space-md);
+            align-items: end;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .form-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--neutral-700);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-select {
+            padding: var(--space-sm);
+            border: 2px solid var(--neutral-200);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            height: 45px;
+            width: 100%;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--primary-main);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+
+        .form-input:hover,
+        .form-select:hover {
+            border-color: var(--primary-soft);
+        }
+
+        .form-button {
+            background: var(--gradient-farm);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .farmer-results {
+            margin-top: var(--space-xl);
+            display: none;
+        }
+
+        .farmer-results.show {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .results-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--neutral-800);
+        }
+
+        .farmer-count {
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .farmer-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            border: 1px solid var(--neutral-200);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .farmer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-farm);
+            border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+        }
+
+        .farmer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .farmer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-xs);
+        }
+
+        .farmer-name {
+            font-weight: 700;
+            font-size: var(--text-md);
+            color: var(--neutral-800);
+        }
+
+        .farmer-verified {
+            background: var(--primary-soft);
+            color: var(--primary-dark);
+            padding: 2px var(--space-xs);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        .farmer-detail {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--text-sm);
+            color: var(--neutral-600);
+            margin: var(--space-xs) 0;
+        }
+
+        .farmer-detail i {
+            width: 16px;
+            color: var(--primary-main);
+        }
+
+        .contact-btn {
+            width: 100%;
+            background: var(--gradient-farm);
+            color: white;
+            border: none;
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            margin-top: var(--space-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== SECTIONS - ENHANCED ===== */
+        .section {
+            padding: var(--space-2xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(46, 125, 50, 0.1);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            color: var(--primary-main);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: 800;
+            margin-bottom: var(--space-xs);
+            color: var(--neutral-800);
+        }
+
+        .section-title span {
+            background: var(--gradient-farm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: var(--text-sm);
+            color: var(--neutral-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== MARKETING GRID - ENHANCED ===== */
+        .marketing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .market-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-farm);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .market-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .market-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .market-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-soft), var(--primary-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+            color: var(--primary-dark);
+            font-size: var(--text-lg);
+        }
+
+        .market-title {
+            font-size: var(--text-md);
+            font-weight: 700;
+            color: var(--neutral-800);
+        }
+
+        .market-price {
+            font-size: var(--text-xl);
+            font-weight: 800;
+            color: var(--primary-main);
+            margin: var(--space-xs) 0;
+        }
+
+        .market-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px var(--space-xs);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        .market-trend.up {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--primary-main);
+        }
+
+        .market-trend.down {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+        }
+
+        .sentiment-meter {
+            margin-top: var(--space-sm);
+            padding: var(--space-xs);
+            background: var(--neutral-100);
+            border-radius: var(--radius-md);
+        }
+
+        .sentiment-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-xs);
+            color: var(--neutral-600);
+            margin-bottom: 2px;
+        }
+
+        .meter-bar {
+            height: 6px;
+            background: var(--neutral-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: var(--gradient-farm);
+            border-radius: var(--radius-full);
+            transition: width 0.3s ease;
+        }
+
+        /* ===== FARMING TECH - ENHANCED ===== */
+        .farming-showcase {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .farming-tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .tech-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-sm);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-main);
+        }
+
+        .tech-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary-soft), var(--primary-light));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-xs);
+            color: var(--primary-dark);
+            font-size: var(--text-md);
+        }
+
+        .tech-name {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--neutral-800);
+            margin-bottom: 2px;
+        }
+
+        .tech-badges {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-bottom: var(--space-xs);
+        }
+
+        .badge {
+            padding: 2px var(--space-xs);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        .badge.investment {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--primary-main);
+        }
+
+        .badge.risk {
+            background: rgba(255, 152, 0, 0.1);
+            color: #f57c00;
+        }
+
+        .badge.profit {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--primary-main);
+        }
+
+        .tech-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-xs);
+            padding-top: var(--space-xs);
+            border-top: 1px solid var(--neutral-200);
+        }
+
+        .tech-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: var(--text-xs);
+        }
+
+        .tech-stat-value {
+            font-weight: 700;
+            color: var(--primary-main);
+            font-size: var(--text-sm);
+        }
+
+        .farm-explorer {
+            background: linear-gradient(135deg, #1a3b2e, #2d5a3c);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .explorer-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .explorer-stats {
+            display: flex;
+            gap: var(--space-md);
+            margin: var(--space-sm) 0;
+        }
+
+        .explorer-stat {
+            text-align: center;
+        }
+
+        .explorer-stat .number {
+            font-size: var(--text-xl);
+            font-weight: 800;
+            display: block;
+        }
+
+        .explorer-stat .label {
+            font-size: var(--text-xs);
+            opacity: 0.9;
+        }
+
+        .explorer-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            transition: all 0.3s ease;
+            margin-top: var(--space-sm);
+        }
+
+        .explorer-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(5px);
+        }
+
+        /* ===== JOBS GRID - ENHANCED ===== */
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+
+        .job-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            border: 1px solid var(--neutral-200);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .job-type {
+            position: absolute;
+            top: var(--space-sm);
+            right: var(--space-sm);
+            padding: 2px var(--space-xs);
+            background: var(--gradient-tech);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        .job-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-tech);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-xs);
+            color: white;
+            font-size: var(--text-lg);
+        }
+
+        .job-title {
+            font-size: var(--text-md);
+            font-weight: 700;
+            color: var(--neutral-800);
+        }
+
+        .job-company {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+            margin-bottom: 2px;
+        }
+
+        .job-salary {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--primary-main);
+            margin: var(--space-xs) 0;
+        }
+
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: var(--space-xs) 0;
+        }
+
+        .skill-tag {
+            padding: 2px var(--space-xs);
+            background: var(--neutral-100);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            color: var(--neutral-600);
+        }
+
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--neutral-200);
+            font-size: var(--text-xs);
+            color: var(--neutral-600);
+        }
+
+        .job-match {
+            margin-top: var(--space-xs);
+            padding: var(--space-xs);
+            background: var(--neutral-100);
+            border-radius: var(--radius-md);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-xs);
+            margin-bottom: 2px;
+        }
+
+        .match-bar {
+            height: 4px;
+            background: var(--neutral-200);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .match-fill {
+            height: 100%;
+            background: var(--gradient-tech);
+            transition: width 0.3s ease;
+        }
+
+        /* ===== SCHEMES GRID - ENHANCED ===== */
+        .schemes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        .scheme-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .scheme-type {
+            display: inline-block;
+            padding: 2px var(--space-xs);
+            background: var(--gradient-govt);
+            color: white;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .scheme-name {
+            font-size: var(--text-md);
+            font-weight: 700;
+            color: var(--neutral-800);
+        }
+
+        .scheme-benefit {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--primary-main);
+            margin: 2px 0;
+        }
+
+        .scheme-deadline {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+            margin-bottom: var(--space-xs);
+        }
+
+        .eligibility-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .eligibility-tag {
+            padding: 2px var(--space-xs);
+            background: var(--neutral-100);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            color: var(--neutral-600);
+        }
+
+        /* ===== STARTUP IDEAS - ENHANCED ===== */
+        .startup-showcase {
+            margin-top: var(--space-md);
+        }
+
+        .startup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-lg);
+        }
+
+        .startup-title {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            color: var(--neutral-800);
+        }
+
+        .trending-badge {
+            background: var(--gradient-hot);
+            color: white;
+            padding: 4px var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .startup-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+        }
+
+        .startup-card {
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .startup-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .startup-trending {
+            position: absolute;
+            top: var(--space-xs);
+            right: var(--space-xs);
+            background: var(--gradient-hot);
+            color: white;
+            padding: 2px var(--space-xs);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            z-index: 1;
+        }
+
+        .startup-category {
+            display: inline-block;
+            padding: 2px var(--space-xs);
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--primary-dark);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .startup-name {
+            font-size: var(--text-md);
+            font-weight: 700;
+            color: var(--neutral-800);
+            margin: var(--space-xs) 0;
+            padding-right: 50px;
+        }
+
+        .startup-desc {
+            font-size: var(--text-xs);
+            color: var(--neutral-600);
+            margin: var(--space-xs) 0;
+            line-height: 1.5;
+            height: 40px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .startup-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xs);
+            margin: var(--space-sm) 0;
+            padding: var(--space-xs) 0;
+            border-top: 1px solid var(--neutral-200);
+        }
+
+        .startup-metric {
+            text-align: center;
+        }
+
+        .startup-metric .metric-value {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--primary-main);
+        }
+
+        .startup-metric .metric-label {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+        }
+
+        .trend-tag {
+            display: inline-block;
+            padding: 2px var(--space-xs);
+            background: rgba(255, 183, 77, 0.2);
+            color: #f57c00;
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+
+        /* ===== AI TOOL - ENHANCED ===== */
+        .ai-tool {
+            background: linear-gradient(135deg, #1a3b2e, #2d5a3c);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-tool::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            position: relative;
+        }
+
+        .ai-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-xs);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .ai-form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .ai-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .ai-input-group label {
+            font-size: var(--text-xs);
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ai-input-group input,
+        .ai-input-group select {
+            padding: var(--space-sm);
+            border: none;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: var(--text-sm);
+            transition: all 0.3s ease;
+        }
+
+        .ai-input-group input:focus,
+        .ai-input-group select:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .ai-input-group select option {
+            background: #1a3b2e;
+        }
+
+        .ai-submit {
+            background: white;
+            color: #1a3b2e;
+            border: none;
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin: 0 auto;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ai-submit:hover {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .ai-result {
+            margin-top: var(--space-lg);
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-result.hidden {
+            display: none;
+        }
+
+        .career-path {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .career-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .career-details h3 {
+            font-size: var(--text-xl);
+            margin-bottom: 2px;
+        }
+
+        .career-details p {
+            font-size: var(--text-sm);
+            opacity: 0.9;
+            margin-bottom: var(--space-xs);
+        }
+
+        .career-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+        }
+
+        .career-metric {
+            text-align: center;
+            padding: var(--space-xs);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+        }
+
+        .career-metric .metric-value {
+            font-size: var(--text-md);
+            font-weight: 700;
+            display: block;
+        }
+
+        .career-metric .metric-label {
+            font-size: var(--text-xs);
+            opacity: 0.8;
+        }
+
+        /* ===== SUCCESS STORIES - ENHANCED ===== */
+        .stories-carousel {
+            position: relative;
+            overflow: hidden;
+            padding: var(--space-xs) 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: var(--space-md);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .story-card {
+            min-width: 300px;
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            border: 1px solid var(--neutral-200);
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-main);
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .story-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-soft), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-dark);
+            font-size: var(--text-lg);
+            font-weight: 700;
+        }
+
+        .story-name {
+            font-size: var(--text-md);
+            font-weight: 700;
+            color: var(--neutral-800);
+        }
+
+        .story-title {
+            font-size: var(--text-xs);
+            color: var(--neutral-500);
+        }
+
+        .story-quote {
+            font-size: var(--text-sm);
+            color: var(--neutral-600);
+            font-style: italic;
+            margin: var(--space-xs) 0;
+            line-height: 1.5;
+        }
+
+        .story-achievement {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--primary-main);
+            display: inline-block;
+            padding: 2px var(--space-xs);
+            background: rgba(46, 125, 50, 0.1);
+            border-radius: var(--radius-full);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-md);
+            color: var(--primary-main);
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-main);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: -10px;
+        }
+
+        .carousel-btn.next {
+            right: -10px;
+        }
+
+        /* ===== FOOTER - ENHANCED ===== */
+        .footer {
+            background: linear-gradient(135deg, #1a3b2e, #2d5a3c);
+            color: white;
+            padding: var(--space-xl) 0 var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-logo {
+            font-family: 'Calistoga', cursive;
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-about {
+            font-size: var(--text-sm);
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: var(--space-sm);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .social-link {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: var(--text-sm);
+        }
+
+        .social-link:hover {
+            background: var(--primary-main);
+            transform: translateY(-3px);
+        }
+
+        .footer-title {
+            font-size: var(--text-md);
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-main);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-xs);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--space-xs);
+            margin-top: var(--space-xs);
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: var(--space-sm);
+            border: none;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: var(--text-sm);
+        }
+
+        .newsletter-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--primary-main);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-weight: 600;
+            font-size: var(--text-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: var(--text-xs);
+            opacity: 0.7;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+
+            .marketing-grid,
+            .farming-tech-grid,
+            .jobs-grid,
+            .schemes-grid,
+            .startup-grid,
+            .ai-form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .farming-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-content,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-btn {
+                display: none;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-gradient {
+            background: var(--gradient-farm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-effect {
+            animation: pulse 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="bg-gradient-mesh"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="../home_page/index.html" title="Go to Home Page"
+                    style="display: flex; align-items: center; gap: 8px; background: rgba(46, 125, 50, 0.1); padding: 8px 16px; border-radius: 20px; text-decoration: none; color: var(--primary-main); font-weight: 600; font-size: 0.9rem; transition: all 0.3s; border: 1px solid rgba(46, 125, 50, 0.2);">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <span class="logo-text">Aarohan Youth</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#marketing" class="nav-link">Marketing</a></li>
+                <li><a href="#farming" class="nav-link">Farming</a></li>
+                <li><a href="#jobs" class="nav-link">Jobs</a></li>
+                <li><a href="#startups" class="nav-link">Startups</a></li>
+                <li><a href="#schemes" class="nav-link">Schemes</a></li>
+                <li><a href="#ai-tool" class="nav-link nav-cta">AI Guide</a></li>
+                <li
+                    style="display: flex; align-items: center; gap: 10px; margin-left: 15px; background: rgba(255, 255, 255, 0.9); padding: 4px 12px 4px 4px; border-radius: 30px; border: 1px solid rgba(46, 125, 50, 0.1); box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                    <div class="native-profile-avatar"
+                        style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-main), var(--primary-dark)); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px;">
+                        <i class="fas fa-user text-sm"></i>
+                    </div>
+                    <div style="display: flex; flex-direction: column; line-height: 1.1;">
+                        <span class="native-profile-name"
+                            style="font-size: 0.85rem; font-weight: 700; color: #1a3b2e;">Guest</span>
+                        <span class="native-profile-occ"
+                            style="font-size: 0.65rem; font-weight: 600; color: #2e7d32;">User</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div>
+                    <span class="hero-badge">
+                        <i class="fas fa-leaf"></i> Future of Agriculture
+                    </span>
+                    <h1 class="hero-title">
+                        Empowering <span class="gradient-text">Rural Youth</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover opportunities in modern farming, agri-tech, and rural entrepreneurship.
+                        Transform traditional agriculture with innovative technologies.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10,000+</span>
+                            <span class="stat-label">Youth Empowered</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Agri-Startups</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Govt Schemes</span>
+                        </div>
+                    </div>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" id="exploreBtn">
+                            Explore Opportunities <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-outline" id="videoBtn">
+                            <i class="fas fa-play"></i> Watch Stories
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-cards">
+                        <div class="float-card">
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="card-value">+25%</div>
+                            <div class="card-label">Market Growth</div>
+                        </div>
+                        <div class="float-card">
+                            <div class="card-icon"><i class="fas fa-robot"></i></div>
+                            <div class="card-value">150+</div>
+                            <div class="card-label">Tech Jobs</div>
+                        </div>
+                        <div class="float-card">
+                            <div class="card-icon"><i class="fas fa-seedling"></i></div>
+                            <div class="card-value">40+</div>
+                            <div class="card-label">Techniques</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buyer Form Section -->
+    <div class="container">
+        <div class="buyer-form-section" id="buyer-form">
+            <div class="form-title">
+                <i class="fas fa-handshake"></i>
+                <span>Find Farmers Selling Your Required Crop</span>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label class="form-label">🌾 Crop Type *</label>
+                    <select id="cropType" class="form-select">
+                        <option value="">Select crop</option>
+                        <option value="Wheat">Wheat</option>
+                        <option value="Rice">Rice</option>
+                        <option value="Corn">Corn</option>
+                        <option value="Vegetables">Vegetables</option>
+                        <option value="Fruits">Fruits</option>
+                        <option value="Cotton">Cotton</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">⚖️ Quantity (quintals) *</label>
+                    <input type="number" id="quantity" class="form-input" placeholder="e.g., 100" min="1">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">📍 Your Location *</label>
+                    <input type="text" id="location" class="form-input" placeholder="District/Village">
+                </div>
+                <div class="form-field">
+                    <label class="form-label">📱 Mobile Number *</label>
+                    <input type="tel" id="mobile" class="form-input" placeholder="10-digit mobile">
+                </div>
+                <div class="form-field">
+                    <button class="form-button" onclick="findFarmers()">
+                        <i class="fas fa-search"></i> Find Farmers
+                    </button>
+                </div>
+            </div>
+
+            <!-- Farmer Results -->
+            <div class="farmer-results" id="farmerResults">
+                <div class="results-header">
+                    <h4 class="results-title">👨‍🌾 Available Farmers</h4>
+                    <span class="farmer-count" id="farmerCount">0 farmers</span>
+                </div>
+                <div class="results-grid" id="farmersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crop Marketing Section -->
+    <section class="section" id="marketing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Market Intelligence</span>
+                <h2 class="section-title">Smart <span>Crop Marketing</span></h2>
+                <p class="section-subtitle">Real-time prices and AI-powered insights</p>
+            </div>
+            <div class="marketing-grid" id="marketPrices"></div>
+        </div>
+    </section>
+
+    <!-- Advanced Farming Section -->
+    <section class="section" id="farming">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Future of Farming</span>
+                <h2 class="section-title">Advanced <span>Farming Technologies</span></h2>
+                <p class="section-subtitle">16 cutting-edge techniques for maximum yield</p>
+            </div>
+            <div class="farming-showcase">
+                <div class="farming-tech-grid" id="farmingTech"></div>
+                <div class="farm-explorer">
+                    <h4 class="explorer-title">🌍 3D Farm Explorer</h4>
+                    <p style="font-size:var(--text-sm); margin-bottom:var(--space-xs);">Experience farming in virtual
+                        reality</p>
+                    <div class="explorer-stats">
+                        <div class="explorer-stat"><span class="number">16</span> <span class="label">Farms</span></div>
+                        <div class="explorer-stat"><span class="number">45+</span> <span class="label">Equipment</span>
+                        </div>
+                        <div class="explorer-stat"><span class="number">24/7</span> <span class="label">Tours</span>
+                        </div>
+                    </div>
+                    <button class="explorer-btn"><i class="fas fa-vr-cardboard"></i> Launch Explorer</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Opportunities Section -->
+    <section class="section" id="jobs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Career Opportunities</span>
+                <h2 class="section-title">Tech & Government <span>Jobs</span></h2>
+                <p class="section-subtitle">High-paying careers in agriculture</p>
+            </div>
+            <div class="jobs-grid" id="jobListings"></div>
+            <div style="text-align:center; margin-top:var(--space-md);">
+                <button class="btn btn-primary" style="font-size:var(--text-sm);"
+                    onclick="alert('Job match tool coming soon!')">
+                    <i class="fas fa-magic"></i> Find Your Perfect Match
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Government Schemes Section -->
+    <section class="section" id="schemes">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Government Support</span>
+                <h2 class="section-title">Schemes & <span>Opportunities</span></h2>
+                <p class="section-subtitle">Latest initiatives for youth</p>
+            </div>
+            <div class="schemes-grid" id="schemesList"></div>
+        </div>
+    </section>
+
+    <!-- Startup Ideas Section -->
+    <section class="section" id="startups">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Entrepreneurship</span>
+                <h2 class="section-title">Startup & <span>Business Ideas</span></h2>
+                <p class="section-subtitle">Trending agri-business opportunities</p>
+            </div>
+
+            <div class="startup-showcase">
+                <div class="startup-header">
+                    <div class="startup-title">
+                        <i class="fas fa-fire" style="color: #ff6b6b;"></i>
+                        <span>Hottest Trending Business Ideas 2024</span>
+                    </div>
+                    <span class="trending-badge">Real-time trends</span>
+                </div>
+                <div class="startup-grid" id="startupIdeas"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Career Suggestion Tool -->
+    <section class="section" id="ai-tool">
+        <div class="container">
+            <div class="ai-tool">
+                <div class="ai-header">
+                    <div class="ai-icon">🤖</div>
+                    <h2 style="font-size:var(--text-2xl);">AI Career Suggestion Tool</h2>
+                    <p style="font-size:var(--text-sm);">Get personalized recommendations</p>
+                </div>
+                <div class="ai-form">
+                    <div class="ai-form-grid">
+                        <div class="ai-input-group">
+                            <label><i class="fas fa-graduation-cap"></i> Education</label>
+                            <select id="aiEducation">
+                                <option>10th Pass</option>
+                                <option>12th Pass</option>
+                                <option>Diploma</option>
+                                <option>Graduate</option>
+                                <option selected>Post Graduate</option>
+                            </select>
+                        </div>
+                        <div class="ai-input-group">
+                            <label><i class="fas fa-rupee-sign"></i> Budget (₹)</label>
+                            <input type="number" id="aiBudget" value="500000">
+                        </div>
+                        <div class="ai-input-group">
+                            <label><i class="fas fa-tree"></i> Land (acres)</label>
+                            <input type="number" id="aiLand" value="5">
+                        </div>
+                        <div class="ai-input-group">
+                            <label><i class="fas fa-heart"></i> Interest</label>
+                            <select id="aiInterest">
+                                <option>Farming</option>
+                                <option selected>Technology</option>
+                                <option>Business</option>
+                                <option>Research</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="ai-submit" id="aiSubmit">
+                        <i class="fas fa-magic"></i> Get Suggestion
+                    </button>
+                    <div class="ai-result hidden" id="aiResult">
+                        <div class="career-path">
+                            <div class="career-icon">👨‍💻</div>
+                            <div class="career-details">
+                                <h3 id="careerTitle">Agri Data Scientist</h3>
+                                <p id="careerDesc">Combine farming with AI for better yields</p>
+                                <div class="career-metrics">
+                                    <div class="career-metric">
+                                        <span class="metric-value" id="careerSalary">₹8-12L</span>
+                                        <span class="metric-label">Salary</span>
+                                    </div>
+                                    <div class="career-metric">
+                                        <span class="metric-value" id="careerDemand">High</span>
+                                        <span class="metric-label">Demand</span>
+                                    </div>
+                                    <div class="career-metric">
+                                        <span class="metric-value" id="careerTraining">6m</span>
+                                        <span class="metric-label">Training</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="section" id="stories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Inspiration</span>
+                <h2 class="section-title">Success <span>Stories</span></h2>
+                <p class="section-subtitle">Real journeys of young agripreneurs</p>
+            </div>
+            <div class="stories-carousel">
+                <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+                <div class="carousel-track" id="storiesTrack"></div>
+                <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">Aarohan Youth</div>
+                    <p class="footer-about">Empowering rural youth with technology and opportunities in agriculture.</p>
+                    <div class="social-links">
+                        <div class="social-link"><i class="fab fa-facebook-f"></i></div>
+                        <div class="social-link"><i class="fab fa-twitter"></i></div>
+                        <div class="social-link"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="social-link"><i class="fab fa-instagram"></i></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Crop Marketing</a></li>
+                        <li><a href="#">Advanced Farming</a></li>
+                        <li><a href="#">Job Opportunities</a></li>
+                        <li><a href="#">Startup Ideas</a></li>
+                        <li><a href="#">Government Schemes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Training Programs</a></li>
+                        <li><a href="#">Market Reports</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-title">Newsletter</h4>
+                    <p style="font-size:var(--text-sm); opacity:0.8; margin-bottom:var(--space-xs);">Get weekly updates
+                    </p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email" class="newsletter-input">
+                        <button class="newsletter-btn">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Aarohan-AI. Made with ❤️ for rural youth empowerment</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Farmers Database
+        const farmers = [
+            { name: 'Ramesh Kumar', crop: 'Wheat', quantity: 500, price: '₹2,150/q', location: 'Meerut', distance: '25 km', verified: true, phone: '+91 98765 43210', experience: '8 years' },
+            { name: 'Priya Singh', crop: 'Rice', quantity: 300, price: '₹1,950/q', location: 'Saharanpur', distance: '40 km', verified: true, phone: '+91 98765 43211', experience: '5 years' },
+            { name: 'Suresh Patel', crop: 'Vegetables', quantity: 200, price: '₹2,500/q', location: 'Bulandshahr', distance: '35 km', verified: true, phone: '+91 98765 43212', experience: '6 years' },
+            { name: 'Anita Sharma', crop: 'Wheat', quantity: 400, price: '₹2,180/q', location: 'Muzaffarnagar', distance: '55 km', verified: true, phone: '+91 98765 43213', experience: '10 years' },
+            { name: 'Vikram Yadav', crop: 'Sugarcane', quantity: 1000, price: '₹350/q', location: 'Bagpat', distance: '30 km', verified: true, phone: '+91 98765 43214', experience: '12 years' },
+            { name: 'Neha Gupta', crop: 'Fruits', quantity: 150, price: '₹3,200/q', location: 'Lucknow', distance: '80 km', verified: true, phone: '+91 98765 43215', experience: '4 years' }
+        ];
+
+        // Market Data
+        const marketData = [
+            { crop: 'Wheat', price: '₹2,150', trend: '+2.5%', volume: '12.5k', sentiment: 75 },
+            { crop: 'Rice', price: '₹1,950', trend: '+1.8%', volume: '15.2k', sentiment: 82 },
+            { crop: 'Corn', price: '₹1,850', trend: '-0.5%', volume: '8.7k', sentiment: 45 },
+            { crop: 'Cotton', price: '₹6,000', trend: '+3.2%', volume: '5.3k', sentiment: 88 }
+        ];
+
+        // 16 Farming Technologies
+        const farmingTech = [
+            { name: 'Hydroponics', icon: '💧', investment: '2-5L', risk: 'Med', profit: 'High', yield: '3x', water: '90%' },
+            { name: 'Aeroponics', icon: '🌪️', investment: '3-6L', risk: 'Med', profit: 'V.High', yield: '4x', water: '95%' },
+            { name: 'Aquaponics', icon: '🐟', investment: '4-7L', risk: 'Low', profit: 'High', yield: '3.5x', water: '90%' },
+            { name: 'Vertical', icon: '📚', investment: '6-10L', risk: 'Low', profit: 'Premium', yield: '5x', space: '90%' },
+            { name: 'Polyhouse', icon: '🏠', investment: '5-10L', risk: 'Low', profit: 'V.High', yield: '4x', water: '70%' },
+            { name: 'Drone', icon: '🚁', investment: '3-6L', risk: 'Med', profit: 'High', coverage: '50a', efficiency: '85%' },
+            { name: 'Precision', icon: '🎯', investment: '4-8L', risk: 'Low', profit: 'High', yield: '+30%', savings: '20%' },
+            { name: 'Organic', icon: '🌱', investment: '2-4L', risk: 'Low', profit: 'Premium', premium: '+40%', demand: 'High' },
+            { name: 'Mushroom', icon: '🍄', investment: '1-2L', risk: 'Low', profit: 'V.High', roi: '200%', space: '100' },
+            { name: 'Microgreens', icon: '🌿', investment: '0.5-1L', risk: 'Low', profit: '300%', cycle: '7d', demand: 'High' },
+            { name: 'Medicinal', icon: '🌺', investment: '2-3L', risk: 'Med', profit: 'High', value: '₹500/kg', demand: 'Pharma' },
+            { name: 'BeeKeeping', icon: '🐝', investment: '1-2L', risk: 'Low', profit: 'High', roi: '150%', hives: '50' },
+            { name: 'Tissue Culture', icon: '🧪', investment: '5-10L', risk: 'Med', profit: 'High', scale: '10k', quality: 'Superior' },
+            { name: 'Auto Irrigation', icon: '💦', investment: '2-4L', risk: 'Low', profit: 'Med', savings: '40%', yield: '+25%' },
+            { name: 'Solar Farming', icon: '☀️', investment: '4-6L', risk: 'Low', profit: 'Stable', energy: '5kW', income: 'Dual' },
+            { name: 'Biotech', icon: '🧬', investment: '10-20L', risk: 'High', profit: 'V.High', demand: 'R&D', value: 'High' }
+        ];
+
+        // Job Listings
+        const jobListings = [
+            { title: 'Drone Operator', icon: '🚁', company: 'AgriDrones', salary: '₹3-5L', skills: ['License', 'Maintenance'], openings: 45, match: 85 },
+            { title: 'Data Analyst', icon: '📊', company: 'FarmTech', salary: '₹4-7L', skills: ['Python', 'ML'], openings: 32, match: 92 },
+            { title: 'IoT Technician', icon: '🔧', company: 'SmartFarm', salary: '₹3-6L', skills: ['Sensors', 'Network'], openings: 28, match: 78 },
+            { title: 'Solar Tech', icon: '☀️', company: 'GreenEnergy', salary: '₹2.5-4L', skills: ['Electrical'], openings: 50, match: 70 }
+        ];
+
+        // Government Schemes
+        const schemes = [
+            { name: 'PM-KISAN', type: 'Scheme', benefit: '₹6,000/yr', deadline: 'Ongoing', eligibility: ['All Farmers'] },
+            { name: 'Agri Technician', type: 'Job', benefit: '₹35-45k/m', deadline: '30 Apr', eligibility: ['Diploma'] },
+            { name: 'Kisan Card', type: 'Scheme', benefit: 'Up to ₹3L', deadline: 'Ongoing', eligibility: ['Farmers'] },
+            { name: 'Young Pro', type: 'Job', benefit: '₹50k/m', deadline: '15 May', eligibility: ['Graduate'] }
+        ];
+
+        // 12 Trending Startup Ideas
+        const startupIdeas = [
+            { name: 'Farm to Fork App', category: 'E-commerce', investment: '5-8L', roi: '150%', demand: '🔥 Very High', competition: 'Low', desc: 'Direct vegetable delivery from farmers', trend: '🚀 Trending #1' },
+            { name: 'Hydroponic Kits', category: 'Equipment', investment: '3-5L', roi: '200%', demand: '📈 High', competition: 'Medium', desc: 'DIY hydroponic systems for homes', trend: '💡 Innovating' },
+            { name: 'Waste Composter', category: 'Sustainability', investment: '4-6L', roi: '120%', demand: '🌱 Growing', competition: 'Low', desc: 'Convert farm waste to fertilizer', trend: '♻️ Eco' },
+            { name: 'Farm Tourism', category: 'Experience', investment: '8-12L', roi: '80%', demand: '🏕️ Rising', competition: 'Low', desc: 'Farm stays and experiences', trend: '🌟 New' },
+            { name: 'Drone Services', category: 'Services', investment: '5-7L', roi: '180%', demand: '⚡ Very High', competition: 'Medium', desc: 'On-demand drone spraying', trend: '🔥 Hot' },
+            { name: 'Microgreens', category: 'Production', investment: '1-2L', roi: '300%', demand: '🥗 High', competition: 'Low', desc: 'Supply to restaurants', trend: '💚 Premium' },
+            { name: 'Agri-Influencer', category: 'Digital', investment: '1-3L', roi: '250%', demand: '📱 Emerging', competition: 'Very Low', desc: 'Farmer social media mgmt', trend: '✨ Viral' },
+            { name: 'Seed Bank', category: 'Conservation', investment: '4-6L', roi: '100%', demand: '🌾 Stable', competition: 'Low', desc: 'Preserve native seeds', trend: '🌿 Heritage' },
+            { name: 'Solar Drying', category: 'Processing', investment: '6-8L', roi: '130%', demand: '☀️ High', competition: 'Medium', desc: 'Dry fruits & vegetables', trend: '🌞 Sustainable' },
+            { name: 'Organic Certification', category: 'Services', investment: '2-3L', roi: '200%', demand: '📋 High', competition: 'Low', desc: 'Help farmers get certified', trend: '✅ Booming' },
+            { name: 'Smart Sensors', category: 'IoT', investment: '4-7L', roi: '160%', demand: '📡 High', competition: 'Medium', desc: 'Soil monitoring devices', trend: '🔬 Tech' },
+            { name: 'Vertical Gardens', category: 'Urban', investment: '3-5L', roi: '140%', demand: '🏙️ Growing', competition: 'Low', desc: 'Urban farming solutions', trend: '🌆 Future' }
+        ];
+
+        // Success Stories
+        const successStories = [
+            { name: 'Priya Sharma', age: 24, title: 'Hydroponic Farmer', achievement: '40x growth', story: 'Started with ₹2L, now earning ₹8L annually' },
+            { name: 'Rahul Kumar', age: 27, title: 'Drone Pilot', achievement: '5000+ acres', story: 'Serving 500+ farmers across 10 villages' },
+            { name: 'Anjali Patel', age: 26, title: 'Data Analyst', achievement: '95% accuracy', story: 'Developed AI model for yield prediction' },
+            { name: 'Suresh Reddy', age: 29, title: 'Organic Exporter', achievement: '₹2Cr export', story: 'Created cooperative of 200+ farmers' }
+        ];
+
+        // Load all data
+        document.addEventListener('DOMContentLoaded', function () {
+            loadMarketData();
+            loadFarmingTech();
+            loadJobListings();
+            loadSchemes();
+            loadStartupIdeas();
+            loadSuccessStories();
+        });
+
+        function loadMarketData() {
+            const container = document.getElementById('marketPrices');
+            container.innerHTML = '';
+            marketData.forEach(item => {
+                container.innerHTML += `
+                    <div class="market-card">
+                        <div class="market-icon"><i class="fas fa-seedling"></i></div>
+                        <div class="market-title">${item.crop}</div>
+                        <div class="market-price">${item.price}</div>
+                        <span class="market-trend ${item.trend.includes('+') ? 'up' : 'down'}">
+                            <i class="fas fa-arrow-${item.trend.includes('+') ? 'up' : 'down'}"></i> ${item.trend}
+                        </span>
+                        <div class="sentiment-meter">
+                            <div class="sentiment-label"><span>Market Sentiment</span><span>${item.sentiment}%</span></div>
+                            <div class="meter-bar"><div class="meter-fill" style="width:${item.sentiment}%"></div></div>
+                        </div>
+                        <div style="font-size:var(--text-xs); color:var(--neutral-500); margin-top:var(--space-xs);">📊 Volume: ${item.volume} tons</div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadFarmingTech() {
+            const container = document.getElementById('farmingTech');
+            container.innerHTML = '';
+            farmingTech.forEach(tech => {
+                container.innerHTML += `
+                    <div class="tech-card">
+                        <div class="tech-icon">${tech.icon}</div>
+                        <div class="tech-name">${tech.name}</div>
+                        <div class="tech-badges">
+                            <span class="badge investment">₹${tech.investment}</span>
+                            <span class="badge risk">${tech.risk}</span>
+                            <span class="badge profit">${tech.profit}</span>
+                        </div>
+                        <div class="tech-stats">
+                            <div class="tech-stat"><span class="tech-stat-value">${tech.yield || tech.coverage || tech.roi || tech.savings || tech.water}</span> <span>Yield</span></div>
+                            <div class="tech-stat"><span class="tech-stat-value">${tech.water || tech.space || tech.efficiency || tech.demand || tech.water}</span> <span>Save</span></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadJobListings() {
+            const container = document.getElementById('jobListings');
+            container.innerHTML = '';
+            jobListings.forEach(job => {
+                container.innerHTML += `
+                    <div class="job-card">
+                        <span class="job-type">${job.openings} openings</span>
+                        <div class="job-icon">${job.icon}</div>
+                        <div class="job-title">${job.title}</div>
+                        <div class="job-company">${job.company}</div>
+                        <div class="job-salary">${job.salary}</div>
+                        <div class="job-skills">
+                            ${job.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                        </div>
+                        <div class="job-footer">
+                            <span><i class="fas fa-users"></i> ${job.openings}+ openings</span>
+                        </div>
+                        <div class="job-match">
+                            <div class="match-header"><span>Match Score</span><span>${job.match}%</span></div>
+                            <div class="match-bar"><div class="match-fill" style="width:${job.match}%"></div></div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadSchemes() {
+            const container = document.getElementById('schemesList');
+            container.innerHTML = '';
+            schemes.forEach(scheme => {
+                container.innerHTML += `
+                    <div class="scheme-card">
+                        <span class="scheme-type">${scheme.type}</span>
+                        <div class="scheme-name">${scheme.name}</div>
+                        <div class="scheme-benefit">${scheme.benefit}</div>
+                        <div class="scheme-deadline">📅 ${scheme.deadline}</div>
+                        <div class="eligibility-tags">
+                            ${scheme.eligibility.map(e => `<span class="eligibility-tag">${e}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadStartupIdeas() {
+            const container = document.getElementById('startupIdeas');
+            container.innerHTML = '';
+            startupIdeas.forEach(idea => {
+                container.innerHTML += `
+                    <div class="startup-card">
+                        <span class="startup-trending">${idea.trend}</span>
+                        <span class="startup-category">${idea.category}</span>
+                        <div class="startup-name">${idea.name}</div>
+                        <div class="startup-desc">${idea.desc}</div>
+                        <div class="startup-metrics">
+                            <div class="startup-metric">
+                                <div class="metric-value">${idea.investment}</div>
+                                <div class="metric-label">Investment</div>
+                            </div>
+                            <div class="startup-metric">
+                                <div class="metric-value">${idea.roi}</div>
+                                <div class="metric-label">ROI</div>
+                            </div>
+                            <div class="startup-metric">
+                                <div class="metric-value">${idea.competition}</div>
+                                <div class="metric-label">Competition</div>
+                            </div>
+                        </div>
+                        <span class="trend-tag">${idea.demand}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function loadSuccessStories() {
+            const track = document.getElementById('storiesTrack');
+            track.innerHTML = '';
+            successStories.forEach(story => {
+                track.innerHTML += `
+                    <div class="story-card">
+                        <div class="story-header">
+                            <div class="story-avatar">${story.name[0]}</div>
+                            <div>
+                                <div class="story-name">${story.name}, ${story.age}</div>
+                                <div class="story-title">${story.title}</div>
+                            </div>
+                        </div>
+                        <div class="story-quote">"${story.story}"</div>
+                        <span class="story-achievement">🏆 ${story.achievement}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Find Farmers Function
+        async function findFarmers() {
+            const crop = document.getElementById('cropType').value;
+            const quantity = document.getElementById('quantity').value;
+            const location = document.getElementById('location').value;
+            const mobile = document.getElementById('mobile').value;
+
+            if (!crop || !quantity || !location || !mobile) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            if (mobile.length !== 10) {
+                alert('Please enter valid 10-digit mobile number');
+                return;
+            }
+
+            const resultsDiv = document.getElementById('farmerResults');
+            const farmersList = document.getElementById('farmersList');
+            const farmerCount = document.getElementById('farmerCount');
+            farmersList.innerHTML = '<div style="grid-column:1/-1; text-align:center;">Loading...</div>';
+            resultsDiv.classList.add('show');
+
+            let allFarmers = [...farmers];
+            try {
+                const response = await fetch('/api/get_crops');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.crops && data.crops.length > 0) {
+                        data.crops.forEach(c => {
+                            allFarmers.push({
+                                name: c.farmerName || 'Farmer',
+                                crop: c.cropType || 'Unknown',
+                                quantity: c.quantity || 0,
+                                price: c.expectedPrice ? '₹' + c.expectedPrice + '/q' : 'N/A',
+                                location: c.location || 'Unknown',
+                                distance: 'Unknown',
+                                verified: false,
+                                phone: 'Not Provided',
+                                experience: 'Unknown'
+                            });
+                        });
+                    }
+                }
+            } catch (e) { console.error('Error fetching crops:', e); }
+
+            farmersList.innerHTML = '';
+
+            const filtered = allFarmers.filter(f => f.crop.toLowerCase().includes(crop.toLowerCase()));
+
+            if (filtered.length > 0) {
+                farmerCount.textContent = `${filtered.length} farmers available`;
+                filtered.forEach(farmer => {
+                    farmersList.innerHTML += `
+                        <div class="farmer-card">
+                            <div class="farmer-header">
+                                <span class="farmer-name">${farmer.name}</span>
+                                <span class="farmer-verified">${farmer.verified ? '✓ Verified' : 'New Farmer'}</span>
+                            </div>
+                            <div class="farmer-detail"><i class="fas fa-seedling"></i> ${farmer.crop} • ${farmer.quantity} quintals</div>
+                            <div class="farmer-detail"><i class="fas fa-tag"></i> ${farmer.price}</div>
+                            <div class="farmer-detail"><i class="fas fa-map-marker-alt"></i> ${farmer.location} (${farmer.distance})</div>
+                            <div class="farmer-detail"><i class="fas fa-clock"></i> ${farmer.experience} experience</div>
+                            <button class="contact-btn" onclick="alert('Contact: ${farmer.phone}')">
+                                <i class="fas fa-phone"></i> Contact Farmer
+                            </button>
+                        </div>
+                    `;
+                });
+            } else {
+                farmerCount.textContent = '0 farmers found';
+                farmersList.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:var(--space-xl); background:white; border-radius:var(--radius-lg);">No farmers found for this crop. Try another crop.</div>';
+            }
+        }
+
+        // AI Suggestion
+        document.getElementById('aiSubmit').addEventListener('click', async function () {
+            const education = document.getElementById('aiEducation').value;
+            const budget = document.getElementById('aiBudget').value;
+            const land = document.getElementById('aiLand').value;
+            const interest = document.getElementById('aiInterest').value;
+            const result = document.getElementById('aiResult');
+
+            const submitBtn = document.getElementById('aiSubmit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/ai_career_suggestion', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ education, budget, land, interest })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.suggestion) {
+                        const career = data.suggestion;
+                        document.getElementById('careerTitle').textContent = career.title || 'Career Title';
+                        document.getElementById('careerDesc').textContent = career.desc || 'Career description not found.';
+                        document.getElementById('careerSalary').textContent = career.salary || 'Varies';
+                        document.getElementById('careerDemand').textContent = career.demand || 'High';
+                        document.getElementById('careerTraining').textContent = career.training || 'TBD';
+                        result.classList.remove('hidden');
+                    } else {
+                        alert('Could not generate suggestion at this time.');
+                    }
+                } else {
+                    alert('Error connecting to the AI service.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error while requesting AI suggestion.');
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // Carousel
+        let currentIndex = 0;
+        function moveCarousel(direction) {
+            const track = document.getElementById('storiesTrack');
+            const cards = document.querySelectorAll('.story-card');
+            if (cards.length === 0) return;
+
+            const cardWidth = cards[0].offsetWidth + 16;
+            const maxIndex = cards.length - 2;
+
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+
+        // Explore button
+        document.getElementById('exploreBtn').addEventListener('click', function () {
+            document.getElementById('marketing').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Video button
+        document.getElementById('videoBtn').addEventListener('click', function () {
+            alert('Success stories video will play here!');
+        });
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>
+

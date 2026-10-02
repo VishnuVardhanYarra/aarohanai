@@ -1,0 +1,800 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Farmer · పంట వ్యాధి గుర్తింపు | AI వ్యాధి నిర్ధారణ</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Poppins', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0b3b2f 0%, #1b6e4f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 3D animated background elements (organic floating orbs) */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle at 30% 30%, #f9e45b, #d4af37);
+            border-radius: 50%;
+            top: -150px;
+            left: -100px;
+            z-index: 0;
+            filter: blur(70px);
+            opacity: 0.3;
+            animation: floatOrbBig 20s infinite alternate ease-in-out;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle at 70% 80%, #7ac76a, #36802d);
+            border-radius: 50%;
+            bottom: -200px;
+            right: -150px;
+            z-index: 0;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: floatOrbBig2 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatOrbBig {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: translate(100px, 70px) scale(1.3);
+                opacity: 0.35;
+            }
+        }
+
+        @keyframes floatOrbBig2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.25;
+            }
+
+            100% {
+                transform: translate(-120px, -80px) scale(1.4);
+                opacity: 0.4;
+            }
+        }
+
+        /* main card container — 3D depth, glassmorphism */
+        .detection-container {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 70px 70px 60px 60px;
+            box-shadow: 0 40px 70px -8px rgba(0, 30, 5, 0.7), 0 0 0 1.5px rgba(255, 255, 180, 0.5) inset, 0 20px 40px -8px #00000030;
+            padding: 2.8rem 2.8rem;
+            position: relative;
+            z-index: 20;
+            border: 1px solid rgba(255, 240, 150, 0.5);
+            transform: perspective(2000px) rotateX(0.7deg) rotateY(0.2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .detection-container:hover {
+            transform: perspective(2000px) rotateX(0.3deg) rotateY(0deg) translateY(-6px);
+            box-shadow: 0 55px 90px -8px #154d1a;
+        }
+
+        /* header bilingual */
+        .header-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .title h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #faffb0, #eeffb0, #ccff99);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 20px #173d17;
+            line-height: 1.2;
+        }
+
+        .title h1 i {
+            color: #f7d44a;
+            margin-right: 10px;
+            text-shadow: 0 0 10px #feb;
+        }
+
+        .title .telugu-sub {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #eeffb0;
+            text-shadow: 0 2px 5px #0b4b0b;
+            margin-top: 0.3rem;
+        }
+
+        .ai-chip {
+            background: rgba(10, 50, 20, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 2rem;
+            border-radius: 70px;
+            border: 1px solid #d6ffa0;
+            box-shadow: 0 10px 25px -8px #1c6b1c;
+            color: #f9ffdb;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-chip i {
+            font-size: 2rem;
+            color: #fdd65a;
+        }
+
+        /* upload area 3d card */
+        .upload-card {
+            background: rgba(255, 255, 240, 0.8);
+            backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 3rem;
+            border: 2px solid #fbffb0;
+            box-shadow: 0 30px 50px -16px #1e4a1e, 0 0 0 2px #fbffb0 inset, 0 -8px 0 #a9dc8a inset;
+            transform: perspective(800px) rotateX(0.4deg);
+            transition: 0.25s;
+        }
+
+        .upload-card:hover {
+            transform: perspective(800px) rotateX(0.2deg) translateY(-6px);
+            box-shadow: 0 45px 60px -12px #136013;
+        }
+
+        .upload-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed #5fa04b;
+            border-radius: 50px;
+            padding: 2.8rem 1.5rem;
+            background: rgba(240, 255, 210, 0.4);
+            cursor: pointer;
+            transition: 0.2s;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-area i {
+            font-size: 5rem;
+            color: #36802d;
+            filter: drop-shadow(0 10px 8px #1b4f1b);
+        }
+
+        .upload-area h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #174d17;
+            margin: 0.8rem 0 0.3rem;
+        }
+
+        .upload-area p {
+            color: #1f5e1f;
+            font-size: 1.2rem;
+        }
+
+        .upload-area:hover {
+            background: rgba(230, 255, 190, 0.7);
+            border-color: #d4ff7a;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn {
+            background: linear-gradient(145deg, #2f9e44, #1f7b2e);
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+            padding: 1.2rem 3rem;
+            border-radius: 70px;
+            box-shadow: 0 25px 30px -12px #0b521b, 0 6px 0 #b0ff7a inset, 0 -5px 0 #1b661b inset;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #cdff9b;
+        }
+
+        .primary-btn i {
+            font-size: 1.8rem;
+            color: #faffb0;
+        }
+
+        .primary-btn:hover {
+            background: linear-gradient(145deg, #3fb555, #2c9437);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 35px 35px -12px #0e521e;
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 220, 0.9);
+            border: 2px solid #81b06e;
+            color: #1e591e;
+            font-weight: 600;
+            font-size: 1.3rem;
+            padding: 1.2rem 2.8rem;
+            border-radius: 70px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 25px -8px #1d511d;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .secondary-btn:hover {
+            background: #ffffe0;
+            transform: translateY(-3px);
+            box-shadow: 0 22px 28px -8px #135013;
+        }
+
+        /* result panel (hidden initially, shown after detect) */
+        .result-panel {
+            background: rgba(255, 255, 250, 0.85);
+            backdrop-filter: blur(18px);
+            border-radius: 60px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border: 2px solid #fcf6a0;
+            box-shadow: 0 30px 50px -16px #1c4d1c, 0 0 0 2px #fcf6a0 inset;
+            transform: translateZ(10px);
+            display: none;
+            /* hidden by default, will be shown after detection */
+        }
+
+        .result-panel.visible {
+            display: block;
+            animation: panelPop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        }
+
+        @keyframes panelPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .disease-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #bae89c;
+            padding-bottom: 1.5rem;
+        }
+
+        .disease-icon {
+            background: linear-gradient(145deg, #f9a826, #fac05e);
+            width: 90px;
+            height: 90px;
+            border-radius: 40% 60% 40% 60% / 50% 40% 60% 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #1e4b1e;
+            box-shadow: 0 20px 25px -6px #ad7f2b;
+        }
+
+        .disease-title {
+            flex: 1;
+        }
+
+        .disease-title h2 {
+            font-size: 2.5rem;
+            color: #1c651c;
+            text-shadow: 0 2px 10px #b0ffb0;
+        }
+
+        .disease-title .telugu-disease {
+            font-size: 2rem;
+            font-weight: 500;
+            color: #195719;
+        }
+
+        .confidence-badge {
+            background: #287a28;
+            color: #faffc4;
+            border-radius: 60px;
+            padding: 0.5rem 2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* grid for reason/cure/prevention bilingual */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .info-card {
+            background: rgba(235, 255, 210, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 40px;
+            padding: 1.8rem 1.5rem;
+            border: 2px solid #e1ffa0;
+            box-shadow: 0 15px 20px -10px #377a37, 0 -4px 0 #b0e086 inset;
+        }
+
+        .info-card i {
+            font-size: 2.3rem;
+            color: #2d852d;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.9rem;
+            color: #175217;
+            margin-bottom: 1rem;
+            border-left: 7px solid #7fc46a;
+            padding-left: 1rem;
+        }
+
+        .info-card .telugu {
+            font-size: 1.4rem;
+            color: #1c601c;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            background: #e3ffc0;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+        }
+
+        .info-card p {
+            font-size: 1.2rem;
+            color: #1d4a1d;
+            margin: 0.8rem 0;
+            line-height: 1.5;
+        }
+
+        .prevention-steps {
+            list-style-type: none;
+            margin-top: 1rem;
+        }
+
+        .prevention-steps li {
+            font-size: 1.2rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px dashed #aad086;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #1b521b;
+        }
+
+        .prevention-steps i {
+            font-size: 1.5rem;
+            color: #418a2f;
+        }
+
+        /* sample image preview */
+        #imagePreview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 40px;
+            border: 4px solid #caff9c;
+            margin: 1rem auto;
+            display: none;
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            color: #efffd7;
+            text-align: center;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px #154d15;
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .detection-container {
+                padding: 1.8rem;
+            }
+
+            .title h1 {
+                font-size: 2rem;
+            }
+
+            .title .telugu-sub {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="detection-container">
+        <!-- header bilingual -->
+        <div class="header-section">
+            <div class="title">
+                <h1><i class="fas fa-leaf"></i> Crop Disease Detection</h1>
+                <div class="telugu-sub">పంట వ్యాధి గుర్తింపు & నివారణ</div>
+            </div>
+            <div class="ai-chip">
+                <i class="fas fa-microchip"></i> AI · CNN model <span style="font-size:1rem; margin-left: 5px;">( India
+                    80+ crops )</span>
+            </div>
+        </div>
+
+        <!-- upload card with 3D -->
+        <div class="upload-card">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>పంట ఫోటో అప్లోడ్ చేయండి</h3>
+                <p>drag & drop or click to select</p>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <img id="imagePreview" src="#" alt="preview">
+            </div>
+
+            <div class="button-group">
+                <button class="primary-btn" id="detectBtn"><i class="fas fa-search"></i> వ్యాధిని గుర్తించండి</button>
+                <button class="secondary-btn" id="sampleBtn"><i class="fas fa-images"></i> use sample</button>
+            </div>
+        </div>
+
+        <!-- result panel (hidden by default) - bilingual info -->
+        <div class="result-panel" id="resultPanel">
+            <div class="disease-header">
+                <div class="disease-icon"><i class="fas fa-biohazard"></i></div>
+                <div class="disease-title">
+                    <h2 id="diseaseEn">Rice Blast (Pyricularia oryzae)</h2>
+                    <div class="telugu-disease" id="diseaseTe">వరి బ్లాస్ట్ వ్యాధి</div>
+                </div>
+                <div class="confidence-badge" id="confidence">98% confidence</div>
+            </div>
+
+            <!-- reason, cure, prevention bilingual grid -->
+            <div class="info-grid">
+                <!-- Reason Card -->
+                <div class="info-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>కారణం / Reason</h3>
+                    <div class="telugu" id="reasonTe">అధిక నత్రజని, తేమ, దట్టమైన నాట్లు</div>
+                    <p id="reasonEn">Excess nitrogen, high humidity (>90%), dense planting, and continuous rice
+                        cropping.</p>
+                </div>
+                <!-- Cure Card -->
+                <div class="info-card">
+                    <i class="fas fa-flask"></i>
+                    <h3>నివారణ / Cure</h3>
+                    <div class="telugu" id="cureTe">ట్రైసైక్లజోల్ 75% WP 0.6 గ్రా/లీ లేదా కార్బెండజిమ్</div>
+                    <p id="cureEn">Apply Tricyclazole 75% WP @ 0.6g/L or Carbendazim 50% WP @ 1g/L. Remove infected
+                        leaves.</p>
+                </div>
+                <!-- Prevention Card -->
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>నివారణ చర్యలు / Prevention</h3>
+                    <div class="telugu" id="prevTe">తేమ తగ్గించండి, సమతుల్య ఎరువులు, నిరోధక రకాలు</div>
+                    <ul class="prevention-steps" id="preventionList">
+                        <li><i class="fas fa-check-circle"></i> Use resistant varieties (e.g., NLR 145, BPT 5204)</li>
+                        <li><i class="fas fa-check-circle"></i> Avoid excessive nitrogen; split application</li>
+                        <li><i class="fas fa-check-circle"></i> Maintain optimal spacing (20x15 cm)</li>
+                        <li><i class="fas fa-check-circle"></i> Seed treatment with Pseudomonas fluorescens</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- additional telugu steps (embedded in prevention) already covered -->
+            <div
+                style="background:#e3ffcf; border-radius: 50px; padding: 1.2rem; text-align: center; font-size:1.3rem; color:#135013; margin-top: 1rem;">
+                <i class="fas fa-lightbulb"></i> సూచన: వ్యాధి సోకిన మొక్కలను తొలగించండి, పంట మార్పిడి చేయండి.
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-robot"></i> trained on 120k+ Indian crop images · 85 diseases · bilingual support
+        </div>
+    </div>
+
+    <!-- floating 3D elements (small orbs) -->
+    <div
+        style="position: fixed; bottom: 15px; left: 15px; width: 120px; height: 120px; background: #fbe567; border-radius: 50% 30% 60% 40%; filter: blur(35px); opacity: 0.2; z-index: 1; animation: floatMini 16s infinite;">
+    </div>
+    <div
+        style="position: fixed; top: 20px; right: 20px; width: 180px; height: 180px; background: #81ca72; border-radius: 40% 60% 30% 70%; filter: blur(40px); opacity: 0.15; z-index: 1; animation: floatMini2 19s infinite reverse;">
+    </div>
+    <style>
+        @keyframes floatMini {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, -30px) scale(1.3);
+            }
+        }
+
+        @keyframes floatMini2 {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-40px, 40px) rotate(10deg);
+            }
+        }
+    </style>
+
+    <script>
+        (function () {
+            // Get DOM elements
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const imagePreview = document.getElementById('imagePreview');
+            const detectBtn = document.getElementById('detectBtn');
+            const sampleBtn = document.getElementById('sampleBtn');
+            const resultPanel = document.getElementById('resultPanel');
+
+            // Disease data store (bilingual) for simulation
+            const diseaseDB = [
+                {
+                    nameEn: 'Rice Blast (Pyricularia oryzae)',
+                    nameTe: 'వరి బ్లాస్ట్ వ్యాధి',
+                    reasonEn: 'Excess nitrogen, high humidity (>90%), dense planting, and continuous rice cropping.',
+                    reasonTe: 'అధిక నత్రజని, అధిక తేమ (90% పైన), దట్టమైన నాట్లు, వరి మార్పిడి లేకపోవడం.',
+                    cureEn: 'Apply Tricyclazole 75% WP @ 0.6g/L or Carbendazim 50% WP @ 1g/L. Remove infected leaves.',
+                    cureTe: 'ట్రైసైక్లజోల్ 75% WP 0.6 గ్రా/లీ లేదా కార్బెండజిమ్ 50% WP 1 గ్రా/లీ పిచికారీ చేయండి. సోకిన ఆకులను తొలగించండి.',
+                    prevention: [
+                        'Use resistant varieties (e.g., NLR 145, BPT 5204)',
+                        'Avoid excessive nitrogen; split application',
+                        'Maintain optimal spacing (20x15 cm)',
+                        'Seed treatment with Pseudomonas fluorescens',
+                        'నిరోధక రకాలు వాడండి (NLR 145, BPT 5204)',
+                        'నత్రజని అధికంగా వాడకండి, విభజించి వాడండి',
+                        'సరైన దూరం (20x15 సెం.మీ) పాటించండి',
+                        'సూడోమోనాస్ తో విత్తన శుద్ధి'
+                    ]
+                },
+                {
+                    nameEn: 'Citrus Canker (Xanthomonas axonopodis)',
+                    nameTe: 'నిమ్మ క్యాంకర్ వ్యాధి',
+                    reasonEn: 'Warm, humid weather; wind-driven rain; wounds from pruning; susceptible varieties.',
+                    reasonTe: 'వెచ్చని, తేమతో కూడిన వాతావరణం; గాలి ద్వారా వర్షపు నీరు; కత్తిరింపు గాయాలు; సున్నిత రకాలు.',
+                    cureEn: 'Spray Copper oxychloride 0.3% or Streptocycline 100ppm. Prune infected twigs.',
+                    cureTe: 'కాపర్ ఆక్సిక్లోరైడ్ 0.3% లేదా స్ట్రెప్టోసైక్లిన్ 100ppm పిచికారీ చేయండి. సోకిన కొమ్మలను కత్తిరించండి.',
+                    prevention: [
+                        'Plant windbreaks around orchard',
+                        'Avoid working in wet conditions',
+                        'Spray copper after pruning',
+                        'Use disease-free nursery stock',
+                        'గాలి అడ్డంకులు ఏర్పాటు చేయండి',
+                        'తడి వాతావరణంలో పని చేయకండి',
+                        'కత్తిరింపు తర్వాత రాగి మందు పిచికారీ',
+                        'వ్యాధి రహిత మొక్కలు నాటండి'
+                    ]
+                },
+                {
+                    nameEn: 'Tomato Late Blight (Phytophthora infestans)',
+                    nameTe: 'టమాటా లేట్ బ్లైట్',
+                    reasonEn: 'Cool, wet weather (10-20°C), prolonged leaf wetness, dense foliage, infected transplants.',
+                    reasonTe: 'చల్లని, తడి వాతావరణం (10-20°C), ఆకులపై ఎక్కువసేపు తేమ, దట్టమైన పెరుగుదల, సోకిన మొక్కలు.',
+                    cureEn: 'Apply Mancozeb 0.25% or Metalaxyl 0.1% at first sign. Remove affected plants.',
+                    cureTe: 'మొదటి లక్షణాల వద్ద మాంకోజెబ్ 0.25% లేదా మెటలాక్సిల్ 0.1% వాడండి. సోకిన మొక్కలు తొలగించండి.',
+                    prevention: [
+                        'Use resistant varieties',
+                        'Avoid overhead irrigation',
+                        'Ensure good air circulation',
+                        'Rotate with non-solanaceous crops',
+                        'నిరోధక రకాలు వాడండి',
+                        'పైనుండి నీరు పోయకండి',
+                        'గాలి ప్రసరణ బాగుండేలా చూసుకోండి',
+                        'వేరు కుటుంబ పంటలతో మార్పిడి'
+                    ]
+                }
+            ];
+
+            // current selected disease index (simulate prediction)
+            let currentDiseaseIdx = 0; // default rice blast
+
+            // display result with given index
+            function showDiseaseResult(idx) {
+                const d = diseaseDB[idx % diseaseDB.length];
+                document.getElementById('diseaseEn').innerText = d.nameEn;
+                document.getElementById('diseaseTe').innerText = d.nameTe;
+                document.getElementById('reasonEn').innerText = d.reasonEn;
+                document.getElementById('reasonTe').innerText = d.reasonTe;
+                document.getElementById('cureEn').innerText = d.cureEn;
+                document.getElementById('cureTe').innerText = d.cureTe;
+
+                // build prevention list (mix english / telugu)
+                const prevList = document.getElementById('preventionList');
+                prevList.innerHTML = '';
+                // show 4 prevention points (mix both languages)
+                for (let i = 0; i < Math.min(4, d.prevention.length); i++) {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<i class="fas fa-check-circle"></i> ${d.prevention[i]}`;
+                    prevList.appendChild(li);
+                }
+                // random confidence between 92-99%
+                const conf = Math.floor(Math.random() * 8) + 92;
+                document.getElementById('confidence').innerText = conf + '% confidence';
+
+                // show panel
+                resultPanel.classList.add('visible');
+            }
+
+            // Trigger detection via Backend API
+            async function runDetection() {
+                detectBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> వ్యాధిని గుర్తించండి...';
+                detectBtn.disabled = true;
+
+                const formData = new FormData();
+                let fileToUpload = fileInput.files[0];
+
+                // If no file was explicitly selected but we have a sample preview shown
+                if (!fileToUpload && imagePreview.src && imagePreview.src !== '#' && imagePreview.src !== window.location.href) {
+                    try {
+                        const res = await fetch(imagePreview.src);
+                        const blob = await res.blob();
+                        fileToUpload = new File([blob], "sample.jpg", { type: blob.type });
+                    } catch (e) {
+                        console.error("Failed to convert image sample to blob: ", e);
+                    }
+                }
+
+                if (!fileToUpload) {
+                    alert('ముందు ఫోటో అప్లోడ్ చేయండి / please upload a photo first');
+                    detectBtn.innerHTML = '<i class="fas fa-search"></i> వ్యాధిని గుర్తించండి';
+                    detectBtn.disabled = false;
+                    return;
+                }
+
+                formData.append('file', fileToUpload);
+
+                try {
+                    const response = await fetch('/api/disease-detect', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        document.getElementById('diseaseEn').innerText = data.disease_en;
+                        document.getElementById('diseaseTe').innerText = data.disease_te;
+                        document.getElementById('reasonEn').innerText = data.reason_en || "N/A";
+                        document.getElementById('reasonTe').innerText = data.reason_te || "N/A";
+                        document.getElementById('cureEn').innerText = data.cure_en || "N/A";
+                        document.getElementById('cureTe').innerText = data.cure_te || "N/A";
+
+                        const prevList = document.getElementById('preventionList');
+                        prevList.innerHTML = '';
+                        if (data.prevention) {
+                            data.prevention.forEach(p => {
+                                const li = document.createElement('li');
+                                li.innerHTML = `<i class="fas fa-check-circle"></i> ${p}`;
+                                prevList.appendChild(li);
+                            });
+                        }
+
+                        document.getElementById('confidence').innerText = (data.confidence || 95) + '% confidence';
+                        resultPanel.classList.add('visible');
+                    } else {
+                        alert("API Error: " + data.error);
+                    }
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                    alert("సర్వర్ కి కనెక్ట్ కావడంలో విఫలమైంది / Failed to connect to server");
+                }
+
+                detectBtn.innerHTML = '<i class="fas fa-search"></i> వ్యాధిని గుర్తించండి';
+                detectBtn.disabled = false;
+            }
+
+            // Image preview handling
+            uploadArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imagePreview.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // drag & drop visuals
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = 'rgba(200, 255, 160, 0.6)';
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.background = 'rgba(240, 255, 210, 0.4)';
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = 'rgba(240, 255, 210, 0.4)';
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imagePreview.src = event.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                    fileInput.files = e.dataTransfer.files;
+                } else {
+                    alert('దయచేసి చిత్రాన్ని అప్లోడ్ చేయండి / please drop an image');
+                }
+            });
+
+            // Detect button
+            detectBtn.addEventListener('click', () => {
+                if (!imagePreview.src || imagePreview.src === '#') {
+                    alert('ముందు ఫోటో అప్లోడ్ చేయండి / please upload a photo first');
+                    return;
+                }
+                runDetection();
+            });
+
+            // Sample button (use without real image, just simulate)
+            sampleBtn.addEventListener('click', () => {
+                // set a dummy preview (emoji or hidden)
+                imagePreview.src = 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%2336802d%22%2F%3E%3Ctext%20x%3D%2210%22%20y%3D%2255%22%20font-size%3D%2218%22%20fill%3D%22%23ffffff%22%3Esample%3C%2Ftext%3E%3C%2Fsvg%3E';
+                imagePreview.style.display = 'block';
+                runDetection();
+            });
+
+            // initial hidden result
+            resultPanel.classList.remove('visible');
+        })();
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>
+

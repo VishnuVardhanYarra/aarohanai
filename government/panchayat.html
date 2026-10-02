@@ -1,0 +1,1253 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>పంచాయతీ అడ్మిన్ పోర్టల్ · Panchayat Admin Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== BEAUTIFUL RICE FIELDS BACKGROUND ===== */
+        .custom-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            /* Your Lush Green Rice Fields Background */
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20240920/pngtree-lush-green-rice-fields-in-vietnam-image_16236637.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.9) saturate(1.1);
+            animation: subtleZoom 30s infinite alternate ease-in-out;
+        }
+
+        /* Subtle zoom animation to bring the background to life */
+        @keyframes subtleZoom {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Very light overlay to maintain readability while keeping the beauty */
+        .soft-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(20, 60, 30, 0.2) 0%, rgba(10, 30, 15, 0.4) 100%);
+            z-index: 1;
+        }
+
+        /* Main Container */
+        .admin-portal {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 580px;
+            margin: 2rem;
+            animation: fadeIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.96) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* ===== ULTRA-TRANSPARENT GLOSSY GLASS CARD ===== */
+        .glass-card {
+            background: rgba(20, 40, 25, 0.12);
+            /* Very transparent greenish tint to match rice fields */
+            backdrop-filter: blur(12px) saturate(160%);
+            -webkit-backdrop-filter: blur(12px) saturate(160%);
+            border-radius: 48px;
+            padding: 2.8rem 2.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 35px 70px -20px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 255, 200, 0.1) inset;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 45px 90px -20px #000, 0 0 80px rgba(255, 255, 180, 0.2) inset;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Indian Tricolor Line - with transparency */
+        .tricolor-line {
+            display: flex;
+            height: 8px;
+            width: 100%;
+            margin-bottom: 2.2rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0.8;
+        }
+
+        .tricolor-line span {
+            flex: 1;
+            height: 100%;
+            transition: all 0.3s;
+        }
+
+        .saffron {
+            background: rgba(255, 153, 51, 0.8);
+        }
+
+        .white {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .green {
+            background: rgba(19, 136, 8, 0.8);
+        }
+
+        .glass-card:hover .saffron {
+            box-shadow: 0 0 15px rgba(255, 153, 51, 0.5);
+        }
+
+        .glass-card:hover .white {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .glass-card:hover .green {
+            box-shadow: 0 0 15px rgba(19, 136, 8, 0.5);
+        }
+
+        /* Security Warning Banner - Very transparent */
+        .warning-banner {
+            background: rgba(180, 70, 50, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 140, 120, 0.3);
+            border-radius: 24px;
+            padding: 1.1rem 1.5rem;
+            margin-bottom: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .warning-icon {
+            font-size: 2rem;
+            background: rgba(255, 140, 120, 0.15);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 150, 150, 0.3);
+        }
+
+        .warning-text {
+            color: rgba(255, 245, 240, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .warning-text strong {
+            color: rgba(255, 220, 200, 0.95);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        /* Login Header - Transparent */
+        .login-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .login-header h2 {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-shadow: 0 0 20px rgba(50, 150, 50, 0.6);
+            letter-spacing: -0.5px;
+        }
+
+        .login-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            opacity: 0.95;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .attempt-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(200, 150, 50, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 200, 100, 0.4);
+            color: rgba(255, 230, 150, 0.95);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        /* Form Fields - Ultra Transparent */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .floating-label {
+            position: relative;
+        }
+
+        .floating-label input,
+        .floating-label select {
+            width: 100%;
+            padding: 1.3rem 1.5rem 0.7rem 1.5rem;
+            font-size: 1rem;
+            background: rgba(30, 50, 30, 0.15);
+            backdrop-filter: blur(6px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            outline: none;
+            color: rgba(255, 255, 255, 0.95);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 8px 25px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-label select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+        }
+
+        .floating-label label {
+            position: absolute;
+            left: 1.5rem;
+            top: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: 0.2s ease;
+            background: transparent;
+            padding: 0 0.5rem;
+            text-shadow: 0 1px 8px rgba(0, 50, 0, 0.8);
+            font-weight: 400;
+        }
+
+        .floating-label input:focus~label,
+        .floating-label input:not(:placeholder-shown)~label,
+        .floating-label select:focus~label,
+        .floating-label select:valid~label {
+            top: -0.7rem;
+            left: 1.2rem;
+            font-size: 0.8rem;
+            background: rgba(30, 70, 40, 0.7);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-label input:focus,
+        .floating-label select:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2);
+            background: rgba(40, 70, 40, 0.2);
+        }
+
+        .floating-label input::placeholder {
+            color: transparent;
+        }
+
+        /* Password Field with Toggle */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            font-size: 1.3rem;
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .toggle-password:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Password Strength Indicator */
+        .strength-meter {
+            margin-top: 0.7rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 0 0.5rem;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            gap: 5px;
+            padding: 1px;
+        }
+
+        .strength-segment {
+            flex: 1;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .strength-segment.active-weak {
+            background: rgba(255, 100, 100, 0.8);
+            box-shadow: 0 0 15px rgba(255, 100, 100, 0.5);
+        }
+
+        .strength-segment.active-medium {
+            background: rgba(255, 180, 50, 0.8);
+            box-shadow: 0 0 15px rgba(255, 180, 50, 0.5);
+        }
+
+        .strength-segment.active-strong {
+            background: rgba(100, 255, 150, 0.8);
+            box-shadow: 0 0 15px rgba(100, 255, 150, 0.5);
+        }
+
+        .strength-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            min-width: 75px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Captcha Section - Very Transparent */
+        .captcha-section {
+            background: rgba(40, 70, 40, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .captcha-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .captcha-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .captcha-pattern {
+            font-family: 'Courier New', monospace;
+            font-size: 2rem;
+            font-weight: bold;
+            background: rgba(20, 50, 25, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 0.8rem 1.5rem;
+            border-radius: 24px;
+            color: rgba(255, 255, 255, 0.95);
+            letter-spacing: 8px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            min-width: 160px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .captcha-refresh {
+            color: rgba(255, 255, 255, 0.9);
+            cursor: pointer;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .captcha-refresh:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(180deg) scale(1.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .captcha-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            background: rgba(30, 60, 30, 0.15);
+            backdrop-filter: blur(6px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            outline: none;
+            color: white;
+            transition: all 0.3s;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .captcha-input:focus {
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2);
+            background: rgba(40, 80, 40, 0.2);
+        }
+
+        /* Primary Login Button - Transparent */
+        .login-button {
+            width: 100%;
+            padding: 1.4rem;
+            background: rgba(50, 100, 50, 0.25);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 60px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+            margin: 1.8rem 0 1.2rem;
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-button:hover {
+            background: rgba(60, 120, 60, 0.35);
+            box-shadow: 0 25px 40px -12px #000, 0 0 60px rgba(255, 255, 200, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .login-button:active {
+            transform: translateY(2px) scale(0.99);
+            box-shadow: 0 15px 25px -10px #000;
+        }
+
+        .login-button.loading {
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .login-button.loading::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 3px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+
+        /* Secondary Options */
+        .secondary-options {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .secondary-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+
+        .secondary-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateX(-5px);
+        }
+
+        /* Modal - Very Transparent */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal {
+            background: rgba(30, 60, 30, 0.2);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 60px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 0 100px rgba(255, 255, 200, 0.2);
+            animation: modalPop 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes modalPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-input-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(40, 70, 40, 0.2);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .modal-input:focus {
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            outline: none;
+            background: rgba(50, 90, 50, 0.25);
+        }
+
+        .modal-input.otp-input {
+            text-align: center;
+            letter-spacing: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: rgba(50, 120, 50, 0.4);
+            backdrop-filter: blur(5px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .modal-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .send-otp-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(80, 140, 80, 0.2);
+            border: 2px dashed rgba(255, 255, 255, 0.4);
+            border-radius: 40px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .send-otp-btn:hover {
+            background: rgba(100, 180, 100, 0.3);
+            transform: scale(1.02);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 1.8rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1.5rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tooltip for PNO field */
+        .field-hint {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        /* Lockout Screen */
+        .lockout-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 30, 10, 0.7);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lockout-content {
+            text-align: center;
+            padding: 4rem;
+            border: 2px solid rgba(255, 100, 100, 0.4);
+            border-radius: 70px;
+            background: rgba(50, 30, 30, 0.15);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            animation: modalPop 0.5s ease-out;
+        }
+
+        .lockout-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .lockout-title {
+            color: rgba(255, 150, 150, 0.95);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 100, 100, 0.4);
+        }
+
+        .lockout-message {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .lockout-timer {
+            color: rgba(200, 255, 200, 0.95);
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            font-family: monospace;
+            text-shadow: 0 0 30px rgba(150, 255, 150, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .glass-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .full-width {
+                grid-column: span 1;
+            }
+
+            .captcha-container {
+                flex-direction: column;
+            }
+
+            .captcha-pattern {
+                width: 100%;
+            }
+
+            .modal {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Beautiful Rice Fields Background -->
+    <div class="custom-bg"></div>
+
+    <!-- Soft Green Overlay to match the rice fields -->
+    <div class="soft-overlay"></div>
+
+    <!-- Main Login Card -->
+    <div class="admin-portal">
+        <div class="glass-card">
+            <!-- Indian Tricolor Line -->
+            <div class="tricolor-line">
+                <span class="saffron"></span>
+                <span class="white"></span>
+                <span class="green"></span>
+            </div>
+
+            <!-- Security Warning Banner -->
+            <div class="warning-banner">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-text">
+                    <strong>AUTHORIZED ACCESS ONLY</strong>
+                    Restricted to Panchayat Officials. Unauthorized entry prohibited.
+                </div>
+            </div>
+
+            <!-- Login Header -->
+            <div class="login-header">
+                <h2>
+                    <span>🏛️</span> Panchayat Admin
+                </h2>
+                <p>Aarohan Governance Platform · గ్రామ స్మార్ట్ పోర్టల్</p>
+                <div class="attempt-counter">
+                    <span>⚠️</span> 3 attempts remaining
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <!-- Row 1: Full Name + PNO -->
+                <div class="form-grid">
+                    <!-- NAME FIELD -->
+                    <div class="form-group floating-label">
+                        <input type="text" id="fullName" placeholder=" " value="K. Venkateswara Rao">
+                        <label for="fullName">Full Name (పూర్తి పేరు)</label>
+                    </div>
+
+                    <!-- PNO FIELD -->
+                    <div class="form-group floating-label">
+                        <input type="text" id="pno" placeholder=" " value="PNC-AP-0234">
+                        <label for="pno">PNO (Panchayat Number)</label>
+                        <span class="field-hint" title="Unique Panchayat Number">ⓘ</span>
+                    </div>
+                </div>
+
+                <!-- Row 2: Admin ID -->
+                <div class="form-group floating-label full-width">
+                    <input type="text" id="adminId" placeholder=" " value="ADMIN-2024-001">
+                    <label for="adminId">Official Admin ID</label>
+                </div>
+
+                <!-- Row 3: Password + Role -->
+                <div class="form-grid">
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <div class="floating-label password-wrapper">
+                            <input type="password" id="password" placeholder=" " value="Admin@123">
+                            <label for="password">Password</label>
+                            <span class="toggle-password" id="togglePassword" onclick="togglePassword()">👁️</span>
+                        </div>
+
+                        <!-- Password Strength Indicator -->
+                        <div class="strength-meter">
+                            <div class="strength-bar">
+                                <div class="strength-segment" id="seg1"></div>
+                                <div class="strength-segment" id="seg2"></div>
+                                <div class="strength-segment" id="seg3"></div>
+                                <div class="strength-segment" id="seg4"></div>
+                            </div>
+                            <span class="strength-text" id="strengthText">Medium</span>
+                        </div>
+                    </div>
+
+                    <!-- Role Selection Dropdown -->
+                    <div class="form-group floating-label">
+                        <select id="role" required>
+                            <option value="" disabled selected></option>
+                            <option value="panchayat-admin" selected>Panchayat Admin</option>
+                            <option value="auditor">Auditor</option>
+                            <option value="district-admin">District Admin</option>
+                        </select>
+                        <label for="role">Select Role</label>
+                    </div>
+                </div>
+
+                <!-- Captcha Section -->
+                <div class="captcha-section">
+                    <div class="captcha-label">
+                        <span>🛡️</span> Security Verification
+                    </div>
+                    <div class="captcha-container">
+                        <span class="captcha-pattern" id="captchaDisplay">4F9K2</span>
+                        <span class="captcha-refresh" onclick="refreshCaptcha()">🔄</span>
+                    </div>
+                    <input type="text" class="captcha-input" id="captchaInput" placeholder="Enter captcha code"
+                        value="4F9K2">
+                </div>
+
+                <!-- Login Button -->
+                <button type="button" class="login-button" id="loginBtn" onclick="simulateLogin()">LOGIN TO
+                    DASHBOARD</button>
+
+                <!-- Secondary Options -->
+                <div class="secondary-options">
+                    <a href="#" class="secondary-link" onclick="showForgotPassword()">
+                        <span>❓</span> Forgot Password?
+                    </a>
+                </div>
+            </form>
+
+            <div class="footer-note">
+                © 2026 Aarohan Governance · 256-bit encrypted · All access logged
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal">
+            <h3>🔑 Reset Password</h3>
+            <div class="modal-subtitle">OTP will be sent to your registered mobile</div>
+
+            <!-- Phone Number Field -->
+            <div class="modal-input-group">
+                <label>📱 Registered Phone Number</label>
+                <input type="tel" class="modal-input" id="phoneNumber" placeholder="+91 98765 43210"
+                    value="+91 98765 43210">
+            </div>
+
+            <!-- Send OTP Button -->
+            <button class="send-otp-btn" onclick="sendOtp()">
+                <span>📨</span> Send OTP
+            </button>
+
+            <!-- OTP Field -->
+            <div id="otpSection" style="display: none;">
+                <div class="modal-input-group">
+                    <label>🔢 Enter OTP</label>
+                    <input type="text" class="modal-input otp-input" placeholder="______" maxlength="6" value="123456">
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="verifyOtp()">Verify & Reset</button>
+                <button class="modal-btn secondary" onclick="closeForgotPasswordModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Lockout Screen -->
+    <div class="lockout-screen" id="lockoutScreen">
+        <div class="lockout-content">
+            <div class="lockout-icon">🔒</div>
+            <h1 class="lockout-title">Account Locked</h1>
+            <p class="lockout-message">Multiple failed attempts detected</p>
+            <div class="lockout-timer" id="lockoutTimer">15:00</div>
+            <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">Contact Panchayat IT Support</p>
+            <button class="modal-btn primary" style="padding: 1rem 3rem;" onclick="closeLockout()">Back to
+                Login</button>
+        </div>
+    </div>
+
+    <script>
+        // Password Toggle Function
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = '🔒';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = '👁️';
+            }
+        }
+
+        // Refresh Captcha
+        function refreshCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) {
+                captcha += chars[Math.floor(Math.random() * chars.length)];
+            }
+            document.getElementById('captchaDisplay').textContent = captcha;
+            document.getElementById('captchaInput').value = captcha;
+        }
+
+        // Password Strength Indicator
+        function updatePasswordStrength() {
+            const password = document.getElementById('password').value;
+            const seg1 = document.getElementById('seg1');
+            const seg2 = document.getElementById('seg2');
+            const seg3 = document.getElementById('seg3');
+            const seg4 = document.getElementById('seg4');
+            const strengthText = document.getElementById('strengthText');
+
+            // Reset all segments
+            seg1.className = 'strength-segment';
+            seg2.className = 'strength-segment';
+            seg3.className = 'strength-segment';
+            seg4.className = 'strength-segment';
+
+            const length = password.length;
+
+            if (length === 0) {
+                strengthText.textContent = 'None';
+            } else if (length < 4) {
+                seg1.classList.add('active-weak');
+                strengthText.textContent = 'Weak';
+            } else if (length < 6) {
+                seg1.classList.add('active-medium');
+                seg2.classList.add('active-medium');
+                strengthText.textContent = 'Medium';
+            } else if (length < 8) {
+                seg1.classList.add('active-medium');
+                seg2.classList.add('active-medium');
+                seg3.classList.add('active-medium');
+                strengthText.textContent = 'Medium';
+            } else {
+                // 8 or more characters = Strong
+                seg1.classList.add('active-strong');
+                seg2.classList.add('active-strong');
+                seg3.classList.add('active-strong');
+                seg4.classList.add('active-strong');
+                strengthText.textContent = 'Strong';
+            }
+        }
+
+        // Simulate Login (Now linked to FastAPI + MongoDB + Bcrypt)
+        async function simulateLogin() {
+            const btn = document.getElementById('loginBtn');
+            btn.classList.add('loading');
+            btn.textContent = 'AUTHENTICATING';
+
+            const name = document.getElementById('fullName').value;
+            const pno = document.getElementById('pno').value;
+            const adminId = document.getElementById('adminId').value;
+            const role = document.getElementById('role').value;
+            const password = document.getElementById('password').value;
+            const captcha = document.getElementById('captchaInput').value;
+
+            if (!adminId || !password) {
+                alert("❌ Admin ID and Password are required!");
+                btn.classList.remove('loading');
+                btn.textContent = 'LOGIN TO DASHBOARD';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/panchayat_auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        fullName: name,
+                        pno: pno,
+                        adminId: adminId,
+                        role: role,
+                        password: password // Sent over HTTPS/CORS to be encrypted via Bcrypt
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Save admin details
+                    localStorage.setItem('adminDetails', JSON.stringify({
+                        adminId: result.adminId,
+                        fullName: result.fullName,
+                        role: result.role
+                    }));
+                    localStorage.setItem('isAdmin', 'true');
+
+                    if (result.status === "registered") {
+                        alert(`🏢 New Panchayat Admin securely encrypted & registered!\n\nWelcome ${result.fullName}\nAdmin ID: ${result.adminId}\nRole: ${result.role}`);
+                    } else {
+                        alert(`✅ Login Successful!\n\nWelcome back, ${result.fullName}`);
+                    }
+                    // Redirect or close portal as needed
+                    window.location.href = "panchayat_admin.html";
+                } else {
+                    alert(`❌ Authentication Failed: ${result.error}`);
+                    showLockout(); // Optionally lock out
+                }
+            } catch (error) {
+                alert('❌ Backend is not running or network error occurred!');
+            }
+
+            btn.classList.remove('loading');
+            btn.textContent = 'LOGIN TO DASHBOARD';
+        }
+
+        // Forgot Password Modal Functions
+        function showForgotPassword() {
+            document.getElementById('forgotPasswordModal').style.display = 'flex';
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+            document.getElementById('otpSection').style.display = 'none';
+        }
+
+        function sendOtp() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (phoneNumber) {
+                alert(`📨 OTP sent to ${phoneNumber}`);
+                document.getElementById('otpSection').style.display = 'block';
+            } else {
+                alert('Please enter phone number');
+            }
+        }
+
+        function verifyOtp() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const otp = document.querySelector('#otpSection input').value;
+
+            if (phoneNumber && otp) {
+                alert(`✅ OTP Verified for ${phoneNumber}!\nRedirecting to password reset page...`);
+                closeForgotPasswordModal();
+            } else {
+                alert('Please enter both phone number and OTP');
+            }
+        }
+
+        // Lockout Functions
+        function showLockout() {
+            document.getElementById('lockoutScreen').style.display = 'flex';
+
+            let minutes = 15;
+            let seconds = 0;
+            const timerEl = document.getElementById('lockoutTimer');
+
+            const interval = setInterval(() => {
+                if (seconds === 0) {
+                    if (minutes === 0) {
+                        clearInterval(interval);
+                        timerEl.textContent = '00:00';
+                        return;
+                    }
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+
+                timerEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+
+            window.lockoutInterval = interval;
+        }
+
+        function closeLockout() {
+            document.getElementById('lockoutScreen').style.display = 'none';
+            if (window.lockoutInterval) {
+                clearInterval(window.lockoutInterval);
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('password').addEventListener('input', updatePasswordStrength);
+
+        // Close modals when clicking outside
+        window.onclick = function (event) {
+            const forgotModal = document.getElementById('forgotPasswordModal');
+            if (event.target === forgotModal) {
+                closeForgotPasswordModal();
+            }
+        }
+
+        // Initialize
+        window.onload = function () {
+            updatePasswordStrength();
+        }
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Farmer · రైతు సహాయక మాడ్యూల్</title>
+    <!-- Font Awesome 6 (free) - for crisp, modern icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            /* background image from freepik (premium-photo) as specified */
+            background: url('https://img.freepik.com/premium-photo/precision-agriculture-smart-robotic-farmers-illustrate-advanced-farm-automation-technology_896558-37278.jpg?w=2000') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* strong overlay to make content pop while keeping bg visible */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 35, 30, 0.3) 0%, rgba(20, 60, 40, 0.4) 100%);
+            backdrop-filter: blur(2px);
+            z-index: 0;
+        }
+
+        /* main card container — brighter, modern, glossy */
+        .module-container {
+            max-width: 1350px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border-radius: 70px 70px 50px 50px;
+            box-shadow: 0 40px 70px -8px rgba(0, 30, 10, 0.5), 0 0 0 1.5px rgba(255, 255, 200, 0.6) inset, 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+            padding: 3rem 2.5rem;
+            position: relative;
+            z-index: 20;
+            border: 1px solid rgba(255, 240, 150, 0.7);
+            transform: perspective(2000px) rotateX(0.8deg) rotateY(0.3deg);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .module-container:hover {
+            transform: perspective(2000px) rotateX(0.4deg) rotateY(0.1deg) translateY(-5px);
+            box-shadow: 0 50px 90px -8px #164d1e, 0 0 0 2px #f9f3c0 inset;
+        }
+
+        /* header with vivid fresh gradient */
+        .farm-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .farm-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #fafad2, #e5ffb0, #c0f0b0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 3px 5px 20px rgba(0, 80, 20, 0.6), 0 0 10px #d4ffb0;
+            letter-spacing: -0.01em;
+            border-right: 3px solid #ffe570;
+            padding-right: 1.8rem;
+        }
+
+        .chip {
+            background: rgba(255, 250, 200, 0.9);
+            border-radius: 60px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            color: #0f4f1f;
+            box-shadow: 0 8px 18px -6px #2f7a3f, 0 -2px 0 #ffffdd inset;
+            font-size: 1.3rem;
+            border: 1px solid #fefdc0;
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chip i {
+            font-size: 1.7rem;
+            color: #d68b1c;
+        }
+
+        .sub {
+            color: #faffed;
+            font-size: 1.3rem;
+            margin: -0.2rem 0 2.2rem 0.3rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(0, 70, 30, 0.5);
+            padding: 0.5rem 2rem 0.5rem 1.8rem;
+            border-radius: 60px;
+            width: fit-content;
+            backdrop-filter: blur(12px);
+            border: 1px solid #ebffb0;
+            text-shadow: 0 2px 3px #0f3f0f;
+        }
+
+        /* card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem 1.5rem;
+            margin-top: 2rem;
+        }
+
+        /* 3D card style — fresh juicy palette */
+        .feature-card {
+            background: rgba(255, 255, 240, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 2rem 1.5rem 2rem 1.5rem;
+            box-shadow: 0 30px 40px -16px #1c4a1a, 0 0 0 2px rgba(255, 245, 150, 0.8) inset, 0 -6px 0 rgba(160, 210, 100, 0.7) inset;
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+            border: 1px solid #fefac0;
+            display: flex;
+            flex-direction: column;
+            transform-style: preserve-3d;
+            transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0);
+            color: #0b3b0b;
+            position: relative;
+        }
+
+        .feature-card:hover {
+            transform: perspective(800px) rotateX(1.2deg) rotateY(1.8deg) translateZ(18px) translateY(-10px);
+            box-shadow: 0 45px 60px -10px #1f662f, 0 0 0 3px #ffffaa inset;
+            background: rgba(255, 255, 250, 0.95);
+        }
+
+        /* --- REFRESHED ICON STYLES (modern minimal + duotone feel) --- */
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 30% 70% 30% 70% / 60% 40% 60% 40%;
+            /* organic shape */
+            background: linear-gradient(145deg, #a2e05a, #56ab2f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.4rem;
+            color: white;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 28px -12px #1b4f1b, 0 -4px 0 #dcffb0 inset, 0 6px 12px #eaffb0 inset;
+            margin-bottom: 1.6rem;
+            transition: 0.2s;
+            position: relative;
+            border: 2px solid rgba(255, 255, 180, 0.7);
+        }
+
+        /* subtle secondary icon inside (for duo effect) - using pseudo-element */
+        .card-icon::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            background: rgba(255, 255, 200, 0.5);
+            border-radius: 50%;
+            filter: blur(2px);
+            z-index: -1;
+        }
+
+        .feature-card:hover .card-icon {
+            transform: rotate(4deg) scale(1.06);
+            border-radius: 40% 60% 40% 60% / 50% 50% 50% 50%;
+            background: linear-gradient(145deg, #b6ec6a, #3f9e1f);
+        }
+
+        /* Telugu title styling */
+        .telugu-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #1f4f1f;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.2rem;
+            text-shadow: 0 1px 2px #d4f0b0;
+        }
+
+        .telugu-title span {
+            background: rgba(180, 220, 120, 0.3);
+            padding: 0.1rem 0.8rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: #0f5c0f;
+        }
+
+        .eng-sub {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #316331;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.2px;
+            opacity: 0.9;
+        }
+
+        .card-desc {
+            font-size: 1.05rem;
+            color: #1d521d;
+            margin: 0.5rem 0 1.8rem 0;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        /* interactive button — electric lime / fresh */
+        .action-btn {
+            background: linear-gradient(145deg, #359735, #1f7a2e);
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            padding: 1rem 1.2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 20px 28px -12px #0e4f1a, 0 5px 0 #b3fc7e inset, 0 -4px 0 #146b1e inset;
+            cursor: pointer;
+            transition: 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            letter-spacing: 0.3px;
+            border: 1px solid #d2ffa0;
+            margin-top: auto;
+            transform: translateZ(2px);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+            color: #faffc4;
+        }
+
+        .action-btn:hover {
+            background: linear-gradient(145deg, #44b144, #2b9a37);
+            box-shadow: 0 28px 35px -10px #16631e, 0 5px 0 #d0ff90 inset, 0 -3px 0 #1c8128 inset;
+            transform: translateY(-4px) scale(1.02);
+            gap: 18px;
+        }
+
+        .action-btn:hover i {
+            transform: translateX(6px) rotate(4deg);
+        }
+
+        /* weather card extra vibrant */
+        .weather-card {
+            background: rgba(220, 250, 210, 0.9);
+            border: 1px solid #fcf6a0;
+        }
+
+        .weather-card .card-icon {
+            background: linear-gradient(145deg, #ffe15a, #f4a81b);
+        }
+
+        .weather-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background: rgba(255, 255, 210, 0.8);
+            border-radius: 60px;
+            padding: 1.1rem 1.5rem;
+            margin: 0.5rem 0 1.5rem 0;
+            backdrop-filter: blur(8px);
+            border: 1px solid #feeb9a;
+            color: #175017;
+            font-weight: 600;
+        }
+
+        .weather-temp {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #1b641b;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .weather-detail {
+            display: flex;
+            gap: 1.8rem;
+            align-items: center;
+            color: #1f661f;
+            font-size: 1.1rem;
+        }
+
+        .resource-tag {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 1.8rem 0;
+        }
+
+        .pill {
+            background: #ebffc8;
+            border-radius: 40px;
+            padding: 0.5rem 1.4rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #146314;
+            box-shadow: inset 0 -2px 0 #b5e086, 0 3px 0 #b0d68a;
+            border: 1px solid #e2ffb5;
+        }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .module-container {
+                padding: 2rem 1.5rem;
+                border-radius: 50px;
+            }
+
+            .farm-header h1 {
+                font-size: 2.4rem;
+                border-right: none;
+            }
+
+            .telugu-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* card animation */
+        .feature-card {
+            animation: cardRise 0.6s cubic-bezier(0.15, 0.85, 0.3, 1.05) backwards;
+            animation-delay: calc(var(--order) * 0.05s + 0.1s);
+        }
+
+        @keyframes cardRise {
+            0% {
+                opacity: 0;
+                transform: perspective(800px) rotateX(5deg) translateY(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: perspective(800px) rotateX(0) translateY(0);
+            }
+        }
+
+        /* extra floating helper */
+        .chip,
+        .sub {
+            transform: perspective(400px) translateZ(6px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="module-container">
+        <!-- header with fresh icons & bilingual touch -->
+        <div class="farm-header">
+            <button onclick="window.location.href='../home_page/index.html'" title="Go to Home Page"
+                style="background: rgba(255, 255, 255, 0.2); border: 2px solid #fefac0; color: #1f4f1f; padding: 10px 20px; border-radius: 40px; font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s;">
+                <i class="fas fa-home"></i> Home
+            </button>
+            <h1><i class="fas fa-seedling" style="color: #ffd966; margin-right: 12px;"></i>రైతు సహాయక మాడ్యూల్</h1>
+            <div class="chip"><i class="fas fa-tractor"></i> Aarohan Farmer · 1.0</div>
+
+            <div
+                style="margin-left: auto; display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.4); padding: 5px 15px 5px 5px; border-radius: 50px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 15px rgba(0,30,10,0.1); backdrop-filter: blur(10px);">
+                <div class="native-profile-avatar"
+                    style="width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(145deg, #a2e05a, #56ab2f); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.1rem; box-shadow: inset 0 -2px 5px rgba(0,0,0,0.1);">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div style="display: flex; flex-direction: column; line-height: 1.1;">
+                    <span class="native-profile-name"
+                        style="color: #0b3b0b; font-weight: 800; font-size: 1rem;">Guest</span>
+                    <span class="native-profile-occ"
+                        style="color: #1f662f; font-size: 0.75rem; font-weight: 600;">Farmer</span>
+                </div>
+            </div>
+        </div>
+        <div class="sub">
+            <i class="fas fa-cloud-sun-rain" style="font-size: 2rem; color: #fef9b0;"></i>
+            <span>సాంకేతికతతో సాగు సులభం</span>
+        </div>
+
+        <!-- 6 feature grid (first card weather) with TELUGU TITLES + refined icons -->
+        <div class="card-grid">
+            <!-- 1. Weather card -->
+            <div class="feature-card weather-card" style="--order:1;">
+                <div class="card-icon"><i class="fas fa-sun"></i><i class="fas fa-cloud"
+                        style="font-size:1.2rem; margin-left:-5px;"></i></div>
+                <div class="telugu-title">వాతావరణం <span>live</span></div>
+                <div class="eng-sub">Weather · real-time</div>
+                <div class="weather-info">
+                    <span class="weather-temp"><i class="fas fa-thermometer-half"></i> 31°C <small>feels
+                            34°</small></span>
+                    <span class="weather-detail"><i class="fas fa-droplet"></i> 64% · 9 km/h</span>
+                </div>
+                <div style="display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.8rem;">
+                    <span class="pill"><i class="far fa-sun"></i> సూర్యోదయం 5:58</span>
+                    <span class="pill"><i class="far fa-moon"></i> సూర్యాస్తమయం 18:52</span>
+                </div>
+                <div style="margin-top: auto; text-align: right; opacity: 0.8; font-style: italic; color: #235f23;">
+                    ప్రత్యక్ష సమాచారం</div>
+            </div>
+
+            <!-- 2. Crop disease detection -->
+            <div class="feature-card" style="--order:2;">
+                <div class="card-icon"><i class="fas fa-leaf"></i><i class="fas fa-camera"
+                        style="font-size:1.3rem; margin-left:-3px;"></i></div>
+                <div class="telugu-title">పంట వ్యాధి గుర్తింపు</div>
+                <div class="eng-sub">crop disease detection · AI</div>
+                <div class="card-desc">ఫోటో తీయండి, AI తో తెగుళ్ళ & లోపాల నిర్ధారణ.</div>
+                <button class="action-btn" onclick="window.location.href='diseasedetuction.html'"><i
+                        class="fas fa-camera"></i> స్కాన్ చేయండి <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- 3. Smart Water Analytics -->
+            <div class="feature-card" style="--order:3;">
+                <div class="card-icon"><i class="fas fa-water"></i><i class="fas fa-chart-simple"
+                        style="font-size:1.4rem; margin-left:2px;"></i></div>
+                <div class="telugu-title">స్మార్ట్ నీటి విశ్లేషణ</div>
+                <div class="eng-sub">smart water analytics</div>
+                <div class="card-desc">నేల తేమ, బాష్పీభవనం, నీటి షెడ్యూల్, హెచ్చరికలు.</div>
+                <div class="resource-tag">
+                    <span class="pill">19mm లోటు</span>
+                    <span class="pill">బుధవారం సరైనది</span>
+                </div>
+                <button class="action-btn" onclick="window.location.href='waterAnalytics.html'"><i
+                        class="fas fa-tint"></i> విశ్లేషణ చూడండి <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- 4. Proper resource utilization -->
+            <div class="feature-card" style="--order:4;">
+                <div class="card-icon"><i class="fas fa-chart-pie"></i><i class="fas fa-arrow-trend-down"
+                        style="font-size:1.3rem;"></i></div>
+                <div class="telugu-title">వనరుల సరైన వినియోగం</div>
+                <div class="eng-sub">proper resource utilization</div>
+                <div class="card-desc">ఎరువులు, విత్తనాలు, ఇంధనం, ఖర్చు ఆప్టిమైజర్.</div>
+                <div class="resource-tag">
+                    <span class="pill">N: -8%</span>
+                    <span class="pill">P: సరైనది</span>
+                    <span class="pill">K: +6%</span>
+                </div>
+                <button class="action-btn" onclick="window.location.href='resouceallocation.html'"><i
+                        class="fas fa-scale-balanced"></i> ఆప్టిమైజ్ చేయండి <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- 5. Advanced farming techniques -->
+            <div class="feature-card" style="--order:5;">
+                <div class="card-icon"><i class="fas fa-robot"></i><i class="fas fa-microchip"
+                        style="font-size:1.2rem;"></i></div>
+                <div class="telugu-title">ఆధునిక వ్యవసాయ పద్ధతులు</div>
+                <div class="eng-sub">advanced farming techniques</div>
+                <div class="card-desc">ప్రెసిషన్ అగ్రికల్చర్, హైడ్రోపోనిక్స్, IoT.</div>
+                <div style="margin: 0.8rem 0 1.2rem 0; display: flex; gap:0.7rem; flex-wrap: wrap;">
+                    <span class="pill">డ్రిప్ + మల్చింగ్</span>
+                    <span class="pill">అగ్రి‑వోల్టాయిక్స్</span>
+                </div>
+                <button class="action-btn" onclick="window.location.href='AdvancedFarming.html'"><i
+                        class="fas fa-graduation-cap"></i> పద్ధతులు నేర్చుకోండి <i
+                        class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- 6. Crop suggestions (soil, weather, water) -->
+            <div class="feature-card" style="--order:6;">
+                <div class="card-icon"><i class="fas fa-seedling"></i><i class="fas fa-list-check"
+                        style="font-size:1.3rem;"></i></div>
+                <div class="telugu-title">పంట సూచనలు</div>
+                <div class="eng-sub">smart crop suggestions</div>
+                <div class="card-desc">నేల, వాతావరణం, నీటి లభ్యత ఆధారంగా.</div>
+                <div
+                    style="background: #def7b0; border-radius: 60px; padding: 0.8rem 1.2rem; margin: 0.7rem 0 1.4rem 0; color:#0b520b; display: flex; flex-wrap: wrap; gap: 10px; font-weight: 600; border: 1px solid #fbffb0;">
+                    <span><i class="fas fa-check-circle" style="color:#268f26;"></i> మొక్కజొన్న</span>
+                    <span><i class="fas fa-check-circle" style="color:#268f26;"></i> సజ్జలు</span>
+                    <span><i class="fas fa-check-circle" style="color:#268f26;"></i> కందులు</span>
+                    <span><i class="fas fa-circle-plus"></i> +3</span>
+                </div>
+                <button class="action-btn" onclick="window.location.href='Crop.html'"><i class="fas fa-map"></i>
+                    సూచించండి <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- footer with govt & youth schemes (bilingual) -->
+        <div
+            style="display: flex; justify-content: flex-end; margin-top: 3rem; gap: 1rem; color: #f9ffe0; font-weight: 500; flex-wrap: wrap;">
+            <button onclick="window.location.href='../government/smartvillage.html'"
+                style="background: rgba(0, 60, 20, 0.6); backdrop-filter: blur(10px); padding: 0.5rem 1.5rem; border-radius: 60px; border: 1px solid #e4ffa0; color: #f9ffe0; cursor: pointer; transition: 0.3s; font-weight: 600;">
+                <i class="fas fa-bell"></i> 7 కొత్త పథకాలు (Govt Dash)
+            </button>
+            <button onclick="window.location.href='../Youth/seventh.html'"
+                style="background: rgba(0, 60, 20, 0.6); backdrop-filter: blur(10px); padding: 0.5rem 1.5rem; border-radius: 60px; border: 1px solid #e4ffa0; color: #f9ffe0; cursor: pointer; transition: 0.3s; font-weight: 600;">
+                <i class="fas fa-clock"></i> యువత అవకాశాలు (Youth Dash) »
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        async function fetchRealTimeStatus() {
+            try {
+                const response = await fetch('/api/farmer-status');
+                const data = await response.json();
+                if (data.success) {
+                    const status = data.status;
+                    // Update Weather Info
+                    document.querySelector('.weather-temp').innerHTML = `<i class="fas fa-thermometer-half"></i> ${status.temp}°C <small>feels healthy</small>`;
+                    document.querySelector('.weather-detail').innerHTML = `<i class="fas fa-droplet"></i> ${status.humidity}% · ${status.wind} km/h`;
+                    const weatherPills = document.querySelectorAll('.weather-card .pill');
+                    if (weatherPills.length >= 2) {
+                        weatherPills[0].innerHTML = `<i class="far fa-sun"></i> ${status.sunrise}`;
+                        weatherPills[1].innerHTML = `<i class="far fa-moon"></i> ${status.sunset}`;
+                    }
+                    if (document.querySelector('.weather-card div[style*="opacity: 0.8"]')) {
+                        document.querySelector('.weather-card div[style*="opacity: 0.8"]').innerText = status.weather_desc;
+                    }
+
+                    // Update Water Analytics Card
+                    const waterCard = document.querySelectorAll('.feature-card')[2]; // 3rd card
+                    if (waterCard) {
+                        waterCard.querySelector('.card-desc').innerText = status.water_status + ". " + status.water_desc;
+                        const waterPills = waterCard.querySelectorAll('.pill');
+                        if (waterPills.length >= 2) {
+                            waterPills[0].innerText = status.water_label1;
+                            waterPills[1].innerText = status.water_label2;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch real-time status:", err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchRealTimeStatus();
+            // Refresh every 5 minutes
+            setInterval(fetchRealTimeStatus, 300000);
+        });
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan-AI 3D Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at center, #1b3a1b 0%, #081408 100%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            color: white;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            gap: 40px;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: transform;
+        }
+
+        .card {
+            width: 260px;
+            height: 380px;
+            border-radius: 20px;
+            background: rgba(30, 80, 40, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(150, 220, 120, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: scale(0.85);
+            opacity: 0.5;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        /* Glass shine effect */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 150%;
+        }
+
+        .card i {
+            font-size: 5rem;
+            color: #a4e582;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(164, 229, 130, 0.4);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #ccc;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            transition: transform 0.4s;
+            pointer-events: none;
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, #5ea53d, #3c7d21);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        /* Active Format */
+        .card.active {
+            transform: scale(1.15);
+            opacity: 1;
+            box-shadow: 0 0 40px rgba(164, 229, 130, 0.8), inset 0 0 15px rgba(164, 229, 130, 0.3);
+            border-color: #a4e582;
+            z-index: 10;
+        }
+
+        .card.active i {
+            transform: scale(1.1);
+        }
+
+        .card.active h2 {
+            color: #a4e582;
+            text-shadow: 0 0 10px rgba(164, 229, 130, 0.6);
+        }
+
+        .card.active .enter-btn {
+            background: linear-gradient(135deg, #a4e582, #5ea53d);
+            box-shadow: 0 10px 30px rgba(164, 229, 130, 0.4);
+            color: #1b3a1b;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 4.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 400px;
+            z-index: 150;
+            pointer-events: none;
+        }
+
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            pointer-events: auto;
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+            border-color: #a4e582;
+            box-shadow: 0 0 15px rgba(164, 229, 130, 0.6);
+            color: #a4e582;
+        }
+
+        /* Titles & Particles */
+        .main-title {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff, #a4e582, #f5d142);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 100;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 115px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 100;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            perspective: 800px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #a4e582;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #a4e582, 0 0 30px #f5d142;
+            animation: float 10s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateZ(-500px);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100px) translateZ(200px);
+                opacity: 0;
+            }
+        }
+
+        /* Iframe Portal Mode */
+        .portal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .portal-header {
+            height: 70px;
+            background: rgba(10, 25, 15, 0.95);
+            border-bottom: 1px solid rgba(164, 229, 130, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .back-btn {
+            background: rgba(164, 229, 130, 0.1);
+            border: 1px solid #a4e582;
+            color: #a4e582;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #a4e582;
+            color: #081408;
+            box-shadow: 0 0 20px rgba(164, 229, 130, 0.4);
+            transform: translateX(-5px);
+        }
+
+        .portal-title {
+            margin-left: 30px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .portal-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            background: #050a06;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.location.href='../home_page/index.html'" title="Go to Home Page"
+        style="position: absolute; top: 30px; left: 30px; z-index: 200; background: rgba(164, 229, 130, 0.1); border: 1px solid #a4e582; color: #a4e582; padding: 10px 20px; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(5px); transition: all 0.3s;">
+        <i class="fas fa-home"></i> Home
+    </button>
+    <div
+        style="position: absolute; top: 30px; right: 30px; z-index: 200; display: flex; align-items: center; gap: 15px; background: rgba(255, 255, 255, 0.05); padding: 8px 20px 8px 8px; border-radius: 50px; border: 1px solid rgba(164, 229, 130, 0.3); backdrop-filter: blur(8px);">
+        <div class="native-profile-avatar"
+            style="width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #a4e582, #5ea53d); color: #081408; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 0 15px rgba(164,229,130,0.3);">
+            <i class="fas fa-user"></i>
+        </div>
+        <div style="display: flex; flex-direction: column; line-height: 1.2;">
+            <span class="native-profile-name"
+                style="color: white; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.5px;">Guest</span>
+            <span class="native-profile-occ"
+                style="color: #a4e582; font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">User</span>
+        </div>
+    </div>
+
+    <h1 class="main-title">Aarohan Marketing</h1>
+    <div class="subtitle">Select Module</div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="carousel-container" id="scene">
+        <div class="carousel" id="carousel">
+            <!-- Cards will be generated by JS -->
+        </div>
+        <!-- Controls -->
+        <div class="controls">
+            <button id="prev-btn" class="glass-btn"><i class="fas fa-chevron-left"></i></button>
+            <button id="next-btn" class="glass-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- The actual iframe overlay where files load -->
+    <div class="portal-overlay" id="portalOverlay">
+        <div class="portal-header">
+            <button class="back-btn" onclick="closePortal()">
+                <i class="fas fa-arrow-left"></i> Back to 3D Menu
+            </button>
+            <div class="portal-title" id="portalTitle">Loading Module...</div>
+        </div>
+        <iframe class="portal-iframe" id="portalIframe" src=""></iframe>
+    </div>
+
+    <script>
+        // Generate glowing ambient particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            let p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+
+            let size = Math.random() * 4 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            particlesContainer.appendChild(p);
+        }
+
+        const modulesData = [
+            { url: 'market_prices.html', title: 'Aarohan Market Prices', icon: 'fa-chart-line', desc: 'Track real-time spot and actual mandi prices for all your crops.' },
+            { url: 'crop_listing.html', title: 'Crop Listing', icon: 'fa-clipboard-list', desc: 'List your produce in the Farmer\'s Gateway directly to factories.' },
+            { url: 'waste_management.html', title: 'Waste Management', icon: 'fa-recycle', desc: 'Explore waste utilization options, bio-pellets, and nearby buyback offers.' },
+            { url: 'factory_direct.html', title: 'Factory Direct', icon: 'fa-industry', desc: 'Connect with factories for direct procurement or list your land for rent.' }
+        ];
+
+        let carousel = document.getElementById('carousel');
+        let prevBtn = document.getElementById('prev-btn');
+        let nextBtn = document.getElementById('next-btn');
+        let isPortalOpen = false;
+        let currentIndex = 0;
+
+        function generateCarousel() {
+            carousel.innerHTML = '';
+            modulesData.forEach((mod, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <i class="fas ${mod.icon}"></i>
+                    <h2>${mod.title}</h2>
+                    <p>${mod.desc}</p>
+                    <button class="enter-btn">Launch System</button>
+                `;
+
+                card.addEventListener('click', () => {
+                    if (isPortalOpen) return;
+                    if (index === currentIndex) {
+                        openPortal(mod.url, mod.title);
+                    } else {
+                        currentIndex = index;
+                        updateCarousel();
+                    }
+                });
+
+                carousel.appendChild(card);
+            });
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const cards = document.querySelectorAll('.card');
+            const cardWidth = 260; // From CSS
+            const gap = 40;
+            const step = cardWidth + gap;
+
+            const screenCenter = window.innerWidth / 2;
+            const offset = screenCenter - (cardWidth / 2) - (currentIndex * step);
+
+            carousel.style.transform = `translateX(${offset}px)`;
+
+            cards.forEach((card, index) => {
+                if (index === currentIndex) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+
+            prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+            prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+
+            nextBtn.style.opacity = currentIndex === modulesData.length - 1 ? '0.3' : '1';
+            nextBtn.style.pointerEvents = currentIndex === modulesData.length - 1 ? 'none' : 'auto';
+        }
+
+        window.addEventListener('resize', updateCarousel);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < modulesData.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        generateCarousel();
+
+        function openPortal(url, title) {
+            if (isPortalOpen) return;
+            isPortalOpen = true;
+
+            // Make the active card zoom in slightly
+            const activeCard = document.querySelectorAll('.card')[currentIndex];
+            if (activeCard) {
+                activeCard.style.transform = 'scale(1.5)';
+                activeCard.style.opacity = '0';
+                activeCard.style.transition = 'all 0.5s ease';
+            }
+
+            setTimeout(() => {
+                document.getElementById('portalTitle').innerText = title;
+                document.getElementById('portalIframe').src = url;
+                document.getElementById('portalOverlay').classList.add('active');
+            }, 500);
+        }
+
+        function closePortal() {
+            document.getElementById('portalOverlay').classList.remove('active');
+
+            setTimeout(() => {
+                document.getElementById('portalIframe').src = "";
+
+                // Restore active card
+                const activeCard = document.querySelectorAll('.card')[currentIndex];
+                if (activeCard) {
+                    activeCard.style.transform = '';
+                    activeCard.style.opacity = '1';
+                }
+                isPortalOpen = false;
+                updateCarousel();
+            }, 600);
+        }
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

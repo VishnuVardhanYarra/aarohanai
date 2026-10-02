@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Governance 3D Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: radial-gradient(circle at center, #1b263a 0%, #080d14 100%);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            color: white;
+        }
+
+        #scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .carousel {
+            position: relative;
+            width: 350px;
+            height: 450px;
+            transform-style: preserve-3d;
+            animation: spin 25s infinite linear;
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .carousel:hover {
+            animation-play-state: paused;
+        }
+
+        .card-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        /* 4 faces of the carousel positioned in 3D space */
+        .card-container:nth-child(1) {
+            transform: rotateY(0deg) translateZ(350px);
+        }
+
+        .card-container:nth-child(2) {
+            transform: rotateY(90deg) translateZ(350px);
+        }
+
+        .card-container:nth-child(3) {
+            transform: rotateY(180deg) translateZ(350px);
+        }
+
+        .card-container:nth-child(4) {
+            transform: rotateY(270deg) translateZ(350px);
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 40, 80, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 180, 255, 0.4);
+            border-radius: 30px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(120, 180, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Glass shine effect */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+
+        .card-container:hover .card::before {
+            left: 150%;
+        }
+
+        .card-container:hover .card {
+            transform: scale(1.05) translateZ(30px);
+            border-color: #82c4e5;
+            background: rgba(40, 60, 100, 0.6);
+            box-shadow: 0 25px 60px rgba(130, 190, 255, 0.2), inset 0 0 30px rgba(130, 190, 255, 0.3);
+        }
+
+        /* Elements inside card popping out in 3D */
+        .card i {
+            font-size: 5rem;
+            color: #82c4e5;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(130, 190, 255, 0.4);
+            transform: translateZ(60px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-container:hover i {
+            transform: translateZ(90px) scale(1.1);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: white;
+            font-weight: 700;
+            transform: translateZ(50px);
+            transition: transform 0.4s;
+        }
+
+        .card-container:hover h2 {
+            transform: translateZ(70px);
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            transform: translateZ(40px);
+            line-height: 1.5;
+            transition: transform 0.4s;
+        }
+
+        .card-container:hover p {
+            transform: translateZ(50px);
+        }
+
+        .enter-btn {
+            background: linear-gradient(135deg, #3d83a5, #21597d);
+            border: none;
+            padding: 14px 35px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transform: translateZ(55px);
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .card-container:hover .enter-btn {
+            background: linear-gradient(135deg, #82c4e5, #3d83a5);
+            box-shadow: 0 10px 30px rgba(130, 190, 255, 0.4);
+            transform: translateZ(80px) scale(1.05);
+            color: #1b263a;
+        }
+
+        /* Titles & Particles */
+        .main-title {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #fff, #82c4e5, #42a9f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 100;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 115px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            z-index: 100;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            perspective: 800px;
+        }
+
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #82c4e5;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #82c4e5, 0 0 30px #42a9f5;
+            animation: float 10s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateZ(-500px);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100px) translateZ(200px);
+                opacity: 0;
+            }
+        }
+
+        /* Iframe Portal Mode */
+        .portal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .portal-header {
+            height: 70px;
+            background: rgba(10, 15, 25, 0.95);
+            border-bottom: 1px solid rgba(130, 190, 255, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .back-btn {
+            background: rgba(130, 190, 255, 0.1);
+            border: 1px solid #82c4e5;
+            color: #82c4e5;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #82c4e5;
+            color: #080d14;
+            box-shadow: 0 0 20px rgba(130, 190, 255, 0.4);
+            transform: translateX(-5px);
+        }
+
+        .portal-title {
+            margin-left: 30px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .portal-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+            background: #05060a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="main-title">Aarohan Governance</h1>
+    <div class="subtitle">Select Module</div>
+
+    <div class="particles" id="particles"></div>
+
+    <div id="scene">
+        <div class="carousel" id="carousel">
+            <!-- First Face -->
+            <div class="card-container" onclick="openPortal('smartvillage.html', 'Aarohan Governance Dashboard', 0)">
+                <div class="card">
+                    <i class="fas fa-satellite-dish"></i>
+                    <h2>Aarohan Governance</h2>
+                    <p>Access AI-powered governance, schemes, and rural transparency metrics.</p>
+                    <button class="enter-btn">Launch System</button>
+                </div>
+            </div>
+
+            <!-- Second Face -->
+            <div class="card-container" onclick="openPortal('panchayat.html', 'Panchayat Portal Login', 1)">
+                <div class="card">
+                    <i class="fas fa-users-cog"></i>
+                    <h2>Panchayat Login</h2>
+                    <p>Secure encryped login for authorized Panchayat representatives.</p>
+                    <button class="enter-btn">Launch System</button>
+                </div>
+            </div>
+
+            <!-- Third Face -->
+            <div class="card-container" onclick="openPortal('panchayat_admin.html', 'Panchayat Admin', 2)">
+                <div class="card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Panchayat Admin</h2>
+                    <p>Central console for village administration and fund management.</p>
+                    <button class="enter-btn">Launch System</button>
+                </div>
+            </div>
+
+            <!-- Fourth Face -->
+            <div class="card-container" onclick="openPortal('smartvillage.html#chatbot', 'AI Assistant', 3)">
+                <div class="card">
+                    <i class="fas fa-robot"></i>
+                    <h2>AI Assistant</h2>
+                    <p>Interact with Gemini AI to get details on local government regulations.</p>
+                    <button class="enter-btn">Launch System</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The actual iframe overlay where files load -->
+    <div class="portal-overlay" id="portalOverlay">
+        <div class="portal-header">
+            <button class="back-btn" onclick="closePortal()">
+                <i class="fas fa-arrow-left"></i> Back to 3D Menu
+            </button>
+            <div class="portal-title" id="portalTitle">Loading Module...</div>
+        </div>
+        <iframe class="portal-iframe" id="portalIframe" src=""></iframe>
+    </div>
+
+    <script>
+        // Generate glowing ambient particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            let p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 8 + 6) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+
+            let size = Math.random() * 4 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            particlesContainer.appendChild(p);
+        }
+
+        // 3D Parallax & Interaction
+        let carousel = document.getElementById('carousel');
+        let scene = document.getElementById('scene');
+        let isPortalOpen = false;
+
+        document.addEventListener('mousemove', (e) => {
+            if (isPortalOpen) return;
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+            scene.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        function openPortal(url, title, index) {
+            if (isPortalOpen) return;
+            isPortalOpen = true;
+
+            let targetRotation = index * -90;
+
+            carousel.style.animation = 'none';
+            carousel.style.transform = `rotateY(${targetRotation}deg)`;
+
+            scene.style.transform = `translateZ(600px) rotateY(0deg) rotateX(0deg)`;
+
+            setTimeout(() => {
+                document.getElementById('portalTitle').innerText = title;
+                document.getElementById('portalIframe').src = url;
+                document.getElementById('portalOverlay').classList.add('active');
+            }, 700);
+        }
+
+        function closePortal() {
+            document.getElementById('portalOverlay').classList.remove('active');
+
+            setTimeout(() => {
+                document.getElementById('portalIframe').src = "";
+                scene.style.transform = `translateZ(0px) rotateY(0deg) rotateX(0deg)`;
+
+                setTimeout(() => {
+                    carousel.style.animation = 'spin 25s infinite linear';
+                    isPortalOpen = false;
+                }, 800);
+            }, 600);
+        }
+    </script>
+</body>
+
+</html>
+

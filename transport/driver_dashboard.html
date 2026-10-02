@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Dashboard | Aarohan Transport</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1E;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .alert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .alert-content {
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            border: 2px solid #3b82f6;
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .ring {
+            animation: ring 1.5s infinite;
+            transform-origin: top center;
+            display: inline-block;
+            color: #fbbf24;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        @keyframes ring {
+            0% {
+                transform: rotate(0);
+            }
+
+            10% {
+                transform: rotate(15deg);
+            }
+
+            20% {
+                transform: rotate(-15deg);
+            }
+
+            30% {
+                transform: rotate(10deg);
+            }
+
+            40% {
+                transform: rotate(-10deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+
+            60% {
+                transform: rotate(-5deg);
+            }
+
+            70% {
+                transform: rotate(0);
+            }
+        }
+
+        .accept-btn {
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+        }
+
+        .reject-btn {
+            background: #ef4444;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-panel m-4 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <button
+                class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg font-bold transition flex items-center space-x-2 mr-2"
+                onclick="window.location.href='first.html'" title="Back to Transport Hub">
+                <i class="fas fa-arrow-left"></i> <span>Hub</span>
+            </button>
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white"><i
+                        class="fas fa-steering-wheel"></i></div>
+                <div>
+                    <h1 class="text-xl font-bold">Driver Dashboard</h1>
+                    <p class="text-xs text-green-400">● Online - Waiting for rides</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3 bg-gray-800/50 p-1.5 pr-4 rounded-full border border-gray-700">
+                <div
+                    class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold native-profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-sm font-bold text-white native-profile-name">Guest</span>
+                    <span class="text-xs text-blue-400 font-medium native-profile-occ">User</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="p-6 max-w-4xl mx-auto mt-10 text-center">
+        <div class="glass-panel p-10">
+            <i class="fas fa-satellite-dish text-5xl text-blue-400 mb-6 animate-pulse"></i>
+            <h2 class="text-2xl font-semibold mb-2">Scanning for Ride Requests...</h2>
+            <p class="text-gray-400">Stay on this page to receive instant notifications from normal users booking rides.
+            </p>
+        </div>
+
+        <div class="mt-8 text-left">
+            <h3 class="text-lg font-bold mb-4">Today's Accepted Rides</h3>
+            <div id="acceptedRidesList" class="space-y-4">
+                <p class="text-gray-500 italic" id="emptyState">No rides accepted yet today.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incoming Ride Modal -->
+    <div id="rideAlert" class="alert-modal">
+        <div class="alert-content">
+            <i class="fas fa-bell ring"></i>
+            <h2 class="text-2xl font-bold text-white mb-2">New Ride Request!</h2>
+            <div class="bg-black/30 p-4 rounded-xl text-left mb-4">
+                <p class="text-gray-300 mb-1"><i class="fas fa-map-marker-alt text-red-400 w-5"></i> <span
+                        id="alertPickup" class="font-bold text-white"></span></p>
+                <p class="text-gray-300 mb-1"><i class="fas fa-flag-checkered text-green-400 w-5"></i> <span
+                        id="alertDest" class="font-bold text-white"></span></p>
+                <p class="text-gray-300"><i class="fas fa-car text-blue-400 w-5"></i> <span id="alertType"
+                        class="font-bold text-yellow-400"></span></p>
+            </div>
+            <button class="accept-btn" onclick="acceptRide()">Accept Ride</button>
+            <button class="reject-btn"
+                onclick="document.getElementById('rideAlert').style.display='none'">Reject</button>
+        </div>
+    </div>
+
+    <!-- Audio for alert -->
+    <audio id="alertSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"
+        preload="auto"></audio>
+
+    <script>
+        let processedRides = new Set();
+
+        async function checkBookings() {
+            try {
+                const response = await fetch('/api/get_pending_rides');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.rides && data.rides.length > 0) {
+                        const newRides = data.rides.filter(r => !processedRides.has(r._id));
+                        if (newRides.length > 0) {
+                            const latestRide = newRides[0];
+                            processedRides.add(latestRide._id);
+
+                            currentRideData = {
+                                id: latestRide._id,
+                                pickup: latestRide.pickup || '',
+                                dest: latestRide.destination || '',
+                                type: latestRide.rideType || 'Auto'
+                            };
+                            showRideAlert(currentRideData);
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Backend offline, checking fallback...");
+            }
+        }
+
+        function showRideAlert(data) {
+            document.getElementById('alertPickup').innerText = data.pickup;
+            document.getElementById('alertDest').innerText = data.dest || 'Not Specified';
+            document.getElementById('alertType').innerText = data.type;
+            document.getElementById('rideAlert').style.display = 'flex';
+
+            const audio = document.getElementById('alertSound');
+            audio.play().catch(e => console.log('Autoplay prevented'));
+        }
+
+        async function acceptRide() {
+            document.getElementById('rideAlert').style.display = 'none';
+
+            try {
+                // Determine driver identity if logged in
+                const currentUserStr = localStorage.getItem('currentUser');
+                let driverName = "Verified Driver";
+                if (currentUserStr) {
+                    driverName = JSON.parse(currentUserStr).name || "Verified Driver";
+                }
+
+                await fetch('/api/accept_ride', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ride_id: currentRideData.id, driver: driverName })
+                });
+            } catch (e) { console.error("Could not update backend status"); }
+
+            document.getElementById('emptyState').style.display = 'none';
+            const list = document.getElementById('acceptedRidesList');
+            const card = document.createElement('div');
+            card.className = 'glass-panel p-4 flex justify-between items-center border-l-4 border-green-500';
+            card.innerHTML = `
+                <div>
+                    <h4 class="font-bold text-lg">${currentRideData.pickup} ➔ ${currentRideData.dest || 'TBD'}</h4>
+                    <p class="text-sm text-gray-400">Vehicle: <span class="text-yellow-400">${currentRideData.type}</span></p>
+                </div>
+                <div class="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-bold">Accepted</div>
+            `;
+            list.prepend(card);
+            alert("Ride accepted! Coordinate with customer.");
+        }
+
+        // Check for new bookings every 2 seconds
+        setInterval(checkBookings, 2000);
+
+        // initial time set to avoid showing old alerts
+        lastNotificationTime = new Date().getTime();
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,75 @@
+[
+  {
+    "pickup": "Village",
+    "destination": "Market",
+    "vehicleType": "Tractor",
+    "status": "pending",
+    "userName": "Test User",
+    "userPhone": "9999999999",
+    "_id": "6a2794601c0ba57224c9c39a"
+  },
+  {
+    "pickup": "\u0c17\u0c4d\u0c30\u0c3e\u0c2e\u0c02 (Village)",
+    "destination": "\u0c2e\u0c3e\u0c30\u0c4d\u0c15\u0c46\u0c1f\u0c4d (Market)",
+    "vehicleType": "Tractor",
+    "status": "pending",
+    "userName": "\u0c35\u0c3f\u0c37\u0c4d\u0c23\u0c41",
+    "userPhone": "9999999999",
+    "_id": "6a2794731c0ba57224c9c39b"
+  },
+  {
+    "pickup": "\u0c17\u0c4d\u0c30\u0c3e\u0c2e\u0c02 (Village)",
+    "destination": "\u0c2e\u0c3e\u0c30\u0c4d\u0c15\u0c46\u0c1f\u0c4d (Market)",
+    "vehicleType": "Tractor",
+    "status": "pending",
+    "userName": "\u0c35\u0c3f\u0c37\u0c4d\u0c23\u0c41",
+    "userPhone": "9999999999",
+    "_id": "6a27947f1c0ba57224c9c39c"
+  },
+  {
+    "pickup": "\u0c17\u0c4d\u0c30\u0c3e\u0c2e\u0c02 (Village)",
+    "destination": "\u0c2e\u0c3e\u0c30\u0c4d\u0c15\u0c46\u0c1f\u0c4d (Market)",
+    "vehicleType": "Tractor",
+    "status": "pending",
+    "userName": "\u0c35\u0c3f\u0c37\u0c4d\u0c23\u0c41",
+    "userPhone": "9999999999",
+    "_id": "6a27948d1c0ba57224c9c39d"
+  },
+  {
+    "pickup": "Gudivada",
+    "destination": "Vijayawada",
+    "vehicleType": "Bike",
+    "status": "pending",
+    "userName": "charith",
+    "userPhone": "8977763707",
+    "_id": "6aa0e4744cbb26bc39dfb726"
+  },
+  {
+    "pickup": "gudivada Bus Stand",
+    "destination": "gudivada Railway Station",
+    "rideType": "Bike",
+    "price": 48,
+    "passengers": "2",
+    "luggage": "small",
+    "payment": "online",
+    "timestamp": "2026-09-11T09:56:46.281Z",
+    "status": "pending",
+    "_id": "6aa3d05e266b6db5f7ae5041"
+  },
+  {
+    "pickup": "Agraharam Agricultural Farm",
+    "destination": "Crop: Paddy (4 hrs)",
+    "rideType": "DRONE",
+    "status": "pending",
+    "timestamp": "2026-09-11T10:00:27.867Z",
+    "_id": "6aa3d13b266b6db5f7ae5042"
+  },
+  {
+    "pickup": "Agraharam Agricultural Farm",
+    "destination": "Crop: Paddy (4 hrs)",
+    "rideType": "DRONE",
+    "status": "pending",
+    "timestamp": "2026-09-11T10:01:00.914Z",
+    "_id": "6aa3d15c266b6db5f7ae5043"
+  }
+]

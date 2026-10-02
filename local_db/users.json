@@ -1,0 +1,27 @@
+[
+  {
+    "mobile": "9999999999",
+    "password": "89e01536ac207279409d4de1e5253e01f4a1769e696db0d6062ca9b8f56767c8",
+    "name": "John Doe",
+    "occupation": "Farmer",
+    "_id": "6a279133b882468e540aee62"
+  },
+  {
+    "name": "Vishnu",
+    "mobile": "9121528201",
+    "email": "\u0c07\u0c35\u0c4d\u0c35\u0c32\u0c47\u0c26\u0c41",
+    "occupation": "student",
+    "ageDisplay": "21-30 years \u00b7 21-30 \u0c38\u0c02\u0c35\u0c24\u0c4d\u0c38\u0c30\u0c3e\u0c32\u0c41",
+    "password": "4b92517adebf16fbfc846eb7b10f78f78421034407f206a92bbad0d7f3a6bc0f",
+    "_id": "6a279231b882468e540aee63"
+  },
+  {
+    "name": "charith",
+    "mobile": "8977763707",
+    "email": "\u0c07\u0c35\u0c4d\u0c35\u0c32\u0c47\u0c26\u0c41",
+    "occupation": "farmer",
+    "ageDisplay": "11-20 years \u00b7 11-20 \u0c38\u0c02\u0c35\u0c24\u0c4d\u0c38\u0c30\u0c3e\u0c32\u0c41",
+    "password": "4b92517adebf16fbfc846eb7b10f78f78421034407f206a92bbad0d7f3a6bc0f",
+    "_id": "6aa0e3ae4cbb26bc39dfb725"
+  }
+]

@@ -1,0 +1,765 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Farmer · స్మార్ట్ నీటి విశ్లేషణ | వాటర్ అనలిటిక్స్ + చార్ట్స్</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js 3 for modern charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Poppins', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #043b2e 0%, #166b4b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 3D animated background orbs */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle at 20% 30%, #4fd0ff, #1c92d2);
+            border-radius: 60% 40% 70% 30%;
+            top: -150px;
+            left: -120px;
+            z-index: 0;
+            filter: blur(70px);
+            opacity: 0.25;
+            animation: floatWater 22s infinite alternate ease-in-out;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle at 70% 80%, #6dd5a8, #35a07c);
+            border-radius: 40% 60% 30% 70%;
+            bottom: -200px;
+            right: -150px;
+            z-index: 0;
+            filter: blur(90px);
+            opacity: 0.3;
+            animation: floatWater2 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatWater {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 0.2;
+            }
+
+            100% {
+                transform: translate(100px, 60px) scale(1.4) rotate(5deg);
+                opacity: 0.35;
+            }
+        }
+
+        @keyframes floatWater2 {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 0.25;
+            }
+
+            100% {
+                transform: translate(-130px, -80px) scale(1.5) rotate(-8deg);
+                opacity: 0.4;
+            }
+        }
+
+        /* main container */
+        .water-container {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px) saturate(200%);
+            -webkit-backdrop-filter: blur(18px) saturate(200%);
+            border-radius: 70px 70px 60px 60px;
+            box-shadow: 0 40px 70px -10px rgba(0, 30, 20, 0.8), 0 0 0 1.8px rgba(140, 255, 200, 0.4) inset, 0 20px 40px -8px #001f10;
+            padding: 2.8rem 2.8rem;
+            position: relative;
+            z-index: 20;
+            border: 1px solid rgba(120, 255, 200, 0.4);
+            transform: perspective(2000px) rotateX(0.6deg) rotateY(0.2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .water-container:hover {
+            transform: perspective(2000px) rotateX(0.2deg) rotateY(0deg) translateY(-6px);
+            box-shadow: 0 55px 90px -10px #0b5930;
+        }
+
+        /* header */
+        .header-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .title h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #bbffdd, #8effc0, #c0ffb0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 20px #064d2b;
+            line-height: 1.2;
+        }
+
+        .title h1 i {
+            color: #4dd0ff;
+            margin-right: 12px;
+            text-shadow: 0 0 12px #a0ffff;
+        }
+
+        .title .telugu-sub {
+            font-size: 1.9rem;
+            font-weight: 500;
+            color: #b6ffd4;
+            text-shadow: 0 2px 8px #0b4b23;
+            margin-top: 0.3rem;
+        }
+
+        .water-chip {
+            background: rgba(0, 70, 45, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 2.2rem;
+            border-radius: 70px;
+            border: 1px solid #80ffb0;
+            box-shadow: 0 15px 30px -8px #0a6030;
+            color: #e0ffd0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .water-chip i {
+            font-size: 2.2rem;
+            color: #70e0ff;
+        }
+
+        /* main grid: left input panel + right summary + charts */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.8rem;
+        }
+
+        /* left card - crop selector */
+        .calc-card {
+            background: rgba(255, 255, 250, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 50px;
+            padding: 2.2rem 2rem;
+            border: 2px solid #bbffcc;
+            box-shadow: 0 30px 40px -16px #0e4f2a, 0 0 0 2px #dcffc0 inset, 0 -6px 0 #8ad9a0 inset;
+        }
+
+        .calc-card h2 {
+            font-size: 2.2rem;
+            color: #10632d;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .calc-card h2 i {
+            color: #2a9d5e;
+        }
+
+        .crop-selector,
+        .acre-input {
+            margin: 1.8rem 0;
+        }
+
+        .crop-selector label,
+        .acre-input label {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0d621d;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        select,
+        .input-group {
+            width: 100%;
+        }
+
+        select {
+            padding: 1.2rem 2rem;
+            font-size: 1.4rem;
+            border-radius: 60px;
+            border: 2px solid #5aa86c;
+            background: #f6ffdd;
+            color: #155a1f;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%231a7a3a'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1.8rem center;
+            background-size: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 60px;
+            border: 2px solid #6db07b;
+            overflow: hidden;
+        }
+
+        .input-group span {
+            background: #c3f0cf;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #125f21;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 1.2rem 1rem;
+            font-size: 1.4rem;
+            border: none;
+            outline: none;
+            font-weight: 500;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(145deg, #1f9e4a, #137d37);
+            width: 100%;
+            border: none;
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            padding: 1.4rem;
+            border-radius: 60px;
+            box-shadow: 0 20px 30px -10px #0b5120, 0 6px 0 #a1ffb0 inset, 0 -5px 0 #116b28 inset;
+            cursor: pointer;
+            transition: 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 2rem;
+            border: 1px solid #aaffb0;
+        }
+
+        .calculate-btn:hover {
+            background: linear-gradient(145deg, #2fb55a, #1b9940);
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        /* right summary card */
+        .summary-card {
+            background: rgba(230, 255, 240, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 50px;
+            padding: 2.2rem 2rem;
+            border: 2px solid #b2ffcc;
+            box-shadow: 0 30px 40px -16px #0c4f2a;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-card h2 {
+            font-size: 2.1rem;
+            color: #0f6027;
+        }
+
+        .telugu-head {
+            font-size: 1.6rem;
+            color: #1a6e2a;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+        }
+
+        .water-value {
+            background: #dcffd0;
+            border-radius: 60px;
+            padding: 2rem 1.8rem;
+            text-align: center;
+            border: 3px solid #61b875;
+            margin-bottom: 1.5rem;
+        }
+
+        .water-value .amount {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #0c671c;
+            line-height: 1;
+        }
+
+        .water-value .unit {
+            font-size: 1.8rem;
+            color: #1a712a;
+        }
+
+        .crop-stats {
+            display: flex;
+            justify-content: space-between;
+            background: #b7ebc0;
+            border-radius: 40px;
+            padding: 1.2rem 1.8rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0a551a;
+        }
+
+        /* charts row */
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2.5rem 0 2rem;
+        }
+
+        .chart-card {
+            background: rgba(240, 255, 230, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 45px;
+            padding: 1.8rem 1.5rem;
+            border: 2px solid #bbffaa;
+            box-shadow: 0 20px 30px -12px #16662a, 0 -4px 0 #b5fca5 inset;
+            transition: 0.2s;
+        }
+
+        .chart-card h3 {
+            font-size: 1.8rem;
+            color: #0d5e1d;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .chart-card .telugu-small {
+            font-size: 1.3rem;
+            color: #1b712b;
+            background: #daf5cc;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            margin-bottom: 0.8rem;
+        }
+
+        .canvas-container {
+            position: relative;
+            height: 160px;
+            width: 100%;
+        }
+
+        /* utilization & storage row */
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .util-card {
+            background: rgba(240, 255, 230, 0.8);
+            backdrop-filter: blur(8px);
+            border-radius: 45px;
+            padding: 2rem 1.8rem;
+            border: 2px solid #bbffaa;
+            box-shadow: 0 20px 30px -12px #16662a, 0 -4px 0 #b5fca5 inset;
+        }
+
+        .util-card i {
+            font-size: 2.6rem;
+            color: #1d8131;
+            margin-bottom: 0.8rem;
+        }
+
+        .util-card h3 {
+            font-size: 1.9rem;
+            color: #105f21;
+        }
+
+        .util-card .telugu {
+            font-size: 1.5rem;
+            color: #176d27;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: #daf5cc;
+            display: inline-block;
+            padding: 0.2rem 1.5rem;
+            border-radius: 40px;
+        }
+
+        .util-card ul {
+            list-style-type: none;
+            margin-top: 0.8rem;
+        }
+
+        .util-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #9fd893;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            color: #1f4f1f;
+        }
+
+        .util-card li i {
+            font-size: 1.3rem;
+            color: #2b932b;
+        }
+
+        .storage-tip {
+            background: #c2f0d0;
+            border-radius: 40px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            border: 2px solid #80cf95;
+        }
+
+        .storage-tip i {
+            font-size: 3rem;
+            color: #1f7940;
+        }
+
+        @media (max-width: 1100px) {
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="water-container">
+        <!-- header -->
+        <div class="header-section">
+            <div class="title">
+                <h1><i class="fas fa-chart-simple"></i> స్మార్ట్ వాటర్ అనలిటిక్స్</h1>
+                <div class="telugu-sub">Smart Water Analytics · చార్ట్లతో</div>
+            </div>
+            <div class="water-chip">
+                <i class="fas fa-cloud-rain"></i> realtime · per acre
+            </div>
+        </div>
+
+        <!-- top grid: calculator + summary -->
+        <div class="analytics-grid">
+            <div class="calc-card">
+                <h2><i class="fas fa-calculator"></i> నీటి అవసరాల లెక్కింపు</h2>
+                <div class="crop-selector">
+                    <label><i class="fas fa-seedling"></i> పంట రకం / Crop</label>
+                    <select id="cropSelect">
+                        <option value="paddy" selected>వరి (Paddy) - 1800 mm/acre</option>
+                        <option value="sugarcane">చెరకు (Sugarcane) - 2200 mm/acre</option>
+                        <option value="cotton">పత్తి (Cotton) - 900 mm/acre</option>
+                        <option value="maize">మొక్కజొన్న (Maize) - 600 mm/acre</option>
+                        <option value="groundnut">వేరుశనగ (Groundnut) - 500 mm/acre</option>
+                        <option value="vegetables">కూరగాయలు (Vegetables) - 400 mm/acre</option>
+                    </select>
+                </div>
+                <div class="acre-input">
+                    <label><i class="fas fa-ruler-combined"></i> ఎకరాలు / Acres</label>
+                    <div class="input-group">
+                        <span>ఎకరం</span>
+                        <input type="number" id="acresInput" min="0.1" step="0.1" value="1.0">
+                    </div>
+                </div>
+                <button class="calculate-btn" id="calculateBtn"><i class="fas fa-chart-pie"></i> లెక్కించు & అప్డేట్
+                    చార్ట్లు</button>
+            </div>
+
+            <div class="summary-card" id="summaryCard">
+                <h2>మొత్తం నీటి అవసరం</h2>
+                <div class="telugu-head">Total water requirement</div>
+                <div class="water-value" id="waterValue">
+                    <span class="amount" id="totalWater">1,80,000</span>
+                    <span class="unit">లీటర్లు</span>
+                </div>
+                <div class="crop-stats" id="cropStats">
+                    <span>వరి (Paddy)</span>
+                    <span>1800 mm/acre</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts row (3 graphs) -->
+        <div class="charts-row">
+            <!-- Chart 1: Monthly water need (crop stage) -->
+            <div class="chart-card">
+                <h3><i class="fas fa-calendar"></i> నెలవారీ నీటి అవసరం</h3>
+                <div class="telugu-small">Monthly irrigation (mm)</div>
+                <div class="canvas-container">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+            <!-- Chart 2: Water source distribution (storage/utilization) -->
+            <div class="chart-card">
+                <h3><i class="fas fa-fill-drip"></i> నీటి వనరులు</h3>
+                <div class="telugu-small">Source distribution</div>
+                <div class="canvas-container">
+                    <canvas id="sourceChart"></canvas>
+                </div>
+            </div>
+            <!-- Chart 3: Soil moisture trend (simulated) -->
+            <div class="chart-card">
+                <h3><i class="fas fa-moisture"></i> నేల తేమ స్థాయి</h3>
+                <div class="telugu-small">Soil moisture (last 7 days)</div>
+                <div class="canvas-container">
+                    <canvas id="moistureChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- utilization & storage row -->
+        <div class="info-row">
+            <div class="util-card">
+                <i class="fas fa-hand-holding-droplet"></i>
+                <h3>సరైన నీటి వినియోగం</h3>
+                <div class="telugu">Utilization tips</div>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> డ్రిప్ సించనం / Drip (30% saving)</li>
+                    <li><i class="fas fa-check-circle"></i> మల్చింగ్ / Mulching</li>
+                    <li><i class="fas fa-check-circle"></i> క్రిటికల్ దశల్లో మాత్రమే నీరు</li>
+                    <li><i class="fas fa-check-circle"></i> తేమ సెన్సార్లు / Moisture sensors</li>
+                </ul>
+            </div>
+            <div class="util-card">
+                <i class="fas fa-database"></i>
+                <h3>నీటి నిల్వ పద్ధతులు</h3>
+                <div class="telugu">Water storage</div>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> చెక్ డ్యాములు / Check dams</li>
+                    <li><i class="fas fa-check-circle"></i> వర్షపు నీటి సేకరణ</li>
+                    <li><i class="fas fa-check-circle"></i> లైనర్ కుంటలు / Lined ponds</li>
+                    <li><i class="fas fa-check-circle"></i> పునర్భరణ గుంతలు / Recharge pits</li>
+                </ul>
+            </div>
+            <div class="util-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>నీటి షెడ్యూల్</h3>
+                <div class="telugu">Irrigation schedule</div>
+                <div style="background:#c6f0b0; border-radius:30px; padding:1rem; margin:1rem 0;">
+                    <div>🌧️ సోమ: 12 mm | ☀️ మంగళ: 0 mm</div>
+                    <div>🌤️ బుధ: 2 mm | ☀️ గురు: 0 mm</div>
+                </div>
+                <div style="background:#4fb86f; color:white; border-radius:40px; padding:0.8rem; text-align:center;">
+                    <i class="fas fa-tint"></i> తదుపరి నీరు: 3 రోజుల్లో
+                </div>
+            </div>
+        </div>
+
+        <!-- storage footer -->
+        <div
+            style="margin-top:2rem; background:rgba(20,80,30,0.7); backdrop-filter:blur(8px); border-radius:60px; padding:1.5rem 2rem; border:1px solid #9affa0; color:#e5ffd0; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+            <i class="fas fa-farm" style="font-size:2.8rem; color:#d0ffb0;"></i>
+            <div style="font-size:1.3rem;"><strong>తదుపరి సాగు కోసం నీటి నిల్వ:</strong> ప్రతి ఎకరాకు 2 లక్షల లీటర్ల
+                సామర్థ్యంతో చెరువు/కుంట నిర్మించుకోండి. ప్లాస్టిక్ లైనింగ్ వాడి నీటి ఇంకిపోవడం ఆపవచ్చు. ➡️ 30% పన్ను
+                సబ్సిడీ</div>
+        </div>
+    </div>
+
+    <!-- floating orbs -->
+    <div
+        style="position: fixed; bottom:20px; left:20px; width:100px; height:100px; background:#2caf7a; border-radius:50% 30% 60% 40%; filter:blur(40px); opacity:0.15; z-index:1; animation:floatMini 18s infinite;">
+    </div>
+    <div
+        style="position: fixed; top:40px; right:30px; width:150px; height:150px; background:#4dc3ff; border-radius:40% 60% 30% 70%; filter:blur(50px); opacity:0.15; z-index:1; animation:floatMini2 20s infinite reverse;">
+    </div>
+    <style>
+        @keyframes floatMini {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, -30px) scale(1.4);
+            }
+        }
+
+        @keyframes floatMini2 {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-40px, 40px) rotate(10deg);
+            }
+        }
+    </style>
+
+    <script>
+        (function () {
+            const cropSelect = document.getElementById('cropSelect');
+            const acresInput = document.getElementById('acresInput');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const totalWaterSpan = document.getElementById('totalWater');
+            const cropStatsSpan = document.getElementById('cropStats');
+
+            // crop data
+            const cropData = {
+                paddy: { nameEn: 'Paddy', nameTe: 'వరి', mm: 1800, factor: 4050, days: 135 },
+                sugarcane: { nameEn: 'Sugarcane', nameTe: 'చెరకు', mm: 2200, factor: 4050, days: 365 },
+                cotton: { nameEn: 'Cotton', nameTe: 'పత్తి', mm: 900, factor: 4050, days: 165 },
+                maize: { nameEn: 'Maize', nameTe: 'మొక్కజొన్న', mm: 600, factor: 4050, days: 110 },
+                groundnut: { nameEn: 'Groundnut', nameTe: 'వేరుశనగ', mm: 500, factor: 4050, days: 120 },
+                vegetables: { nameEn: 'Vegetables', nameTe: 'కూరగాయలు', mm: 400, factor: 4050, days: 90 }
+            };
+
+            // ----- Chart initializations -----
+            // monthly chart
+            const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+            const monthlyChart = new Chart(monthlyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['జన', 'ఫిబ్ర', 'మార్చి', 'ఏప్రి', 'మే', 'జూన్'],
+                    datasets: [{
+                        label: 'నీరు (mm)',
+                        data: [120, 150, 200, 280, 310, 260],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderRadius: 10
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // source pie chart (water distribution)
+            const sourceCtx = document.getElementById('sourceChart').getContext('2d');
+            const sourceChart = new Chart(sourceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['బోర్ వెల్', 'కాలువ', 'చెరువు', 'వర్షం'],
+                    datasets: [{
+                        data: [45, 30, 15, 10],
+                        backgroundColor: ['#36a2eb', '#4bc0c0', '#ffcd56', '#ff9f40'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // moisture line chart
+            const moistureCtx = document.getElementById('moistureChart').getContext('2d');
+            const moistureChart = new Chart(moistureCtx, {
+                type: 'line',
+                data: {
+                    labels: ['రోజు1', 'రోజు2', 'రోజు3', 'రోజు4', 'రోజు5', 'రోజు6', 'నేడు'],
+                    datasets: [{
+                        label: 'తేమ %',
+                        data: [65, 58, 52, 47, 42, 38, 35],
+                        borderColor: '#36a2eb',
+                        tension: 0.3,
+                        fill: false,
+                        pointBackgroundColor: '#0f7b3a'
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // update function
+            async function updateAll() {
+                const cropKey = cropSelect.value;
+                const acres = parseFloat(acresInput.value) || 1.0;
+                const crop = cropData[cropKey];
+
+                const cropNameStr = cropSelect.options[cropSelect.selectedIndex].text.split('-')[0].trim();
+                totalWaterSpan.innerText = "...";
+
+                try {
+                    const response = await fetch('/api/water-analytics', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ crop: cropNameStr, acres: acres })
+                    });
+
+                    const resData = await response.json();
+                    if (resData.success && resData.data) {
+                        const d = resData.data;
+                        totalWaterSpan.innerText = d.totalWaterLiters.toLocaleString('en-IN');
+                        cropStatsSpan.innerHTML = `<span>${d.cropNameTe}</span><span>${d.waterPerAcreLabel}</span>`;
+
+                        monthlyChart.data.datasets[0].data = d.monthlyData;
+                        sourceChart.data.datasets[0].data = d.sourceData;
+                        moistureChart.data.datasets[0].data = d.moistureData;
+                    } else {
+                        throw new Error("Failed to fetch properly");
+                    }
+                } catch (error) {
+                    console.error("API Error, using fallback:", error);
+                    if (crop) {
+                        const totalLiters = Math.round(crop.mm * acres * crop.factor);
+                        totalWaterSpan.innerText = totalLiters.toLocaleString('en-IN');
+                        cropStatsSpan.innerHTML = `<span>${crop.nameTe} (${crop.nameEn})</span><span>${crop.mm} mm/acre</span>`;
+
+                        if (cropKey === 'paddy') {
+                            monthlyChart.data.datasets[0].data = [180, 220, 280, 320, 350, 300];
+                            sourceChart.data.datasets[0].data = [50, 25, 15, 10];
+                            moistureChart.data.datasets[0].data = [78, 72, 65, 58, 52, 48, 45];
+                        } else if (cropKey === 'sugarcane') {
+                            monthlyChart.data.datasets[0].data = [200, 240, 300, 350, 380, 400];
+                            sourceChart.data.datasets[0].data = [60, 20, 12, 8];
+                            moistureChart.data.datasets[0].data = [70, 65, 60, 55, 50, 48, 46];
+                        } else if (cropKey === 'cotton') {
+                            monthlyChart.data.datasets[0].data = [80, 100, 150, 200, 220, 180];
+                            sourceChart.data.datasets[0].data = [40, 35, 15, 10];
+                            moistureChart.data.datasets[0].data = [55, 50, 45, 40, 38, 35, 32];
+                        } else {
+                            monthlyChart.data.datasets[0].data = [60, 70, 90, 120, 140, 130];
+                            sourceChart.data.datasets[0].data = [30, 40, 20, 10];
+                            moistureChart.data.datasets[0].data = [60, 55, 50, 45, 42, 40, 38];
+                        }
+                    }
+                }
+
+                monthlyChart.update();
+                sourceChart.update();
+                moistureChart.update();
+            }
+
+            calculateBtn.addEventListener('click', updateAll);
+        })();
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,557 @@
+/* ====== GLOBALS & RESET ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #00f0ff;
+    --primary-glow: rgba(0, 240, 255, 0.6);
+    --secondary: #ff0055;
+    --bg-dark: #07070a;
+    --text-light: #ffffff;
+    --glass-bg: rgba(15, 15, 25, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent scrolling for the full-screen app feel */
+    perspective: 1000px;
+}
+
+/* ====== BACKGROUND VIDEO & OVERLAY ====== */
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: linear-gradient(45deg, #0a0a1a, #1a0a2a, #0a1a3a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    /* Semi-transparent so it doesn't overpower the UI */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: -1;
+}
+
+/* ====== GLASSMORPHISM UTILITIES ====== */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+    border-color: var(--primary);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* ====== TOP RIGHT NAV ====== */
+.top-right-nav {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    z-index: 100;
+}
+
+.nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.login-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    color: var(--primary);
+    transform: scale(1.1);
+}
+
+/* ====== AI SIDEBAR ====== */
+.sidebar-btn {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    z-index: 100;
+}
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    background: rgba(10, 10, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.sidebar-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+#close-sidebar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#close-sidebar:hover {
+    color: var(--secondary);
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chat-message.bot {
+    background: rgba(0, 240, 255, 0.1);
+    border-left: 3px solid var(--primary);
+    padding: 1rem;
+    border-radius: 0 10px 10px 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.sidebar-input {
+    padding: 1.5rem;
+    border-top: 1px solid var(--glass-border);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.sidebar-input input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0.8rem 1rem;
+    color: white;
+    outline: none;
+    font-family: inherit;
+}
+
+.sidebar-input input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.sidebar-input button {
+    background: var(--primary);
+    color: #000;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s;
+}
+
+.sidebar-input button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--primary-glow);
+}
+
+
+/* ====== LINEAR CAROUSEL ====== */
+.carousel-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* Hide cards outside the view */
+}
+
+.carousel {
+    display: flex;
+    gap: 40px;
+    /* Gap between cards */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+}
+
+.card {
+    width: 260px;
+    height: 380px;
+    border-radius: 20px;
+    background: rgba(15, 15, 25, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(0.85);
+    /* Scaled down by default */
+    opacity: 0.5;
+    /* Dimmed normally */
+    flex-shrink: 0;
+}
+
+.card img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.5s ease;
+}
+
+.card .info {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+.card h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+/* Active Highlight Style for the card in front */
+.card.active {
+    transform: scale(1.15);
+    /* Enlarge */
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.8), inset 0 0 15px rgba(0, 240, 255, 0.3);
+    border-color: var(--primary);
+    z-index: 10;
+}
+
+.card.active img {
+    transform: scale(1.05);
+}
+
+.card.active h2 {
+    color: var(--primary);
+    text-shadow: 0 0 10px var(--primary-glow);
+    font-size: 1.4rem;
+}
+
+.controls {
+    position: absolute;
+    bottom: 4.5rem; /* Better vertical alignment with the AI Agent Logo */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 400px; /* Widened more to extend prev/next buttons further from the center logo */
+    z-index: 150;
+    pointer-events: none; /* Let clicks pass through the gap to the logo */
+}
+
+.controls button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    pointer-events: auto; /* Buttons remain clickable */
+}
+
+/* Image rotation animation triggered on click */
+.ai-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 10;
+    position: relative;
+}
+
+@keyframes spinLeft {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+@keyframes spinRight {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ai-logo img.animate-rotate-left {
+    animation: spinLeft 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ai-logo img.animate-rotate-right {
+    animation: spinRight 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+/* ====== BOTTOM HEADER AI LOGO ====== */
+.bottom-ai-container {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+}
+
+.ai-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(0, 15, 30, 0.9);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    box-shadow: 0 0 30px var(--primary-glow), inset 0 0 15px var(--primary-glow);
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.ai-logo:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 50px var(--primary), inset 0 0 25px var(--primary);
+}
+
+.ai-logo .core {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: radial-gradient(circle, #fff, var(--primary));
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff;
+    animation: corePulse 2s infinite alternate;
+}
+
+.ai-logo .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: var(--primary);
+    border-bottom-color: var(--secondary);
+}
+
+.ai-logo .ring1 {
+    width: 70px;
+    height: 70px;
+    animation: spinRing 4s linear infinite;
+}
+
+.ai-logo .ring2 {
+    width: 85px;
+    height: 85px;
+    border-top-color: var(--secondary);
+    border-bottom-color: var(--primary);
+    animation: spinRing reverse 6s linear infinite;
+}
+
+@keyframes spinRing {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes corePulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+.ai-glow-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90px;
+    height: 90px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    z-index: 1;
+    animation: ripple 2.5s infinite cubic-bezier(0.1, 0, 0.3, 1);
+}
+
+@keyframes ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+    }
+}
+
+.ai-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: flash 1.5s infinite alternate;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Small adjustments for small screens */
+@media (max-width: 768px) {
+    .card {
+        width: 200px;
+        height: 300px;
+    }
+
+    .top-right-nav {
+        top: 1rem;
+        right: 1rem;
+        gap: 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 350px;
+    }
+}

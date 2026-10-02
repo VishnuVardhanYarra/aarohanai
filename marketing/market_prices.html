@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Market Prices Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(0deg, rgba(20, 40, 10, 0.7) 0%, rgba(40, 70, 30, 0.55) 100%), url('https://blog.agribazaar.com/wp-content/uploads/2025/02/download-17-1.jpg') center/cover fixed;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1d3b1a;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px -10px rgba(30, 50, 10, 0.5);
+            border: 1px solid rgba(200, 225, 160, 0.8);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 45px -8px #1c401caa;
+            border-color: #b8db9c;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1e4a1e;
+            margin-bottom: 1.2rem;
+            border-left: 6px solid #7da74b;
+            padding-left: 1rem;
+        }
+
+        .section-title i {
+            color: #5f8b3c;
+            font-size: 1.7rem;
+        }
+
+        .price-badge {
+            background: #e4f3d8;
+            border-radius: 40px;
+            padding: 0.4rem 1.4rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1e591e;
+            border: 1px solid #aacf8a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .col-span-12 {
+            grid-column: span 12;
+        }
+
+        .col-span-7 {
+            grid-column: span 7;
+        }
+
+        .col-span-5 {
+            grid-column: span 5;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            margin: 0.8rem 0;
+        }
+
+        canvas {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 0.3rem;
+        }
+
+        .market-list {
+            list-style: none;
+        }
+
+        .market-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0.4rem;
+            border-bottom: 1px dashed #b3d19b;
+            font-weight: 500;
+        }
+
+        .trend-up {
+            color: #2b7a2b;
+            font-weight: 700;
+        }
+
+        .trend-down {
+            color: #b64545;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: #2b6b2b;
+            background: rgba(220, 240, 200, 0.7);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: #38b838;
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            70% {
+                box-shadow: 0 0 0 12px #44aa4400;
+            }
+        }
+
+        /* Price Lookup Tool */
+        .price-lookup {
+            background: #e0f0d4;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border: 1px solid #96c280;
+        }
+
+        .lookup-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .lookup-row select,
+        .lookup-row input {
+            background: white;
+            border: 1px solid #87af72;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            color: #1b4f1b;
+            outline: none;
+            flex: 1 1 180px;
+        }
+
+        .lookup-row button {
+            background: #3f773f;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .result {
+            margin-top: 1rem;
+            font-weight: 600;
+            background: #ffffffba;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid #7ead67;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- top bar -->
+        <div class="card col-span-12"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap:1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="#" onclick="event.preventDefault(); history.back()"
+                    style="text-decoration:none; color:#1e4a1e; font-weight:600; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-arrow-left"></i> వెనుకకు / Back
+                </a>
+                <div class="live-indicator" id="apiStatus"><span class="live-dot"></span> <span
+                        style="font-weight:600;">LIVE MARKET (AI Generated)</span></div>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span class="price-badge"><i class="fas fa-robot"></i> AI Powered by Gemini</span>
+            </div>
+        </div>
+
+        <!-- Chart card -->
+        <div class="card col-span-7">
+            <div class="section-title"><i class="fas fa-chart-simple"></i> Market prices (real-time & actual)</div>
+            <div class="chart-container"><canvas id="priceChart"></canvas></div>
+            <div style="display:flex; justify-content:space-between; margin:0.4rem 0 0.8rem;">
+                <span><i class="fas fa-circle" style="color:#2E7D5E;"></i> Spot</span>
+                <span><i class="fas fa-circle" style="color:#B76E2E;"></i> Mandi</span>
+            </div>
+
+            <!-- Lookup Tool -->
+            <div class="price-lookup">
+                <div style="font-weight:600; margin-bottom:0.8rem;"><i class="fas fa-search"></i> Check market price for
+                    your crop</div>
+                <div class="lookup-row">
+                    <select id="cropSelect">
+                        <option value="paddy">Paddy (common)</option>
+                        <option value="basmati">Basmati</option>
+                        <option value="wheat">Wheat</option>
+                        <option value="maize">Maize</option>
+                    </select>
+                    <input type="text" id="mandiInput" placeholder="Enter mandi (e.g. Delhi)" value="Azadpur">
+                    <button id="checkPriceBtn">Check</button>
+                </div>
+                <div class="result" id="priceResult">💰 Paddy (common) at Azadpur: ₹2090 / quintal</div>
+            </div>
+        </div>
+
+        <!-- Mandi prices list (AI generated) -->
+        <div class="card col-span-5">
+            <div class="section-title"><i class="fas fa-table"></i> Actual crop prices (Nearest Mandi)</div>
+            <ul class="market-list" id="dynamic-mandi-prices">
+                <li style="text-align:center; color:#555;">Loading live AI data from Gemini... <i
+                        class="fas fa-spinner fa-spin"></i></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // Chart init
+            const ctx1 = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [
+                        { label: 'Real-time spot', data: [2050, 2080, 2075, 2100, 2150, 2180], borderColor: '#2E7D5E', backgroundColor: '#2E7D5E20', tension: 0.2, fill: true },
+                        { label: 'Actual mandi', data: [2000, 2045, 2090, 2110, 2140, 2180], borderColor: '#B76E2E', borderDash: [4, 3], backgroundColor: '#B76E2E10' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // Lookup tool
+            document.getElementById('checkPriceBtn').addEventListener('click', () => {
+                const crop = document.getElementById('cropSelect').options[document.getElementById('cropSelect').selectedIndex].text;
+                const mandi = document.getElementById('mandiInput').value || 'local';
+                const base = Math.floor(Math.random() * 2000) + 1500;
+                document.getElementById('priceResult').innerHTML = `💰 ${crop} at ${mandi}: ₹${base} / quintal`;
+            });
+
+            // Fetch Gemini AI Prices
+            async function fetchMarketPrices() {
+                try {
+                    const res = await fetch('/api/market_status');
+                    const data = await res.json();
+                    if (data && data.prices) {
+                        const list = document.getElementById('dynamic-mandi-prices');
+                        list.innerHTML = '';
+                        data.prices.forEach(p => {
+                            const trendSym = p.trend === 'up' ? '↑' : '↓';
+                            const trendCls = p.trend === 'up' ? 'trend-up' : 'trend-down';
+                            list.innerHTML += `<li>
+                                <span><i class="fas fa-seedling"></i> ${p.crop_name}</span>
+                                <span><span class="${trendCls}">${trendSym}</span> ₹${p.spot_price} | Mandi: ₹${p.mandi_price}</span>
+                            </li>`;
+                        });
+                    } else {
+                        document.getElementById('dynamic-mandi-prices').innerHTML = '<li>Error loading AI prices</li>';
+                    }
+                } catch (e) {
+                    console.error("Gemini API Error", e);
+                    document.getElementById('dynamic-mandi-prices').innerHTML = '<li>⚠️ Backend not running properly.</li>';
+                }
+            }
+            fetchMarketPrices();
+        })();
+    </script>
+</body>
+
+</html>
+

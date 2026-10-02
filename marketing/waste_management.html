@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Smart Waste Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(0deg, rgba(20, 40, 10, 0.7) 0%, rgba(40, 70, 30, 0.55) 100%), url('https://blog.agribazaar.com/wp-content/uploads/2025/02/download-17-1.jpg') center/cover fixed;
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            color: #1d3b1a;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px -10px rgba(30, 50, 10, 0.5);
+            border: 1px solid rgba(200, 225, 160, 0.8);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 45px -8px #1c401caa;
+            border-color: #b8db9c;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #1e4a1e;
+            margin-bottom: 1.2rem;
+            border-left: 6px solid #7da74b;
+            padding-left: 1rem;
+        }
+
+        .section-title i {
+            color: #5f8b3c;
+            font-size: 1.7rem;
+        }
+
+        .price-badge {
+            background: #e4f3d8;
+            border-radius: 40px;
+            padding: 0.4rem 1.4rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1e591e;
+            border: 1px solid #aacf8a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .col-span-12 {
+            grid-column: span 12;
+        }
+
+        .col-span-8 {
+            grid-column: span 8;
+        }
+
+        .col-span-4 {
+            grid-column: span 4;
+        }
+
+        .waste-guide-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 0.8rem 0;
+        }
+
+        .waste-item {
+            background: #eaf5e2;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            border-left: 6px solid #80aa60;
+            box-shadow: 0 4px 8px #c8e0b5;
+        }
+
+        .waste-item h4 {
+            font-size: 1.2rem;
+            color: #235f23;
+            margin-bottom: 0.3rem;
+        }
+
+        .waste-item p {
+            font-size: 0.9rem;
+            color: #2e542e;
+        }
+
+        .waste-item i {
+            margin-right: 0.4rem;
+            color: #4d803d;
+        }
+
+        .btn-outline {
+            background: #ffffffcc;
+            border: 1.5px solid #548234;
+            color: #225522;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            color: #2b6b2b;
+            background: rgba(220, 240, 200, 0.7);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .waste-guide-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <!-- Top bar -->
+        <div class="card col-span-12"
+            style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap:1rem;">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <a href="#" onclick="event.preventDefault(); history.back()"
+                    style="text-decoration:none; color:#1e4a1e; font-weight:600; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-arrow-left"></i> వెనుకకు / Back
+                </a>
+                <div class="live-indicator"><i class="fas fa-recycle" style="color:#b2ef47"></i> <span
+                        style="font-weight:600;"> WASTE TO WEALTH SYSTEM</span></div>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span class="price-badge" style="cursor: pointer" onclick="alert('Pickup Requested via Aarohan-AI!')"><i
+                        class="fas fa-truck"></i> Schedule Pickup</span>
+            </div>
+        </div>
+
+        <!-- Waste utilization guide -->
+        <div class="card col-span-8">
+            <div class="section-title"><i class="fas fa-recycle"></i> Articulture · What to do with crop waste</div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div style="background:#eaf5e0; border-radius:1.8rem; padding:1rem;">
+                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+                        <span><i class="fas fa-fire" style="color:#b76000;"></i> <strong>Paddy straw pellets</strong>
+                            ₹8.5/kg (BioEnergy)</span>
+                        <span class="price-badge" style="font-size:0.9rem;">demand: High</span>
+                    </div>
+                </div>
+
+                <div class="waste-guide-grid">
+                    <div class="waste-item"><i class="fas fa-seedling"></i>
+                        <h4>🌾 Paddy straw</h4>
+                        <p>Mushroom cultivation, biochar, cattle bedding, pellets for energy.</p>
+                    </div>
+                    <div class="waste-item"><i class="fas fa-wheat-alt"></i>
+                        <h4>🌾 Wheat straw</h4>
+                        <p>Fodder, composting, paper pulp, planters.</p>
+                    </div>
+                    <div class="waste-item"><i class="fas fa-cane"></i>
+                        <h4>🎋 Sugarcane</h4>
+                        <p>Bioethanol, compost, tableware, particle board.</p>
+                    </div>
+                    <div class="waste-item"><i class="fas fa-coconut"></i>
+                        <h4>🥥 Coconut husk</h4>
+                        <p>Coir pith, ropes, mattresses, organic mulch.</p>
+                    </div>
+                </div>
+                <p style="background: #d8eaca; border-radius: 2rem; padding: 0.5rem 1rem; font-size:0.95rem;"><i
+                        class="fas fa-lightbulb"></i> Avoid open burning. Convert waste into income using local
+                    BioEnergy networks!</p>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;" class="col-span-4">
+            <!-- collection nearby -->
+            <div class="card" style="height:fit-content;">
+                <div class="section-title"><i class="fas fa-truck"></i> Waste collection nearby</div>
+                <div
+                    style="background:#e0efd2; border-radius:1.5rem; padding:1rem; display: flex; flex-direction:column; gap:8px;">
+                    <p><i class="fas fa-map-pin"></i> Karnal: paddy straw pickup (tomorrow)</p>
+                    <p><i class="fas fa-map-pin"></i> Muzaffarnagar: sugarcane trash (Fri)</p>
+                    <p><i class="fas fa-phone-alt"></i> Call 1800-345-AAROHAN</p>
+                </div>
+            </div>
+
+            <!-- buyback offers -->
+            <div class="card" style="height:fit-content;">
+                <div class="section-title"><i class="fas fa-clock"></i> Waste buyback offers</div>
+                <div
+                    style="background:#eaf3e0; border-radius:1.5rem; padding:1rem; display: flex; flex-direction:column; gap:8px;">
+                    <span class="price-badge" style="display:block; text-align:center;">₹8.5/kg paddy straw</span>
+                    <span class="price-badge" style="display:block; text-align:center;">₹6/kg bagasse</span>
+                    <p style="margin-top:0.6rem; text-align:center; font-weight: 500;">⏳ 2 days left for premium rate
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+

@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Listing Gateway</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(165deg, #f0f7e8 0%, #deedd0 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .farmer-portal {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 2.8rem;
+            padding: 2rem;
+            box-shadow: 0 30px 45px -25px #2a4f1e, 0 6px 0 0 #e5f0da inset;
+            border: 1px solid rgba(180, 210, 140, 0.7);
+            transition: transform 0.25s ease;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #1b4f1b;
+            margin-bottom: 1.8rem;
+            border-left: 10px solid #e2a643;
+            padding-left: 1.2rem;
+        }
+
+        .section-title i {
+            color: #b37b2c;
+            font-size: 2.2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            color: #2b542b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-field input,
+        .form-field select {
+            background: white;
+            border: 2px solid #c6e0b0;
+            border-radius: 50px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: #308530;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 0 #1b521b;
+            cursor: pointer;
+            border: 1px solid #98c583;
+            width: fit-content;
+        }
+
+        .btn-primary:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #1b521b;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="farmer-portal">
+        <div class="card" style="padding: 1.5rem 2rem;">
+            <div class="flex-between">
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <a href="#" onclick="event.preventDefault(); history.back()"
+                        style="text-decoration:none; color:#3a5c2a; font-weight:600; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-arrow-left"></i> వెనుకకు / Back
+                    </a>
+                    <span style="font-weight:600;"><i class="fas fa-map-marker-alt" style="color:#e2a643"></i> Andhra
+                        Pradesh & Telangana</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <i class="fas fa-clipboard-list"></i> పంట నమోదు · List your crop
+            </div>
+            <form id="cropForm">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label><i class="fas fa-user"></i> పూర్తి పేరు / Full name *</label>
+                        <input type="text" id="farmerName" placeholder="e.g. రాములు / Ramulu" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-location-dot"></i> ప్రాంతం / Location & Pincode *</label>
+                        <input type="text" id="farmerLocation" placeholder="Village, Pincode" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-seedling"></i> పంట రకం / Crop type *</label>
+                        <select id="cropType" required>
+                            <option value="">-- Select --</option>
+                            <option>వరి / Paddy (common)</option>
+                            <option>బాస్మతి / Basmati</option>
+                            <option>మొక్కజొన్న / Maize</option>
+                            <option>పత్తి / Cotton</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-weight-scale"></i> పరిమాణం / Quantity (q) *</label>
+                        <input type="number" id="quantity" placeholder="e.g. 25" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-calendar"></i> కోత తేదీ / Harvesting date *</label>
+                        <input type="date" id="harvestDate" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-tag"></i> అంచనా ధర / Expected price (q)</label>
+                        <input type="number" id="expectedPrice" placeholder="optional">
+                    </div>
+                </div>
+
+                <div style="margin: 1rem 0; width:fit-content" class="form-field">
+                    <label
+                        style="background: #e4f0d8; border-radius: 60px; padding: 0.8rem 2rem; border:2px solid #c6e0b0;"><input
+                            type="checkbox" id="organic"> <i class="fas fa-leaf" style="color:#2f6b2f;"></i> Organic
+                        certified</label>
+                </div>
+
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="btn-primary" id="listSubmitBtn"><i class="fas fa-cloud-upload-alt"></i>
+                        List crop</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('cropForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('listSubmitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving to Database...';
+            btn.disabled = true;
+
+            const data = {
+                farmerName: document.getElementById('farmerName').value,
+                location: document.getElementById('farmerLocation').value,
+                cropType: document.getElementById('cropType').value,
+                quantity: document.getElementById('quantity').value,
+                harvestDate: document.getElementById('harvestDate').value,
+                expectedPrice: document.getElementById('expectedPrice').value,
+                organic: document.getElementById('organic').checked,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch('/api/list_crop', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const resData = await response.json();
+                    alert(`✅ Crop Listed Successfully! Setup in Database (ID: ${resData.id})\\n\\nFactory Direct connections will start reviewing your crop.`);
+                    document.getElementById('cropForm').reset();
+                } else {
+                    alert('❌ Database Error. Make sure backend is running.');
+                }
+            } catch (e) {
+                alert('❌ Backend is not running or network error occurred!');
+            }
+            btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> List crop';
+            btn.disabled = false;
+        });
+    </script>
+</body>
+
+</html>
+
+

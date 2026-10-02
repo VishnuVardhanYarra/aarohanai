@@ -1,0 +1,1451 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan FarmEquip • Tractor & Harvester Booking</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Calender CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(rgba(10, 15, 30, 0.85), rgba(10, 15, 30, 0.85)),
+                url('transport_bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        /* Advanced 3D Background */
+        .farm-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image:
+                linear-gradient(rgba(255, 107, 53, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(239, 71, 111, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg);
+            animation: gridMove 20s linear infinite;
+            top: -50%;
+            left: -50%;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 15s infinite ease-in-out;
+        }
+
+        .shape i {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+
+        .shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            color: #FF6B35;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            color: #EF476F;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            color: #9D4EDD;
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            top: 40%;
+            right: 30%;
+            color: #06D6A0;
+            animation-delay: 6s;
+        }
+
+        @keyframes floatShape {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        /* Main container */
+        .farm-container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            min-height: 100vh;
+        }
+
+        /* Left Panel - Booking Form */
+        .booking-panel {
+            background: rgba(18, 25, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Header */
+        .farm-header {
+            margin-bottom: 32px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .back-button:hover {
+            background: rgba(255, 107, 53, 0.15);
+            transform: translateX(-5px);
+        }
+
+        .farm-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .farm-header h1 span {
+            font-size: 1.4rem;
+            color: #FF6B35;
+            display: block;
+            font-weight: 400;
+            margin-top: 8px;
+        }
+
+        .farm-header h1 span i {
+            color: #06D6A0;
+            margin: 0 5px;
+        }
+
+        /* Equipment Type Cards */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .equipment-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .equipment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .equipment-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .equipment-card.selected {
+            background: rgba(255, 107, 53, 0.15);
+            border-color: #FF6B35;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .equipment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .equipment-card:nth-child(1) .equipment-icon {
+            color: #FF6B35;
+        }
+
+        .equipment-card:nth-child(2) .equipment-icon {
+            color: #06D6A0;
+        }
+
+        .equipment-card:nth-child(3) .equipment-icon {
+            color: #9D4EDD;
+        }
+
+        .equipment-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .equipment-price {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .equipment-price strong {
+            color: #06D6A0;
+            font-size: 1.1rem;
+        }
+
+        /* Location Section */
+        .location-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #FF6B35;
+        }
+
+        .farm-input-group {
+            margin-bottom: 16px;
+        }
+
+        .farm-input-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .farm-input-group label i {
+            color: #EF476F;
+            margin-right: 5px;
+        }
+
+        .farm-input-group input,
+        .farm-input-group select,
+        .farm-input-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: white;
+            font-size: 1rem;
+            padding: 14px 18px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .farm-input-group input:focus,
+        .farm-input-group select:focus,
+        .farm-input-group textarea:focus {
+            border-color: #FF6B35;
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .farm-input-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* Date & Time Selection */
+        .datetime-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .date-time-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Time Slots */
+        .time-slots {
+            margin-top: 20px;
+        }
+
+        .time-slots h3 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-slots h3 i {
+            color: #06D6A0;
+        }
+
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .time-slot {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 12px 8px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-slot.available:hover {
+            background: rgba(6, 214, 160, 0.15);
+            border-color: #06D6A0;
+            transform: translateY(-2px);
+        }
+
+        .time-slot.selected {
+            background: #06D6A0;
+            border-color: #06D6A0;
+            color: #0a0f1e;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(6, 214, 160, 0.3);
+        }
+
+        .time-slot.booked {
+            opacity: 0.3;
+            cursor: not-allowed;
+            text-decoration: line-through;
+            position: relative;
+        }
+
+        .time-slot.booked::after {
+            content: '📅';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.7rem;
+        }
+
+        /* Duration Slider */
+        .duration-section {
+            margin-top: 20px;
+        }
+
+        .duration-slider {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #FF6B35, #EF476F, #9D4EDD);
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px #FF6B35;
+            border: 2px solid #FF6B35;
+        }
+
+        .duration-value {
+            background: rgba(255, 107, 53, 0.15);
+            padding: 8px 16px;
+            border-radius: 40px;
+            color: #FF6B35;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        /* Add-ons Section */
+        .addons-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .addon-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .addon-item:hover {
+            background: rgba(157, 78, 221, 0.1);
+            border-color: #9D4EDD;
+        }
+
+        .addon-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #9D4EDD;
+        }
+
+        .addon-info {
+            flex: 1;
+        }
+
+        .addon-info h4 {
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .addon-info p {
+            color: #9D4EDD;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .addon-info small {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+        }
+
+        /* Price Summary */
+        .price-summary {
+            background: linear-gradient(145deg, rgba(255, 107, 53, 0.15), rgba(6, 214, 160, 0.15));
+            border-radius: 32px;
+            padding: 24px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #06D6A0;
+            padding-top: 20px;
+        }
+
+        .summary-row.total span:last-child {
+            font-size: 2rem;
+        }
+
+        /* Book Button */
+        .book-farm-button {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(45deg, #FF6B35, #EF476F, #9D4EDD, #06D6A0);
+            background-size: 300% 300%;
+            border: none;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .book-farm-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .book-farm-button:hover::before {
+            left: 100%;
+        }
+
+        .book-farm-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .book-farm-button:active {
+            transform: translateY(0);
+        }
+
+        /* Right Panel - Booking Details & Map */
+        .details-panel {
+            background: rgba(18, 25, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Farm Map */
+        .farm-map {
+            background: linear-gradient(145deg, #1a1f30, #0f1420);
+            border-radius: 32px;
+            padding: 20px;
+            margin-bottom: 24px;
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .field-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2px;
+        }
+
+        .field-cell {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            transition: all 0.3s;
+            animation: fieldPulse 4s infinite;
+        }
+
+        .field-cell:nth-child(3n) {
+            animation-delay: 0.5s;
+        }
+
+        .field-cell:nth-child(5n) {
+            animation-delay: 1s;
+        }
+
+        .field-cell:nth-child(7n) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes fieldPulse {
+
+            0%,
+            100% {
+                background: rgba(255, 107, 53, 0.02);
+            }
+
+            50% {
+                background: rgba(6, 214, 160, 0.05);
+            }
+        }
+
+        .tractor-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 53, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: tractorPulse 2s infinite;
+        }
+
+        .tractor-marker i {
+            font-size: 2rem;
+            color: #FF6B35;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
+            animation: tractorMove 3s infinite;
+        }
+
+        @keyframes tractorMove {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-5px) rotate(5deg);
+            }
+        }
+
+        @keyframes tractorPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(255, 107, 53, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+            }
+        }
+
+        .field-info {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            border-radius: 40px;
+            color: white;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        /* Available Equipment */
+        .available-equipment {
+            margin-bottom: 24px;
+        }
+
+        .equipment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .equipment-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .equipment-list::-webkit-scrollbar-thumb {
+            background: #FF6B35;
+            border-radius: 10px;
+        }
+
+        .equipment-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .equipment-list-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .equipment-list-item:hover {
+            background: rgba(255, 107, 53, 0.05);
+            border-color: #FF6B35;
+        }
+
+        .list-item-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 107, 53, 0.1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #FF6B35;
+        }
+
+        .list-item-details {
+            flex: 1;
+        }
+
+        .list-item-details h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .list-item-details p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .list-item-details p i {
+            color: #06D6A0;
+        }
+
+        .list-item-price {
+            text-align: right;
+        }
+
+        .list-item-price .price {
+            color: #06D6A0;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .list-item-price .unit {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.8rem;
+        }
+
+        .availability-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: rgba(6, 214, 160, 0.15);
+            border-radius: 20px;
+            color: #06D6A0;
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        /* Booking Status */
+        .booking-status {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .status-header i {
+            font-size: 1.5rem;
+            color: #FF6B35;
+        }
+
+        .status-header h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .weather-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+        }
+
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #FFD700;
+        }
+
+        .weather-details p {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .weather-details small {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .farm-container {
+                grid-template-columns: 1fr;
+            }
+
+            .slot-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .date-time-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .slot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .addons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .farm-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <!-- Flatpickr for date picking -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <!-- Advanced 3D Background -->
+    <div class="farm-bg">
+        <div class="bg-grid"></div>
+        <div class="floating-shapes">
+            <div class="shape"><i class="fas fa-tractor"></i></div>
+            <div class="shape"><i class="fas fa-fan"></i></div>
+            <div class="shape"><i class="fas fa-spray-can"></i></div>
+            <div class="shape"><i class="fas fa-seedling"></i></div>
+        </div>
+    </div>
+
+    <div class="farm-container">
+        <!-- Left Panel - Booking Form -->
+        <div class="booking-panel">
+            <div class="farm-header">
+                <a href="#" class="back-button" onclick="event.preventDefault(); history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+                <h1>
+                    Farm Equipment Booking
+                    <span><i class="fas fa-tractor"></i> Tractors · Harvesters · Drones <i
+                            class="fas fa-spray-can"></i></span>
+                </h1>
+            </div>
+
+            <!-- Equipment Type Selection -->
+            <div class="equipment-grid">
+                <div class="equipment-card selected" onclick="selectEquipment(this, 'tractor')">
+                    <div class="equipment-icon"><i class="fas fa-tractor"></i></div>
+                    <div class="equipment-name">Tractor</div>
+                    <div class="equipment-price">from <strong>₹550</strong>/hr</div>
+                </div>
+                <div class="equipment-card" onclick="selectEquipment(this, 'harvester')">
+                    <div class="equipment-icon"><i class="fas fa-fan"></i></div>
+                    <div class="equipment-name">Harvester</div>
+                    <div class="equipment-price">from <strong>₹2200</strong>/hr</div>
+                </div>
+                <div class="equipment-card" onclick="selectEquipment(this, 'drone')">
+                    <div class="equipment-icon"><i class="fas fa-spray-can"></i></div>
+                    <div class="equipment-name">Drone</div>
+                    <div class="equipment-price">from <strong>₹900</strong>/hr</div>
+                </div>
+            </div>
+
+            <!-- Location & Field Details -->
+            <div class="location-section">
+                <div class="section-title">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Field Location</span>
+                </div>
+
+                <div class="farm-input-group">
+                    <label><i class="fas fa-location-dot"></i> FARM LOCATION</label>
+                    <input type="text" id="farmLocation" placeholder="Enter village / field location"
+                        value="Tanuku Agricultural Farm">
+                </div>
+
+                <div class="farm-input-group">
+                    <label><i class="fas fa-ruler-combined"></i> FIELD SIZE (ACRES)</label>
+                    <select id="fieldSize">
+                        <option value="1">1 acre</option>
+                        <option value="2">2 acres</option>
+                        <option value="3" selected>3 acres</option>
+                        <option value="4">4 acres</option>
+                        <option value="5">5 acres</option>
+                        <option value="10">10+ acres</option>
+                    </select>
+                </div>
+
+                <div class="farm-input-group">
+                    <label><i class="fas fa-leaf"></i> CROP TYPE</label>
+                    <input type="text" id="cropType" placeholder="e.g., Paddy, Sugarcane, Wheat" value="Paddy">
+                </div>
+
+                <div class="farm-input-group">
+                    <label><i class="fas fa-note-sticky"></i> SPECIAL INSTRUCTIONS</label>
+                    <textarea id="instructions" placeholder="Any specific requirements..."></textarea>
+                </div>
+            </div>
+
+            <!-- Date & Time Selection -->
+            <div class="datetime-section">
+                <div class="section-title">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Schedule</span>
+                </div>
+
+                <div class="date-time-grid">
+                    <div class="farm-input-group">
+                        <label><i class="fas fa-calendar-day"></i> SELECT DATE</label>
+                        <input type="text" id="datePicker" placeholder="Choose date" class="datepicker">
+                    </div>
+
+                    <div class="farm-input-group">
+                        <label><i class="fas fa-hourglass-half"></i> DURATION</label>
+                        <div class="duration-slider">
+                            <input type="range" id="durationSlider" class="slider" min="1" max="8" value="3" step="1"
+                                oninput="updateDuration()">
+                            <span class="duration-value" id="durationValue">3 hrs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slots -->
+                <div class="time-slots">
+                    <h3><i class="fas fa-clock"></i> Available Time Slots</h3>
+                    <div class="slot-grid" id="timeSlotGrid">
+                        <!-- Time slots will be generated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add-ons & Services -->
+            <div class="addons-section">
+                <div class="section-title">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Additional Services</span>
+                </div>
+
+                <div class="addons-grid">
+                    <label class="addon-item">
+                        <input type="checkbox" id="addon1" onchange="updatePrice()">
+                        <div class="addon-info">
+                            <h4>Operator</h4>
+                            <p>+₹200</p>
+                            <small>Skilled operator included</small>
+                        </div>
+                    </label>
+
+                    <label class="addon-item">
+                        <input type="checkbox" id="addon2" onchange="updatePrice()">
+                        <div class="addon-info">
+                            <h4>Fuel</h4>
+                            <p>+₹150/hr</p>
+                            <small>Diesel included</small>
+                        </div>
+                    </label>
+
+                    <label class="addon-item">
+                        <input type="checkbox" id="addon3" onchange="updatePrice()">
+                        <div class="addon-info">
+                            <h4>Transport</h4>
+                            <p>+₹500</p>
+                            <small>Equipment delivery</small>
+                        </div>
+                    </label>
+
+                    <label class="addon-item">
+                        <input type="checkbox" id="addon4" onchange="updatePrice()">
+                        <div class="addon-info">
+                            <h4>Insurance</h4>
+                            <p>+₹100</p>
+                            <small>Crop insurance</small>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary" id="priceSummary">
+                <div class="summary-row">
+                    <span>Base Price (Tractor - 3 hrs)</span>
+                    <span>₹1,650</span>
+                </div>
+                <div class="summary-row">
+                    <span>Field Size (3 acres)</span>
+                    <span>+₹450</span>
+                </div>
+                <div class="summary-row">
+                    <span>Add-ons</span>
+                    <span id="addonsTotal">₹0</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total Amount</span>
+                    <span id="totalAmount">₹2,100</span>
+                </div>
+            </div>
+
+            <!-- Book Button -->
+            <button class="book-farm-button" onclick="bookFarmEquipment()">
+                <i class="fas fa-tractor"></i>
+                <span>CONFIRM BOOKING</span>
+                <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+
+        <!-- Right Panel - Details & Map -->
+        <div class="details-panel">
+            <!-- Farm Map Visualization -->
+            <div class="farm-map">
+                <div class="field-grid" id="fieldGrid"></div>
+                <div class="tractor-marker">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <div class="field-info">
+                    <i class="fas fa-map-pin" style="color: #FF6B35;"></i> 3 Acres · Paddy Field
+                </div>
+            </div>
+
+            <!-- Available Equipment List -->
+            <div class="available-equipment">
+                <div class="section-title">
+                    <i class="fas fa-list"></i>
+                    <span>Available Equipment</span>
+                </div>
+                <div class="equipment-list">
+                    <div class="equipment-list-item" onclick="selectFromList('tractor')">
+                        <div class="list-item-icon"><i class="fas fa-tractor"></i></div>
+                        <div class="list-item-details">
+                            <h4>John Deere Tractor</h4>
+                            <p><i class="fas fa-horse-head"></i> 75 HP · <i class="fas fa-calendar"></i> 2023</p>
+                            <span class="availability-badge"><i class="fas fa-check-circle"></i> Available Today</span>
+                        </div>
+                        <div class="list-item-price">
+                            <div class="price">₹550</div>
+                            <div class="unit">/hour</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-list-item" onclick="selectFromList('harvester')">
+                        <div class="list-item-icon"><i class="fas fa-fan"></i></div>
+                        <div class="list-item-details">
+                            <h4>Combine Harvester</h4>
+                            <p><i class="fas fa-cut"></i> 6ft cut · <i class="fas fa-weight-hanging"></i> Multi-crop</p>
+                            <span class="availability-badge"><i class="fas fa-clock"></i> Available Tomorrow</span>
+                        </div>
+                        <div class="list-item-price">
+                            <div class="price">₹2,200</div>
+                            <div class="unit">/hour</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-list-item" onclick="selectFromList('drone')">
+                        <div class="list-item-icon"><i class="fas fa-spray-can"></i></div>
+                        <div class="list-item-details">
+                            <h4>Agriculture Drone</h4>
+                            <p><i class="fas fa-water"></i> 10L tank · <i class="fas fa-bolt"></i> GPS enabled</p>
+                            <span class="availability-badge"><i class="fas fa-check-circle"></i> Available Today</span>
+                        </div>
+                        <div class="list-item-price">
+                            <div class="price">₹900</div>
+                            <div class="unit">/hour</div>
+                        </div>
+                    </div>
+
+                    <div class="equipment-list-item" onclick="selectFromList('tractor2')">
+                        <div class="list-item-icon"><i class="fas fa-tractor"></i></div>
+                        <div class="list-item-details">
+                            <h4>Mahindra Tractor</h4>
+                            <p><i class="fas fa-horse-head"></i> 50 HP · <i class="fas fa-tools"></i> With attachments
+                            </p>
+                            <span class="availability-badge"><i class="fas fa-check-circle"></i> Available Today</span>
+                        </div>
+                        <div class="list-item-price">
+                            <div class="price">₹450</div>
+                            <div class="unit">/hour</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Status & Weather -->
+            <div class="booking-status">
+                <div class="status-header">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h3>Farming Conditions</h3>
+                </div>
+
+                <div class="weather-info">
+                    <div class="weather-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="weather-details">
+                        <p>28°C · Sunny</p>
+                        <small><i class="fas fa-droplet" style="color: #06D6A0;"></i> 65% Humidity · Perfect for
+                            farming</small>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span
+                        style="background: rgba(255, 107, 53, 0.1); padding: 8px 15px; border-radius: 40px; color: white; font-size: 0.85rem;">
+                        <i class="fas fa-tractor" style="color: #FF6B35;"></i> 4 tractors available
+                    </span>
+                    <span
+                        style="background: rgba(6, 214, 160, 0.1); padding: 8px 15px; border-radius: 40px; color: white; font-size: 0.85rem;">
+                        <i class="fas fa-clock" style="color: #06D6A0;"></i> Peak hours: 6AM-10AM
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize date picker
+        flatpickr("#datePicker", {
+            minDate: "today",
+            maxDate: new Date().fp_incr(30),
+            dateFormat: "d M, Y",
+            defaultDate: "today",
+            onChange: function (selectedDates, dateStr, instance) {
+                generateTimeSlots(dateStr);
+            }
+        });
+
+        // Generate time slots
+        function generateTimeSlots(date) {
+            const slotGrid = document.getElementById('timeSlotGrid');
+            slotGrid.innerHTML = '';
+
+            const slots = [
+                '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM',
+                '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM',
+                '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+            ];
+
+            // Randomly mark some slots as booked
+            slots.forEach((slot, index) => {
+                const slotElement = document.createElement('div');
+                slotElement.className = 'time-slot available';
+
+                // Randomly mark some slots as booked (20% chance)
+                if (Math.random() < 0.2 && index > 2 && index < 10) {
+                    slotElement.className = 'time-slot booked';
+                    slotElement.setAttribute('data-booked', 'true');
+                }
+
+                slotElement.textContent = slot;
+                slotElement.onclick = function () { selectTimeSlot(this); };
+                slotGrid.appendChild(slotElement);
+            });
+        }
+
+        // Select time slot
+        function selectTimeSlot(element) {
+            if (element.classList.contains('booked')) {
+                alert('This time slot is already booked. Please select another time.');
+                return;
+            }
+
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        // Equipment selection
+        let currentEquipment = 'tractor';
+        const equipmentPrices = {
+            tractor: 550,
+            harvester: 2200,
+            drone: 900
+        };
+
+        function selectEquipment(element, equipment) {
+            document.querySelectorAll('.equipment-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            currentEquipment = equipment;
+            updatePrice();
+        }
+
+        function selectFromList(equipment) {
+            if (equipment.includes('tractor')) {
+                selectEquipment(document.querySelector('.equipment-card'), 'tractor');
+            } else if (equipment.includes('harvester')) {
+                selectEquipment(document.querySelectorAll('.equipment-card')[1], 'harvester');
+            } else if (equipment.includes('drone')) {
+                selectEquipment(document.querySelectorAll('.equipment-card')[2], 'drone');
+            }
+        }
+
+        // Update duration
+        function updateDuration() {
+            const slider = document.getElementById('durationSlider');
+            const value = document.getElementById('durationValue');
+            const hours = slider.value;
+            value.textContent = hours + ' hr' + (hours > 1 ? 's' : '');
+            updatePrice();
+        }
+
+        // Update price calculation
+        function updatePrice() {
+            const hours = parseInt(document.getElementById('durationSlider').value);
+            const baseRate = equipmentPrices[currentEquipment];
+            const basePrice = baseRate * hours;
+
+            // Field size multiplier
+            const fieldSize = parseInt(document.getElementById('fieldSize').value);
+            const fieldMultiplier = 1 + (fieldSize - 1) * 0.1; // 10% extra per additional acre
+            const fieldCharge = basePrice * (fieldMultiplier - 1);
+
+            // Add-ons
+            let addonsTotal = 0;
+            if (document.getElementById('addon1').checked) addonsTotal += 200;
+            if (document.getElementById('addon2').checked) addonsTotal += 150 * hours;
+            if (document.getElementById('addon3').checked) addonsTotal += 500;
+            if (document.getElementById('addon4').checked) addonsTotal += 100;
+
+            // Total
+            const total = basePrice + fieldCharge + addonsTotal;
+
+            // Update summary
+            document.querySelector('.summary-row:nth-child(1) span:first-child').textContent =
+                `Base Price (${currentEquipment.charAt(0).toUpperCase() + currentEquipment.slice(1)} - ${hours} hrs)`;
+            document.querySelector('.summary-row:nth-child(1) span:last-child').textContent =
+                `₹${basePrice.toLocaleString()}`;
+
+            document.querySelector('.summary-row:nth-child(2) span:last-child').textContent =
+                `+₹${Math.round(fieldCharge).toLocaleString()}`;
+
+            document.getElementById('addonsTotal').textContent = `+₹${addonsTotal.toLocaleString()}`;
+            document.getElementById('totalAmount').textContent = `₹${Math.round(total).toLocaleString()}`;
+        }
+
+        // Book function
+        async function bookFarmEquipment() {
+            const date = document.getElementById('datePicker').value;
+            const time = document.querySelector('.time-slot.selected')?.textContent;
+            const location = document.getElementById('farmLocation').value;
+            const cropType = document.getElementById('cropType').value;
+            const hours = document.getElementById('durationSlider').value;
+            const total = document.getElementById('totalAmount').textContent;
+
+            if (!time) {
+                alert('Please select a time slot');
+                return;
+            }
+
+            const bookingData = {
+                date: date,
+                time: time,
+                equipment: currentEquipment.toUpperCase(),
+                location: location,
+                cropType: cropType,
+                hours: hours,
+                totalAmount: total,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch('/api/book_farm_equipment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    // Show booking confirmation
+                    alert(`✅ Farm Equipment Booked Successfully! (ID: ${data.id})
+                    
+📅 Date: ${date}
+⏰ Time: ${time}
+⏱️ Duration: ${hours} hours
+🚜 Equipment: ${currentEquipment.toUpperCase()}
+📍 Location: ${location}
+🌾 Crop: ${cropType}
+💰 Total: ${total}
+
+Your booking has been saved in our Database. Driver/Operator will arrive at your farm on scheduled time.`);
+                } else {
+                    alert('❌ Error occurred while saving booking in Database.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Backend is not running or network error occurred!');
+            }
+        }
+
+        // Generate field grid
+        function generateFieldGrid() {
+            const grid = document.getElementById('fieldGrid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 36; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'field-cell';
+                grid.appendChild(cell);
+            }
+        }
+
+        // Initialize
+        generateTimeSlots(new Date());
+        generateFieldGrid();
+        updatePrice();
+
+        // Update map based on field size
+        document.getElementById('fieldSize').addEventListener('change', function () {
+            const size = this.value;
+            document.querySelector('.field-info').innerHTML =
+                `<i class="fas fa-map-pin" style="color: #FF6B35;"></i> ${size} acre${size > 1 ? 's' : ''} · ${document.getElementById('cropType').value || 'Paddy'} Field`;
+        });
+
+        // Update crop type in map
+        document.getElementById('cropType').addEventListener('input', function () {
+            const crop = this.value || 'Paddy';
+            const size = document.getElementById('fieldSize').value;
+            document.querySelector('.field-info').innerHTML =
+                `<i class="fas fa-map-pin" style="color: #FF6B35;"></i> ${size} acre${size > 1 ? 's' : ''} · ${crop} Field`;
+        });
+
+        // Animated counter for price
+        let currentTotal = 2100;
+        setInterval(() => {
+            // Simulate price updates based on demand (just for demo)
+            const randomChange = Math.random() * 10 - 5;
+            // Don't actually update, just for show
+        }, 5000);
+    </script>
+</body>
+
+</html>

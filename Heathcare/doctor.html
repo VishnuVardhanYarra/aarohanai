@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Login · Aarohan Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            background: linear-gradient(145deg, #0d2b3e 0%, #1a4b5e 100%);
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            margin: 1.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .doctor-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 32px;
+            padding: 2.5rem 2.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.4);
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .doctor-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(78, 205, 196, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 2px solid rgba(78, 205, 196, 0.4);
+        }
+
+        .avatar-section h1 {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .avatar-section p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .floating-input input,
+        .floating-input select {
+            width: 100%;
+            padding: 1.2rem 1.5rem 0.8rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: white;
+            outline: none;
+        }
+
+        .floating-input .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .floating-input label {
+            position: absolute;
+            left: 3rem;
+            top: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            transition: 0.2s;
+        }
+
+        .floating-input input:focus~label,
+        .floating-input input:not(:placeholder-shown)~label,
+        .floating-input select:focus~label,
+        .floating-input select:valid~label {
+            top: 0.2rem;
+            font-size: 0.75rem;
+            color: #4ecdc4;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(78, 205, 196, 0.2);
+            border: 1px solid #4ecdc4;
+            border-radius: 16px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: rgba(78, 205, 196, 0.4);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            color: #4ecdc4;
+        }
+
+        .captcha-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.8rem;
+            border-radius: 12px;
+        }
+
+        .captcha-pattern {
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: #4ecdc4;
+            font-size: 1.2rem;
+        }
+
+        .captcha-refresh {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="doctor-card">
+            <div class="avatar-section">
+                <div class="doctor-avatar">
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="white">
+                        <path
+                            d="M12,2C6.48,2,2,6.48,2,12c0,5.52,4.48,10,10,10s10-4.48,10-10C22,6.48,17.52,2,12,2z M12,6c1.93,0,3.5,1.57,3.5,3.5S13.93,13,12,13s-3.5-1.57-3.5-3.5S10.07,6,12,6z M12,20c-2.03,0-4.43-0.82-6-2.28c0-2.56,4-3.72,6-3.72s6,1.16,6,3.72C16.43,19.18,14.03,20,12,20z" />
+                    </svg>
+                </div>
+                <h1 id="formTitle">Doctor Login</h1>
+                <p id="formDesc">Secure healthcare portal</p>
+            </div>
+
+            <form id="doctorForm">
+                <input type="hidden" id="formMode" value="login">
+
+                <div class="form-group floating-input register-field" style="display: none;">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="fullName" placeholder=" ">
+                    <label for="fullName">Full Name</label>
+                </div>
+
+                <div class="form-group floating-input">
+                    <span class="input-icon">📧</span>
+                    <input type="text" id="email" placeholder=" " value="dr.rao@smartvillage.in">
+                    <label for="email">Email / Phone</label>
+                </div>
+
+                <div class="form-group floating-input register-field" style="display: none;">
+                    <span class="input-icon">🩺</span>
+                    <select id="specialization">
+                        <option value="General Physician" selected>General Physician</option>
+                        <option value="Cardiologist">Cardiologist</option>
+                        <option value="Pediatrician">Pediatrician</option>
+                        <option value="Gynecologist">Gynecologist</option>
+                    </select>
+                </div>
+
+                <div class="form-group floating-input">
+                    <span class="input-icon">🔑</span>
+                    <input type="password" id="password" placeholder=" " value="Doctor@123">
+                    <label for="password">Password</label>
+                </div>
+
+                <div class="form-group floating-input">
+                    <span class="input-icon">📍</span>
+                    <select id="location">
+                        <option value="Hyderabad" selected>Hyderabad</option>
+                        <option value="Vizag">Visakhapatnam</option>
+                        <option value="Vijayawada">Vijayawada</option>
+                    </select>
+                </div>
+
+                <div class="captcha-section">
+                    <span class="captcha-pattern" id="captchaDisplay">4F9K2</span>
+                    <span class="captcha-refresh" onclick="refreshCaptcha()">🔄</span>
+                </div>
+
+                <button type="button" class="login-btn" id="loginBtn" onclick="handleAuth()">
+                    Access Dashboard
+                </button>
+
+                <div class="footer-links">
+                    <a href="#" class="footer-link" id="toggleModeLink" onclick="toggleFormMode()">Register as
+                        Doctor</a>
+                    <a href="../home_page/index.html" class="footer-link">Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleFormMode() {
+            const mode = document.getElementById('formMode');
+            const fields = document.querySelectorAll('.register-field');
+            const title = document.getElementById('formTitle');
+            const btn = document.getElementById('loginBtn');
+            const link = document.getElementById('toggleModeLink');
+
+            if (mode.value === 'login') {
+                mode.value = 'register';
+                title.innerText = 'Registration';
+                btn.innerText = 'Create Account';
+                link.innerText = 'Back to Login';
+                fields.forEach(f => f.style.display = 'block');
+            } else {
+                mode.value = 'login';
+                title.innerText = 'Doctor Login';
+                btn.innerText = 'Access Dashboard';
+                link.innerText = 'Register as Doctor';
+                fields.forEach(f => f.style.display = 'none');
+            }
+        }
+
+        async function handleAuth() {
+            const btn = document.getElementById('loginBtn');
+            const mode = document.getElementById('formMode').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const fullName = document.getElementById('fullName').value;
+            const specialization = document.getElementById('specialization').value;
+            const location = document.getElementById('location').value;
+
+            const payload = { email, password, location };
+            if (mode === 'register') {
+                payload.fullName = fullName || email.split('@')[0];
+                payload.specialization = specialization;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Please wait...';
+
+            try {
+                const response = await fetch('/api/doctor_auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('doctorDetails', JSON.stringify(data));
+                    localStorage.setItem('isDoctor', 'true');
+                    window.location.href = 'doctor_dashboard.html';
+                } else {
+                    alert(data.error || 'Auth failed');
+                    btn.disabled = false;
+                    btn.innerText = mode === 'login' ? 'Access Dashboard' : 'Create Account';
+                }
+            } catch (err) {
+                alert('Connection error');
+                btn.disabled = false;
+            }
+        }
+
+        function refreshCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let captcha = '';
+            for (let i = 0; i < 5; i++) captcha += chars[Math.floor(Math.random() * chars.length)];
+            document.getElementById('captchaDisplay').textContent = captcha;
+        }
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

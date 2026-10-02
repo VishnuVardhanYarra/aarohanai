@@ -1,0 +1,510 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Health | Premium Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2d98da;
+            --secondary: #45aaf2;
+            --accent: #eb3b5a;
+            --dark: #2d3436;
+            --light: #f1f2f6;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
+            --gradient: linear-gradient(135deg, #2d98da 0%, #0fbcf9 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background: #f7fbff;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Luxury Header */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .login-badge {
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(45, 152, 218, 0.3);
+            transition: 0.3s;
+        }
+
+        /* Hero Marketing Section */
+        .hero {
+            padding: 5rem 5% 10rem;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+            clip-path: ellipse(100% 70% at 50% 30%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Marketing Content */
+        .main-container {
+            max-width: 1200px;
+            margin: -6rem auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .marketing-card {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+            transition: 0.4s;
+        }
+
+        .marketing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-tag {
+            background: rgba(45, 152, 218, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1e272e;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #485460;
+            font-size: 0.9rem;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid #f1f2f6;
+            background: #f9f9f9;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .btn-luxury {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-luxury:hover {
+            box-shadow: 0 10px 25px rgba(45, 152, 218, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* AI Diet Box */
+        .ai-result {
+            margin-top: 2rem;
+            background: #fdfdfd;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px dashed var(--primary);
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .diet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .diet-item {
+            background: #f1f9ff;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .diet-item h4 {
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .doctor-select-card {
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: 0.3s;
+            padding: 1rem;
+            border-radius: 15px;
+            background: #fafafa;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .doctor-select-card.selected {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+
+        .doc-info h4 {
+            margin-bottom: 0.2rem;
+        }
+
+        .doc-info p {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-hand-holding-medical"></i>
+            Aarohan Health Premium
+        </div>
+        <div class="nav-actions">
+            <a href="../home_page/index.html" style="text-decoration: none; color: #7f8c8d; font-weight: 600;">Home</a>
+            <a href="doctor.html" class="login-badge">Doctor Login</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Advanced Healthcare Marketing</h1>
+        <p>Premium connections to registered specialists, AI-powered nutritional intelligence, and complete medical
+            record keeping.</p>
+    </section>
+
+    <div class="main-container">
+
+        <!-- Left: Appointment & Records Form -->
+        <div class="marketing-card">
+            <span class="card-tag">EXPERT CONSULTATION</span>
+            <h2>Book Premium Specialist</h2>
+            <form id="recordForm">
+                <div class="form-group">
+                    <label>Patient Full Name</label>
+                    <input type="text" id="patientName" placeholder="e.g. Ramesh Kumar" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Symptoms & Duration</label>
+                    <textarea id="symptoms" rows="3" placeholder="Describe how you feel and for how long..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Registered Doctor</label>
+                    <div id="doctorCloud" style="max-height: 250px; overflow-y: auto; padding: 5px;">
+                        <!-- Fetched from Backend -->
+                        <div class="loader" id="docLoader" style="display: block;">
+                            <i class="fas fa-spinner fa-spin"></i> Fetching registered doctors...
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedDoctorEmail">
+                </div>
+
+                <div class="form-group">
+                    <label>Preferred Visit Date</label>
+                    <input type="date" id="prefDate" required>
+                </div>
+
+                <button type="submit" class="btn-luxury">
+                    <i class="fas fa-paper-plane"></i> Appoint & Notify Doctor
+                </button>
+            </form>
+        </div>
+
+        <!-- Right: AI Diet & BMI -->
+        <div class="marketing-card">
+            <span class="card-tag">AI NUTRITIONIST</span>
+            <h2>Smart BMI & Diet Plan</h2>
+            <p style="font-size: 0.9rem; color: #7f8c8d; margin-bottom: 2rem;">Utilizing Gemini 2.5 Flash for customized
+                Telugu nutritional blueprints.</p>
+
+            <form id="dietForm">
+                <div class="diet-grid">
+                    <div class="form-group">
+                        <label>Height (cm)</label>
+                        <input type="number" id="height" placeholder="170" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="65" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Age & Health Condition</label>
+                    <input type="text" id="healthCond" placeholder="e.g. 45, Diabetes">
+                </div>
+
+                <button type="submit" class="btn-luxury" style="background: var(--dark);">
+                    <i class="fas fa-magic"></i> Generate AI Diet Plan
+                </button>
+            </form>
+
+            <div class="loader" id="dietLoader">
+                <i class="fas fa-robot fa-spin fa-2x" style="color: var(--primary)"></i>
+                <p>AI Kittu is analyzing your health profile...</p>
+            </div>
+
+            <div class="ai-result" id="dietOutput">
+                <h3 style="margin-bottom: 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.5rem;" id="bmiValue">
+                    BMI: --</h3>
+                <div class="diet-grid">
+                    <div class="diet-item">
+                        <h4>Breakfast</h4>
+                        <p id="b-text">--</p>
+                    </div>
+                    <div class="diet-item">
+                        <h4>Lunch</h4>
+                        <p id="l-text">--</p>
+                    </div>
+                    <div class="diet-item">
+                        <h4>Snack</h4>
+                        <p id="s-text">--</p>
+                    </div>
+                    <div class="diet-item">
+                        <h4>Dinner</h4>
+                        <p id="d-text">--</p>
+                    </div>
+                </div>
+                <div
+                    style="margin-top: 1rem; background: #fffbeb; padding: 1rem; border-radius: 12px; border: 1px solid #fde68a;">
+                    <i class="fas fa-lightbulb" style="color: #d97706"></i>
+                    <strong id="advice-text">Wait for it...</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Store selected doctor
+        let activeDoctor = null;
+
+        // Fetch Doctors on load
+        async function fetchDocs() {
+            try {
+                const res = await fetch('/api/list_doctors');
+                const data = await res.json();
+                const cloud = document.getElementById('doctorCloud');
+                cloud.innerHTML = '';
+
+                if (data.success && data.doctors.length > 0) {
+                    data.doctors.forEach(doc => {
+                        const div = document.createElement('div');
+                        div.className = 'doctor-select-card';
+                        div.innerHTML = `
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: #e0f2fe; display: flex; align-items: center; justify-content: center; color: #0284c7;">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="doc-info">
+                                <h4>Dr. ${doc.fullName}</h4>
+                                <p>${doc.specialization} • ${doc.location || 'Rural Center'}</p>
+                            </div>
+                        `;
+                        div.onclick = () => {
+                            document.querySelectorAll('.doctor-select-card').forEach(c => c.classList.remove('selected'));
+                            div.classList.add('selected');
+                            document.getElementById('selectedDoctorEmail').value = doc.email;
+                            activeDoctor = doc;
+                        };
+                        cloud.appendChild(div);
+                    });
+                } else {
+                    cloud.innerHTML = '<p style="text-align: center; color: #999;">No registered doctors found.</p>';
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        // Handle Appointment
+        document.getElementById('recordForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('selectedDoctorEmail').value;
+            if (!email) {
+                alert('Please select a registered doctor first!');
+                return;
+            }
+
+            const payload = {
+                patientName: document.getElementById('patientName').value,
+                disease: document.getElementById('symptoms').value,
+                location: 'Premium Portal',
+                doctorEmail: email,
+                prefDate: document.getElementById('prefDate').value
+            };
+
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.innerText = 'Notifying Doctor...';
+
+            try {
+                const res = await fetch('/api/book_appointment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`✨ Appointment Booked!\nDr. ${activeDoctor.fullName} has been notified and your records are shared.`);
+                    e.target.reset();
+                }
+            } catch (err) { alert('Service busy.'); }
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Appoint & Notify Doctor';
+        };
+
+        // Handle AI Diet
+        document.getElementById('dietForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const h = parseFloat(document.getElementById('height').value);
+            const w = parseFloat(document.getElementById('weight').value);
+            const cond = document.getElementById('healthCond').value;
+
+            const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+            let status = 'Healthy';
+            if (bmi < 18.5) status = 'Underweight';
+            else if (bmi > 25) status = 'Overweight';
+
+            document.getElementById('dietLoader').style.display = 'block';
+            document.getElementById('dietOutput').style.display = 'none';
+
+            try {
+                const res = await fetch('/api/ai_diet_suggestion', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bmi, status, health: cond })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const diet = data.diet;
+                    document.getElementById('bmiValue').innerText = `Your BMI: ${bmi} (${status})`;
+                    document.getElementById('b-text').innerText = diet.breakfast;
+                    document.getElementById('l-text').innerText = diet.lunch;
+                    document.getElementById('s-text').innerText = diet.snack;
+                    document.getElementById('d-text').innerText = diet.dinner;
+                    document.getElementById('advice-text').innerText = diet.advice;
+
+                    document.getElementById('dietOutput').style.display = 'block';
+                }
+            } catch (er) { alert('AI is sleeping. Try again.'); }
+            document.getElementById('dietLoader').style.display = 'none';
+        };
+
+        window.onload = fetchDocs;
+    </script>
+</body>
+
+</html>

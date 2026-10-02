@@ -1,0 +1,641 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aarohan Farmer Hub · మీ యూట్యూబ్ ఛానెల్స్</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Noto Telugu -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background: #f1f8ea;
+            min-height: 100vh;
+            color: #1d421d;
+        }
+
+        /* header */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding: 1.2rem 2.5rem;
+            background: #ffffff;
+            border-bottom: 5px solid #6bb054;
+            box-shadow: 0 8px 20px -8px #8ab37a;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #3e9142;
+            background: #def5d0;
+            padding: 0.7rem;
+            border-radius: 30% 70% 30% 70%;
+        }
+
+        .logo span {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #226a2c;
+        }
+
+        .logo small {
+            font-size: 1.2rem;
+            color: #be752b;
+            margin-left: 8px;
+        }
+
+        .filter-panel {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            background: #ecf7e2;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            border: 2px solid #9fca8b;
+        }
+
+        .filter-panel select {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1f692a;
+            padding: 0.4rem 2rem 0.4rem 0.5rem;
+            cursor: pointer;
+            outline: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='%233b8c3b'><path d='M7 10l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 0 center;
+            appearance: none;
+        }
+
+        .search-area {
+            background: #fff;
+            border-radius: 50px;
+            padding: 0.5rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid #9fca90;
+        }
+
+        .search-area input {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            outline: none;
+            width: 200px;
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* hero */
+        .hero-banner {
+            background: linear-gradient(145deg, #3f9145, #1f682b);
+            border-radius: 48px;
+            padding: 2.2rem 3rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            color: white;
+            border: 4px solid #b8eba5;
+            box-shadow: 0 20px 30px -10px #578349;
+        }
+
+        .hero-text h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 #1b521b;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: #e2ffc0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            background: #2f7a3a;
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            border: 2px solid #c2f0a0;
+        }
+
+        .stat .num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #ffffb0;
+        }
+
+        /* trending crops section with clickable pills */
+        .trending-section {
+            margin: 2.5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #1a5924;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 8px solid #7cb86a;
+            padding-left: 1.2rem;
+        }
+
+        .crop-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .crop-pill {
+            background: #ffffff;
+            border: 2px solid #7fb873;
+            border-radius: 60px;
+            padding: 0.8rem 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: #1d6629;
+            box-shadow: 0 8px 12px -8px #9bc289;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .crop-pill i {
+            color: #ca8b2f;
+            font-size: 1.3rem;
+        }
+
+        .crop-pill:hover,
+        .crop-pill.active {
+            background: #39853e;
+            color: white;
+            border-color: #c5f0a0;
+        }
+
+        .crop-pill.active i {
+            color: #ffdb7c;
+        }
+
+        .process-card {
+            background: #ffffff;
+            border-radius: 48px;
+            padding: 2rem 2.5rem;
+            border: 2px solid #a2cf8f;
+            box-shadow: 0 25px 35px -15px #82aa72;
+            margin: 2rem 0 3rem;
+            display: none;
+        }
+
+        .process-card.show {
+            display: block;
+        }
+
+        .process-title {
+            font-size: 2rem;
+            color: #1d6229;
+            border-bottom: 3px solid #bde0a8;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .step {
+            background: #f4ffee;
+            border-radius: 28px;
+            padding: 1.5rem;
+            border-left: 8px solid #7fb86b;
+        }
+
+        .step h4 {
+            font-size: 1.4rem;
+            color: #216b2e;
+            margin-bottom: 0.5rem;
+        }
+
+        /* video cards grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .video-card {
+            background: #ffffff;
+            border-radius: 32px;
+            overflow: hidden;
+            border: 2px solid #b7daa5;
+            box-shadow: 0 15px 25px -10px #7b9f6e;
+            transition: 0.2s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: #6ca857;
+        }
+
+        .thumb {
+            width: 100%;
+            height: 170px;
+            background-size: cover;
+            background-position: center;
+            background-color: #c2ddb2;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 4px 10px black;
+        }
+
+        .thumb .overlay {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            background: #00000080;
+            backdrop-filter: blur(4px);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        .info {
+            padding: 1.3rem 1.2rem 1.8rem;
+        }
+
+        .info h4 {
+            font-size: 1.3rem;
+            color: #1b5f27;
+            margin-bottom: 0.3rem;
+        }
+
+        .channel {
+            color: #3f7845;
+            font-weight: 500;
+            margin: 0.5rem 0;
+        }
+
+        .btn-watch {
+            background: #2e7d32;
+            border: none;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 0.8rem;
+            border: 1px solid #a0d68a;
+        }
+
+        .btn-watch i {
+            color: #ffdb7c;
+        }
+
+        .btn-watch:hover {
+            background: #3f9845;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-header">
+        <div class="logo">
+            <i class="fas fa-tractor"></i>
+            <span>Aarohan Farmer Hub <small>రైతు హబ్</small></span>
+        </div>
+        <div class="filter-panel">
+            <label><i class="fas fa-filter"></i> పంట / Crop</label>
+            <select id="cropSelect">
+                <option value="all">🌾 అన్ని పంటలు</option>
+                <option value="paddy">🌾 వరి (Paddy)</option>
+                <option value="cotton">🌿 పత్తి (Cotton)</option>
+                <option value="sugarcane">🎋 చెరకు (Sugarcane)</option>
+                <option value="vegetables">🍅 కూరగాయలు</option>
+                <option value="fruits">🍎 పండ్లు</option>
+            </select>
+        </div>
+        <div class="search-area">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="వీడియోలు వెతకండి...">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- hero -->
+        <div class="hero-banner">
+            <div class="hero-text">
+                <h2>Aarohan Farmer Hub</h2>
+                <p><i class="fas fa-play"></i> 6 ప్రత్యక్ష తెలుగు ఛానెల్స్ · డ్రోన్ · IoT · డ్రిప్</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat"><span class="num">6+</span> ఛానెల్స్</div>
+                <div class="stat"><span class="num">1000+</span> వీడియోలు</div>
+            </div>
+        </div>
+
+        <!-- trending crops with clickable pills (process) -->
+        <div class="trending-section">
+            <div class="section-title"><i class="fas fa-fire"></i> ట్రెండింగ్ పంటలు · నొక్కండి</div>
+            <div class="crop-pills" id="cropPills">
+                <div class="crop-pill" data-crop="dragonfruit"><i class="fas fa-dragon"></i> డ్రాగన్ ఫ్రూట్ (₹3-5లక్షలు)
+                </div>
+                <div class="crop-pill" data-crop="stevia"><i class="fas fa-leaf"></i> స్టెవియా (₹2-4లక్షలు)</div>
+                <div class="crop-pill" data-crop="mulberry"><i class="fas fa-tree"></i> మల్బరీ (₹1.5-3లక్షలు)</div>
+                <div class="crop-pill" data-crop="quinoa"><i class="fas fa-seedling"></i> క్వినోవా (₹2-3లక్షలు)</div>
+                <div class="crop-pill" data-crop="coffee"><i class="fas fa-mug-hot"></i> కాఫీ/మిరప (₹2-4లక్షలు)</div>
+            </div>
+            <!-- process containers (hidden by default) -->
+            <div id="processContainer">
+                <div class="process-card" id="process-dragonfruit">
+                    <div class="process-title">డ్రాగన్ ఫ్రూట్ సాగు</div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <h4>🌱 నాటు</h4>
+                            <p>1x1x1 మీ గుంతలు, 20 రోజులు ఎండబెట్టి, ఎరువు కలపండి.</p>
+                        </div>
+                        <div class="step">
+                            <h4>💧 డ్రిప్</h4>
+                            <p>డ్రిప్ ఇరిగేషన్ తప్పనిసరి. వారానికి 2-3 సార్లు.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌿 ఎరువులు</h4>
+                            <p>యూరియా, పొటాష్ స్ప్లిట్ డోసులు.</p>
+                        </div>
+                        <div class="step">
+                            <h4>✂️ పంట</h4>
+                            <p>12-18 నెలలకు ఫలాలు ప్రారంభం.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card" id="process-stevia">
+                    <div class="process-title">స్టెవియా సాగు</div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <h4>🌱 నారు</h4>
+                            <p>కటింగ్స్ ద్వారా విస్తరణ, 4-6 వారాలు.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌿 నాటు</h4>
+                            <p>45x30 సెం.మీ దూరం, మల్చింగ్.</p>
+                        </div>
+                        <div class="step">
+                            <h4>💧 నీరు</h4>
+                            <p>డ్రిప్ ద్వారా తేమ నియంత్రణ.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌾 కోత</h4>
+                            <p>120 రోజులకు తొలి కోత, సంవత్సరానికి 3-4 కోతలు.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card" id="process-mulberry">
+                    <div class="process-title">మల్బరీ (పట్టు)</div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <h4>🌱 నాటు</h4>
+                            <p>కోత కొమ్మలు 60x60 సెం.మీ దూరంలో.</p>
+                        </div>
+                        <div class="step">
+                            <h4>💧 నీరు</h4>
+                            <p>డ్రిప్ ద్వారా 10-12 రోజులకు ఒకసారి.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌿 పోషణ</h4>
+                            <p>ఎకరాకు 20 టన్నుల కంపోస్ట్.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🐛 పట్టు</h4>
+                            <p>ఆకులు కోసి పురుగులకు ఆహారం, 25 రోజులకు కోకన్లు.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card" id="process-quinoa">
+                    <div class="process-title">క్వినోవా సాగు</div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <h4>🌱 విత్తనం</h4>
+                            <p>2-3 కేజీ/ఎకరం, వరసలు 30 సెం.మీ.</p>
+                        </div>
+                        <div class="step">
+                            <h4>💧 నీరు</h4>
+                            <p>తక్కువ నీరు, 20-25 రోజులకు ఒకసారి.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌿 ఎరువులు</h4>
+                            <p>డిఎపి, యూరియా స్ప్లిట్ డోసులు.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌾 కోత</h4>
+                            <p>120-150 రోజులకు పంటకోత.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-card" id="process-coffee">
+                    <div class="process-title">కాఫీ/మిరప</div>
+                    <div class="process-steps">
+                        <div class="step">
+                            <h4>🌱 నాటు</h4>
+                            <p>కాఫీ 2x2 మీ, మిరప 60x45 సెం.మీ.</p>
+                        </div>
+                        <div class="step">
+                            <h4>💧 డ్రిప్</h4>
+                            <p>రెండింటికీ డ్రిప్ అనువైనది.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🌿 పోషకాలు</h4>
+                            <p>కంపోస్ట్, యూరియా, పొటాష్.</p>
+                        </div>
+                        <div class="step">
+                            <h4>🍒 కోత</h4>
+                            <p>కాఫీ పండ్లు ఎర్రగా మారగానే కోయాలి.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== EXACT 6 CHANNELS YOU PROVIDED ===== -->
+        <div class="section-title"><i class="fab fa-youtube"></i> మీ ఛానెల్స్ · నేరుగా యూట్యూబ్‌లో చూడండి</div>
+        <div class="video-grid" id="exactChannelsGrid"></div>
+
+        <!-- technology shelf -->
+        <div class="section-title"><i class="fas fa-microchip"></i> సాంకేతికత & యంత్రాలు</div>
+        <div class="video-grid" id="techGrid"></div>
+    </div>
+
+    <script>
+        (function () {
+            // ---------- THE EXACT 6 CHANNELS WITH CORRECT YOUTUBE LINKS ----------
+            const channels = [
+                { name: "Village Agriculture Telugu", url: "https://www.youtube.com/results?search_query=village+agriculture+telugu", views: "23k", thumb: "https://images.unsplash.com/photo-1599139158328-c287006737b0?w=600&h=340&fit=crop", desc: "గ్రామీణ వ్యవసాయ పద్ధతులు, యంత్రాలు" },
+                { name: "Mana Rythu Telugu", url: "https://www.youtube.com/results?search_query=mana+rythu+telugu", views: "34k", thumb: "https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=600&h=340&fit=crop", desc: "రైతులకు నిత్యం అవసరమైన సమాచారం" },
+                { name: "Rythu Nestam Telugu", url: "https://www.youtube.com/results?search_query=rythu+nestam+telugu", views: "56k", thumb: "https://images.unsplash.com/photo-1621955964441-c1c9e8a5b5b2?w=600&h=340&fit=crop", desc: "వరి, పత్తి, చెరకు సాగు చిట్కాలు" },
+                { name: "Mana Farmer Telugu", url: "https://www.youtube.com/results?search_query=mana+farmer+telugu", views: "41k", thumb: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&h=340&fit=crop", desc: "సేంద్రియ, తక్కువ పెట్టుబడి పద్ధతులు" },
+                { name: "Urban Farming India", url: "https://www.youtube.com/@UrbanFarmingIndia", views: "67k", thumb: "https://images.unsplash.com/photo-1613743985216-2cf91f6d8df9?w=600&h=340&fit=crop", desc: "కిచెన్ గార్డెన్, డ్రిప్, చిన్న స్థల సాగు" },
+                { name: "Future Farming (Gurucharan)", url: "https://www.youtube.com/@FutureFarming", views: "19k", thumb: "https://images.unsplash.com/photo-1569528618092-45e10d1d70eb?w=600&h=340&fit=crop", desc: "అజోలా, డ్రిప్, కోళ్ల పెంపకం" }
+            ];
+
+            const exactGrid = document.getElementById('exactChannelsGrid');
+            exactGrid.innerHTML = '';
+            channels.forEach(ch => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="thumb" style="background-image: linear-gradient(#1e3b1eb3, #1e3b1eb3), url('${ch.thumb}');">
+                        <i class="fab fa-youtube" style="font-size:3.5rem; color:#ff0000dd;"></i>
+                        <span class="overlay"><i class="fas fa-eye"></i> ${ch.views}</span>
+                    </div>
+                    <div class="info">
+                        <h4>${ch.name}</h4>
+                        <div class="channel"><i class="fas fa-user"></i> ${ch.name}</div>
+                        <div class="meta">${ch.desc}</div>
+                        <a href="${ch.url}" target="_blank" class="btn-watch"><i class="fab fa-youtube"></i> యూట్యూబ్‌లో చూడండి</a>
+                    </div>
+                `;
+                exactGrid.appendChild(card);
+            });
+
+            // tech videos (static)
+            const techGrid = document.getElementById('techGrid');
+            const techVideos = [
+                { title: "డ్రోన్ సర్వే & మ్యాపింగ్", channel: "Rythu Nestam", views: "34k", thumb: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&h=340&fit=crop" },
+                { title: "IoT నేల పరీక్ష", channel: "Mana Farmer", views: "26k", thumb: "https://images.unsplash.com/photo-1628350421048-5f6f5c86fb86?w=600&h=340&fit=crop" },
+                { title: "డ్రిప్ ఇరిగేషన్ గైడ్", channel: "Urban Farming India", views: "67k", thumb: "https://images.unsplash.com/photo-1621955964441-c1c9e8a5b5b2?w=600&h=340&fit=crop" }
+            ];
+            techGrid.innerHTML = '';
+            techVideos.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.innerHTML = `
+                    <div class="thumb" style="background-image: linear-gradient(#1e3b1eb3, #1e3b1eb3), url('${v.thumb}');">
+                        <i class="fas fa-play-circle"></i>
+                        <span class="overlay"><i class="fas fa-eye"></i> ${v.views}</span>
+                    </div>
+                    <div class="info">
+                        <h4>${v.title}</h4>
+                        <div class="channel">${v.channel}</div>
+                    </div>
+                `;
+                techGrid.appendChild(card);
+            });
+
+            // clickable trending pills + AI process generation
+            const pills = document.querySelectorAll('.crop-pill');
+            const processContainer = document.getElementById('processContainer');
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', async function () {
+                    const crop = this.dataset.crop;
+                    const cropName = this.innerText;
+
+                    pills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Hide all static cards
+                    document.querySelectorAll('.process-card').forEach(c => c.classList.remove('show'));
+
+                    // Check if static card exists and hide it, we will generate a dynamic one
+                    let dynamicCard = document.getElementById('dynamic-process-card');
+                    if (!dynamicCard) {
+                        dynamicCard = document.createElement('div');
+                        dynamicCard.id = 'dynamic-process-card';
+                        dynamicCard.className = 'process-card show';
+                        processContainer.prepend(dynamicCard);
+                    } else {
+                        dynamicCard.classList.add('show');
+                    }
+
+                    dynamicCard.innerHTML = `<div class="process-title"><i class="fas fa-spinner fa-spin"></i> ${cropName} కోసం AI సమాచారం సేకరిస్తోంది...</div>`;
+
+                    try {
+                        const response = await fetch('/api/farming-process', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ crop: cropName })
+                        });
+
+                        const data = await response.json();
+                        if (data.success && data.steps) {
+                            let stepsHtml = data.steps.map(step => `
+                                <div class="step">
+                                    <h4>${step.icon} ${step.title}</h4>
+                                    <p>${step.desc}</p>
+                                </div>
+                            `).join('');
+
+                            dynamicCard.innerHTML = `
+                                <div class="process-title">${cropName} - AI గైడ్</div>
+                                <div class="process-steps">${stepsHtml}</div>
+                            `;
+                        } else {
+                            throw new Error("API failed");
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        // fallback to static card if it exists
+                        dynamicCard.classList.remove('show');
+                        const target = document.getElementById(`process-${crop}`);
+                        if (target) target.classList.add('show');
+                    }
+                });
+            });
+
+            // search filter
+            document.getElementById('searchInput').addEventListener('input', function (e) {
+                const term = e.target.value.toLowerCase();
+                document.querySelectorAll('.video-card').forEach(card => {
+                    const title = card.querySelector('h4')?.innerText.toLowerCase() || '';
+                    card.style.display = title.includes(term) || term === '' ? 'block' : 'none';
+                });
+            });
+        })();
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>
+

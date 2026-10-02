@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>స్మార్ట్ విలేజ్ గవర్నెన్స్ | Aarohan Governance</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans Telugu', sans-serif;
+            background: #0A0F1E;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+            }
+        }
+
+        /* Custom Classes */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 197, 94, 0.2));
+            padding: 1px;
+        }
+
+        .gradient-border>div {
+            background: #0A0F1E;
+            border-radius: 24px;
+            height: 100%;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(34, 197, 94, 0.1));
+            border-radius: 24px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(34, 197, 94, 0.15));
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #06b6d4, #22c55e);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .badge-warning {
+            background: rgba(234, 179, 8, 0.2);
+            color: #eab308;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .glow-animation {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #06b6d4, #22c55e);
+            border-radius: 4px;
+        }
+
+        /* Telugu Text */
+        .telugu {
+            font-family: 'Noto Sans Telugu', sans-serif;
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #06b6d4, #22c55e);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: #06b6d4;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Section Padding for Navigation */
+        section {
+            scroll-margin-top: 100px;
+        }
+
+        /* Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        /* Form Elements */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #06b6d4;
+        }
+
+        /* Category Tabs */
+        .category-tab {
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .category-tab:hover {
+            background: rgba(6, 182, 212, 0.1);
+            color: #06b6d4;
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+
+        /* Language Switch */
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+        }
+
+        .lang-btn {
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel m-4 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <button onclick="window.location.href='../home_page/index.html'"
+                    class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-cyan-400 transition-colors mr-2 cursor-pointer"
+                    title="Back to Home Page">
+                    <i class="fas fa-home"></i>
+                </button>
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-green-500 flex items-center justify-center">
+                    <i class="fas fa-satellite-dish text-white text-lg"></i>
+                </div>
+                <div>
+                    <span
+                        class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent block telugu">
+                        స్మార్ట్ గ్రామం
+                    </span>
+                    <span class="text-xs text-gray-400 block">Aarohan-AI</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link" data-nav="home">Home</a>
+                <a href="#schemes" class="nav-link" data-nav="schemes">Schemes</a>
+                <a href="#dashboard" class="nav-link" data-nav="dashboard">Dashboard</a>
+                <a href="#requests" class="nav-link" data-nav="requests">Requests</a>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <div class="lang-switch">
+                    <span class="lang-btn active" data-lang="te">తెలుగు</span>
+                    <span class="lang-btn" data-lang="en">English</span>
+                </div>
+                <button
+                    class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button
+                    class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-cyan-400 transition-colors">
+                    <i class="fas fa-bell"></i>
+                </button>
+                <button onclick="adminLogin()" title="Admin Login"
+                    class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center hover:text-cyan-400 transition-colors text-yellow-500">
+                    <i class="fas fa-user-shield"></i>
+                </button>
+                <div class="flex items-center space-x-3 ml-4 pl-4 border-l border-gray-700/50">
+                    <div
+                        class="flex items-center space-x-2 bg-slate-800/50 p-1.5 pr-3 rounded-full border border-slate-700/50">
+                        <div
+                            class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-green-500 flex items-center justify-center text-white font-bold text-sm native-profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="flex flex-col line-height-tight">
+                            <span class="text-xs font-bold text-white native-profile-name leading-tight">Guest</span>
+                            <span
+                                class="text-[10px] text-cyan-400 font-medium native-profile-occ leading-tight">User</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[80vh] flex items-center mb-20">
+            <div class="w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div data-aos="fade-right">
+                        <div class="badge badge-info mb-6">
+                            <i class="fas fa-robot mr-2"></i>
+                            <span class="telugu">AI-ఆధారిత పాలన</span> | AI-Powered Governance
+                        </div>
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                            <span
+                                class="bg-gradient-to-r from-cyan-400 via-white to-green-400 bg-clip-text text-transparent block telugu">
+                                డిజిటల్ పారదర్శకత
+                            </span>
+                            <span class="text-white block telugu">స్మార్ట్ గ్రామాలకు</span>
+                            <span class="text-2xl text-gray-400 mt-2 block">Digital Transparency for Smart
+                                Villages</span>
+                        </h1>
+                        <p class="text-xl text-gray-400 mb-8 leading-relaxed max-w-lg telugu">
+                            బ్లాక్‌చెయిన్-ధృవీకరించబడిన పాలన మరియు నిజ-సమయ పారదర్శకతతో గ్రామీణ సమాజాలను శక్తివంతం చేయడం.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="btn-primary px-8 py-4"
+                                onclick="document.getElementById('schemes').scrollIntoView({behavior: 'smooth'})">
+                                <i class="fas fa-play-circle mr-2"></i>
+                                <span class="telugu">పథకాలు చూడండి</span>
+                            </button>
+                            <button class="btn-secondary px-8 py-4"
+                                onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'})">
+                                <i class="fas fa-compass mr-2"></i>
+                                <span class="telugu">డాష్‌బోర్డ్</span>
+                            </button>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-6 mt-12">
+                            <div>
+                                <div class="text-3xl font-bold text-cyan-400">150+</div>
+                                <div class="text-sm text-gray-400 telugu">స్మార్ట్ గ్రామాలు</div>
+                                <div class="text-xs text-gray-500">Aarohan-AIs</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-green-400">₹45Cr</div>
+                                <div class="text-sm text-gray-400 telugu">నిధులు నిర్వహించబడ్డాయి</div>
+                                <div class="text-xs text-gray-500">Funds Managed</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold text-purple-400">2.5K</div>
+                                <div class="text-sm text-gray-400 telugu">చురుకైన ప్రాజెక్టులు</div>
+                                <div class="text-xs text-gray-500">Active Projects</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative" data-aos="fade-left">
+                        <div class="gradient-border floating">
+                            <div class="p-8">
+                                <img src="https://imgcdn.stablediffusionweb.com/2024/12/21/1770b1d7-01a3-4688-9425-83e9b372f338.jpg"
+                                    alt="Aarohan-AI Illustration" class="w-full h-auto">
+                            </div>
+                        </div>
+
+                        <!-- Floating Cards -->
+                        <div class="absolute -top-10 -right-10 glass-panel p-4 floating" style="animation-delay: 0.2s">
+                            <i class="fas fa-chart-line text-2xl text-cyan-400 mb-2"></i>
+                            <div class="text-sm text-gray-400 telugu">చురుకైన ప్రాజెక్టులు</div>
+                            <div class="text-2xl font-bold">156 <span class="text-green-400 text-sm">+12%</span></div>
+                        </div>
+
+                        <div class="absolute -bottom-10 -left-10 glass-panel p-4 floating"
+                            style="animation-delay: 0.4s">
+                            <i class="fas fa-users text-2xl text-green-400 mb-2"></i>
+                            <div class="text-sm text-gray-400 telugu">పౌరులు చేరుకున్నారు</div>
+                            <div class="text-2xl font-bold">45.2K</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Government Schemes Explorer - Moved to Top -->
+        <section id="schemes" class="mb-20">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-2">
+                    <span class="telugu">ప్రభుత్వ పథకాలు</span>
+                </h2>
+                <p class="text-gray-400">Government Schemes</p>
+                <p class="text-gray-400 max-w-2xl mx-auto mt-2 telugu">వివిధ రంగాలకు సంక్షేమ పథకాలను అన్వేషించండి</p>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-8" data-aos="fade-up">
+                <button class="category-tab active" data-category="all">
+                    <span class="telugu">అన్ని పథకాలు</span>
+                </button>
+                <button class="category-tab" data-category="farmers">
+                    <i class="fas fa-tractor mr-2"></i>
+                    <span class="telugu">రైతులు</span>
+                </button>
+                <button class="category-tab" data-category="youth">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    <span class="telugu">యువత</span>
+                </button>
+                <button class="category-tab" data-category="infrastructure">
+                    <i class="fas fa-road mr-2"></i>
+                    <span class="telugu">మౌలిక సదుపాయాలు</span>
+                </button>
+                <button class="category-tab" data-category="healthcare">
+                    <i class="fas fa-heart mr-2"></i>
+                    <span class="telugu">ఆరోగ్య సంరక్షణ</span>
+                </button>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="max-w-2xl mx-auto mb-12" data-aos="fade-up">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="పథకాలను శోధించండి | Search schemes..."
+                        class="w-full glass-panel py-4 pl-12 pr-4 rounded-xl focus:outline-none focus:border-cyan-400 transition-all">
+                </div>
+            </div>
+
+            <!-- Scheme Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 - PM Kisan -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://pmkisan.gov.in', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                            <i class="fas fa-seedling text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-success telugu">చురుకుగా ఉంది</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">పీఎం కిసాన్ సమ్మాన్ నిధి</h3>
+                    <p class="text-xs text-gray-400 mb-2">PM Kisan Samman Nidhi</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">రైతు కుటుంబాలకు సంవత్సరానికి ₹6000 ఆదాయ మద్దతు</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">భూమి కలిగిన రైతులందరూ</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">Benefit: ₹6,000/సంవత్సరం</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 2 - PMJJBY -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/x5w8pjc4uoGTMsQBF', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
+                            <i class="fas fa-shield-heart text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-info telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">పీఎం జీవన్ జ్యోతి బీమా యోజన</h3>
+                    <p class="text-xs text-gray-400 mb-2">PMJJBY</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">తక్కువ ప్రీమియంతో ₹2 లక్షల జీవిత బీమా రక్షణ</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">18-50 సంవత్సరాల వయస్సు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">Life Cover: ₹2,00,000</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 3 - Atal Pension Yojana -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/aajVE9WLHNRvhVrGZ', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                            <i class="fas fa-hand-holding-heart text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-success telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">అటల్ పెన్షన్ యోజన</h3>
+                    <p class="text-xs text-gray-400 mb-2">Atal Pension Yojana</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">అసంఘటిత రంగ కార్మికుల కోసం గ్యారెంటీ పెన్షన్</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">18-40 సంవత్సరాల వయస్సు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">Pension: Up to ₹5,000</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 4 - AP HOUSING -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/95OrHop5QcwQl7pl3', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center">
+                            <i class="fas fa-house-user text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-info telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">ఏపీ హౌసింగ్ స్కీమ్</h3>
+                    <p class="text-xs text-gray-400 mb-2">AP HOUSING</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">పేదలకు పక్కా ఇళ్లు నిర్మించి ఇచ్చే పథకం</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">తెల్ల రేషన్ కార్డు కలిగిన వారు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">సొంత ఇంటి కల సాకారం</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 5 - INDIRAMMA Old Age Pension -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/f3zGImaeBlVPWDzAG', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                            <i class="fas fa-user-friends text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-success telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">ఇందిరమ్మ వృద్ధాప్య పెన్షన్</h3>
+                    <p class="text-xs text-gray-400 mb-2">INDIRAMMA Pension</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">వృద్ధులకు సామాజిక భద్రత మరియు ఆర్థిక సహాయం</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">60 ఏళ్లు పైబడిన వారు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">నెలవారీ గౌరవ వేతనం</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 6 - Three Wheeler for Disabled -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/SHMndY0P6lg4QNvlp', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
+                            <i class="fas fa-wheelchair text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-info telugu">Special</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">దివ్యాంగులకు మోటరైజ్డ్ వాహనం</h3>
+                    <p class="text-xs text-gray-400 mb-2">Motorized Three Wheeler</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">దివ్యాంగుల రవాణా సౌకర్యం కోసం ఉచిత వాహనం</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">40% పైగా అంగవైకల్యం</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">ఉచిత మూడు చక్రాల బండి</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 7 - Ayushman Bharat -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://nha.gov.in', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                            <i class="fas fa-notes-medical text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-success telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">ఆయుష్మాన్ భారత్</h3>
+                    <p class="text-xs text-gray-400 mb-2">Ayushman Bharat</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">కుటుంబానికి సంవత్సరానికి ₹5 లక్షల వరకు ఆరోగ్య కవరేజీ
+                    </p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">అన్ని గ్రామీణ కుటుంబాలు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">Coverage: ₹5,00,000</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 8 - AP OBMMS -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://share.google/dE6o3kgo1gXEJdSfN', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center">
+                            <i class="fas fa-users-cog text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-info telugu">Welfare</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">ఏపీ OBMMS సంక్షేమ పథకం</h3>
+                    <p class="text-xs text-gray-400 mb-2">AP OBMMS</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">బీసీ, ఎస్సీ, మైనారిటీల స్వయం ఉపాధికి రుణాలు</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">వెనుకబడిన తరగతుల ప్రజలు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">సబ్సిడీతో కూడిన రుణాలు</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+
+                <!-- Card 9 - Rythu Bharosa -->
+                <div class="glass-panel p-6 hover-lift scheme-card cursor-pointer"
+                    onclick="window.open('https://ysrrythubharosa.ap.gov.in', '_blank')">
+                    <div class="flex justify-between items-start mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-emerald-700 flex items-center justify-center">
+                            <i class="fas fa-tractor text-white text-xl"></i>
+                        </div>
+                        <span class="badge badge-success telugu">Active</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1 telugu">రైతు భరోసా</h3>
+                    <p class="text-xs text-gray-400 mb-2">Rythu Bharosa</p>
+                    <p class="text-gray-400 text-sm mb-4 telugu">రైతులకు పెట్టుబడి సహాయం అందించే పథకం</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-400 w-5"></i>
+                            <span class="text-gray-300 telugu">వ్యవసాయ భూమి ఉన్న రైతులు</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-tag text-cyan-400 w-5"></i>
+                            <span class="text-gray-300">Investment Support</span>
+                        </div>
+                    </div>
+                    <button class="w-full btn-primary telugu">Apply Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transparency Dashboard -->
+        <section id="dashboard" class="mb-20">
+            <div class="flex justify-between items-center mb-12" data-aos="fade-up">
+                <div>
+                    <h2 class="text-4xl font-bold mb-2">
+                        <span class="telugu">పారదర్శకత డాష్‌బోర్డ్</span>
+                    </h2>
+                    <p class="text-gray-400">Transparency Dashboard</p>
+                    <p class="text-gray-400 mt-2 telugu">గ్రామ అభివృద్ధి యొక్క నిజ-సమయ అవలోకనం</p>
+                </div>
+                <button class="btn-secondary">
+                    <i class="fas fa-download mr-2"></i>
+                    <span class="telugu">నివేదిక డౌన్‌లోడ్</span>
+                </button>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-gray-400 text-sm telugu">మంజూరు చేయబడిన మొత్తం</p>
+                            <h3 class="text-3xl font-bold text-cyan-400">₹12.5Cr</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-cyan-400/20 flex items-center justify-center">
+                            <i class="fas fa-rupee-sign text-cyan-400"></i>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-gray-400 text-sm telugu">ఖర్చు చేసిన మొత్తం</p>
+                            <h3 class="text-3xl font-bold text-green-400">₹8.2Cr</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-green-400"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400">65.6% మొత్తం బడ్జెట్</p>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-gray-400 text-sm telugu">మిగిలిన మొత్తం</p>
+                            <h3 class="text-3xl font-bold text-yellow-400">₹4.3Cr</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-yellow-400/20 flex items-center justify-center">
+                            <i class="fas fa-clock text-yellow-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                        <span class="text-sm text-gray-400">34.4% మిగిలి ఉంది</span>
+                    </div>
+                </div>
+
+                <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <p class="text-gray-400 text-sm telugu">ప్రమాద సూచిక</p>
+                            <h3 class="text-3xl font-bold text-green-400">తక్కువ</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-green-400/20 flex items-center justify-center">
+                            <i class="fas fa-shield text-green-400"></i>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                        <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                        <div class="w-2 h-2 rounded-full bg-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Budget Ring -->
+                <div class="glass-panel p-6" data-aos="fade-right">
+                    <h3 class="text-xl font-semibold mb-6">
+                        <span class="telugu">బడ్జెట్ వినియోగం</span>
+                    </h3>
+                    <div class="relative flex justify-center">
+                        <svg class="w-48 h-48 transform -rotate-90">
+                            <circle cx="96" cy="96" r="88" fill="none" stroke="rgba(255,255,255,0.1)"
+                                stroke-width="12" />
+                            <circle cx="96" cy="96" r="88" fill="none" stroke="url(#gradient)" stroke-width="12"
+                                stroke-dasharray="553" stroke-dashoffset="193" stroke-linecap="round" />
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#06b6d4" />
+                                    <stop offset="100%" stop-color="#22c55e" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="text-4xl font-bold text-cyan-400">65%</span>
+                                <p class="text-sm text-gray-400 telugu">వినియోగించబడింది</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Breakdown -->
+                <div class="glass-panel p-6 lg:col-span-2" data-aos="fade-left">
+                    <h3 class="text-xl font-semibold mb-6">
+                        <span class="telugu">వర్గాల వారీగా విభజన</span>
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400 telugu">మౌలిక సదుపాయాలు</span>
+                                <span class="text-cyan-400">35%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 35%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400 telugu">ఆరోగ్య సంరక్షణ</span>
+                                <span class="text-green-400">20%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400 telugu">విద్య</span>
+                                <span class="text-yellow-400">15%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400 telugu">వ్యవసాయం</span>
+                                <span class="text-purple-400">20%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 20%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2">
+                                <span class="text-gray-400 telugu">పారిశుధ్యం</span>
+                                <span class="text-pink-400">10%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Material Breakdown Table -->
+            <div class="glass-panel p-6" data-aos="fade-up">
+                <h3 class="text-xl font-semibold mb-6">
+                    <span class="telugu">మెటీరియల్-వారీగా విభజన</span>
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-white/10">
+                                <th class="text-left py-4 text-gray-400 font-medium telugu">మెటీరియల్</th>
+                                <th class="text-left py-4 text-gray-400 font-medium telugu">కేటాయించబడింది</th>
+                                <th class="text-left py-4 text-gray-400 font-medium telugu">ఖర్చు చేయబడింది</th>
+                                <th class="text-left py-4 text-gray-400 font-medium telugu">మిగిలి ఉంది</th>
+                                <th class="text-left py-4 text-gray-400 font-medium telugu">పురోగతి</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 telugu">సిమెంట్</td>
+                                <td class="py-4 text-cyan-400">₹2.5Cr</td>
+                                <td class="py-4 text-green-400">₹1.8Cr</td>
+                                <td class="py-4 text-yellow-400">₹0.7Cr</td>
+                                <td class="py-4">
+                                    <div class="progress-bar w-32">
+                                        <div class="progress-fill" style="width: 72%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <td class="py-4 telugu">ఉక్కు</td>
+                                <td class="py-4 text-cyan-400">₹3.2Cr</td>
+                                <td class="py-4 text-green-400">₹2.1Cr</td>
+                                <td class="py-4 text-yellow-400">₹1.1Cr</td>
+                                <td class="py-4">
+                                    <div class="progress-bar w-32">
+                                        <div class="progress-fill" style="width: 66%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 telugu">కార్మికులు</td>
+                                <td class="py-4 text-cyan-400">₹1.8Cr</td>
+                                <td class="py-4 text-green-400">₹1.4Cr</td>
+                                <td class="py-4 text-yellow-400">₹0.4Cr</td>
+                                <td class="py-4">
+                                    <div class="progress-bar w-32">
+                                        <div class="progress-fill" style="width: 78%"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Citizen Requirement Submission -->
+        <section id="requests" class="mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Submission Form -->
+                <div class="glass-panel p-8" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-2 telugu">అభ్యర్థనను సమర్పించండి</h3>
+                    <p class="text-gray-400 mb-6">Raise a Request</p>
+                    <form id="submissionForm" class="space-y-5">
+                        <div>
+                            <label class="form-label telugu">అభ్యర్థన శీర్షిక</label>
+                            <input type="text" id="req_title" class="form-input"
+                                placeholder="e.g., త్రాగునీటి సౌకర్యం అవసరం" required>
+                        </div>
+
+                        <div>
+                            <label class="form-label telugu">వర్గం</label>
+                            <select id="req_cat" class="form-input">
+                                <option class="bg-slate-900 telugu">మౌలిక సదుపాయాలు</option>
+                                <option class="bg-slate-900 telugu">ఆరోగ్య సంరక్షణ</option>
+                                <option class="bg-slate-900 telugu">విద్య</option>
+                                <option class="bg-slate-900 telugu">పారిశుధ్యం</option>
+                                <option class="bg-slate-900 telugu">విద్యుత్</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="form-label telugu">వివరణ</label>
+                            <textarea id="req_desc" rows="4" class="form-input"
+                                placeholder="మీ అవసరాన్ని వివరంగా తెలియజేయండి..." required></textarea>
+                        </div>
+
+                        <div>
+                            <label class="form-label telugu">అత్యవసర స్థాయి</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="urgency" value="Low" class="mr-2 accent-cyan-400" checked>
+                                    <span class="text-sm text-gray-300 telugu">తక్కువ</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="urgency" value="Medium" class="mr-2 accent-yellow-400">
+                                    <span class="text-sm text-gray-300 telugu">మధ్యస్థం</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="urgency" value="High" class="mr-2 accent-red-400">
+                                    <span class="text-sm text-gray-300 telugu">అధికం</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary py-4">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span class="telugu">అభ్యర్థన సమర్పించండి</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Active Requests -->
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-2 telugu">చురుకైన కమ్యూనిటీ అభ్యర్థనలు</h3>
+                    <p class="text-gray-400 mb-6">Active Community Requests</p>
+
+                    <div id="requestsList" class="space-y-4">
+                        <!-- Requests will be loaded here -->
+                        <div class="text-center py-10 opacity-50">
+                            <i class="fas fa-spinner fa-spin text-3xl mb-2"></i>
+                            <p>Loading community requests...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- AI Assistant Chatbot -->
+        <section id="chatbot" class="mb-20">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-4xl font-bold mb-2">
+                    <span class="telugu">స్మార్ట్ ఏఐ సహాయకుడు</span>
+                </h2>
+                <p class="text-gray-400">Smart AI Assistant</p>
+                <p class="text-gray-400 max-w-2xl mx-auto mt-2 telugu">చట్టపరమైన మరియు పంచాయతీ సలహాల కొరకు జెమిని తో
+                    మాట్లాడండి</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto glass-panel p-6" data-aos="fade-up">
+                <div id="chat-box" class="h-64 overflow-y-auto mb-4 p-4 rounded-xl"
+                    style="background: rgba(0,0,0,0.3); border: 1px solid rgba(6, 182, 212, 0.2);">
+                    <div class="flex items-start mb-4">
+                        <div
+                            class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-3 mt-1">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="bg-gray-800/80 rounded-xl px-4 py-2 text-sm max-w-[80%]">
+                            Hello! I am the Aarohan-AI AI Assistant powered by Gemini. Ask me any questions regarding
+                            local governance, schemes, or agriculture!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2">
+                    <input type="text" id="chat-input" class="form-input flex-1"
+                        placeholder="Type your message here... | మీ సందేశాన్ని ఇక్కడ టైప్ చేయండి...">
+                    <button id="send-btn" class="btn-primary flex items-center justify-center">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel m-4 p-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-green-500 flex items-center justify-center">
+                            <i class="fas fa-satellite-dish text-white text-sm"></i>
+                        </div>
+                        <div>
+                            <span class="text-lg font-bold telugu">స్మార్ట్ గ్రామం</span>
+                            <span class="text-xs text-gray-400 block">Aarohan-AI</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm telugu">పారదర్శక గ్రామ అభివృద్ధి కోసం డిజిటల్ పాలన వేదిక.</p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 telugu">త్వరిత లింకులు</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">మా గురించి</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">సంప్రదించండి</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">గోప్యతా విధానం</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">ఉపయోగ నిబంధనలు</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 telugu">వనరులు</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">సహాయ కేంద్రం</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">డాక్యుమెంటేషన్</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">API యాక్సెస్</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors telugu">కమ్యూనిటీ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 telugu">కనెక్ట్ అవ్వండి</h4>
+                    <div class="flex space-x-3">
+                        <a href="#"
+                            class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center hover:text-cyan-400 transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center hover:text-cyan-400 transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center hover:text-cyan-400 transition-all">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-lg glass-panel flex items-center justify-center hover:text-cyan-400 transition-all">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-6 text-center text-sm text-gray-400">
+                <p class="telugu">© 2024 స్మార్ట్ విలేజ్ గవర్నెన్స్ ప్లాట్‌ఫాం. అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.</p>
+                <p>© 2024 Aarohan Governance Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scroll for navigation with proper offset
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    const offset = 100; // Height of fixed navbar
+                    const elementPosition = targetElement.offsetTop - offset;
+
+                    window.scrollTo({
+                        top: elementPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Active navigation highlight with scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let current = '';
+            const scrollPosition = window.scrollY + 150; // Offset for navbar
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href').replace('#', '');
+                if (href === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+
+        // Language switcher
+        const langBtns = document.querySelectorAll('.lang-btn');
+        const teluguElements = document.querySelectorAll('.telugu');
+        const englishTexts = document.querySelectorAll('.text-gray-400:not(.telugu)');
+
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Update active state
+                langBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const lang = this.dataset.lang;
+
+                if (lang === 'te') {
+                    // Show Telugu, hide English
+                    document.querySelectorAll('.telugu').forEach(el => el.style.display = 'block');
+                    document.querySelectorAll('.text-gray-400:not(.telugu)').forEach(el => {
+                        if (el.classList.contains('telugu')) return;
+                        el.style.display = 'none';
+                    });
+                } else {
+                    // Show English, hide Telugu
+                    document.querySelectorAll('.telugu').forEach(el => el.style.display = 'none');
+                    document.querySelectorAll('.text-gray-400:not(.telugu)').forEach(el => {
+                        if (el.classList.contains('telugu')) return;
+                        el.style.display = 'block';
+                    });
+                }
+            });
+        });
+
+        // Category filter for schemes
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const schemeCards = document.querySelectorAll('.scheme-card');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                // Update active tab
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                const category = this.dataset.category;
+
+                // Filter cards
+                schemeCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('input[placeholder*="శోధించండి"]');
+        if (searchInput) {
+            searchInput.addEventListener('input', function (e) {
+                const searchTerm = e.target.value.toLowerCase();
+
+                schemeCards.forEach(card => {
+                    const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+                    const desc = card.querySelector('.text-gray-400.text-sm')?.textContent.toLowerCase() || '';
+
+                    if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        }
+
+        // AI Chatbot Logic
+        document.getElementById('send-btn').addEventListener('click', async () => {
+            const inputField = document.getElementById('chat-input');
+            const chatBox = document.getElementById('chat-box');
+            const message = inputField.value.trim();
+            if (!message) return;
+
+            // Add user message
+            const userHtml = `
+            <div class="flex items-start mb-4 justify-end">
+                <div class="bg-cyan-600 rounded-xl px-4 py-2 text-sm text-white max-w-[80%]">${message}</div>
+                <div class="w-8 h-8 rounded bg-gray-700 text-gray-300 flex items-center justify-center ml-3 mt-1"><i class="fas fa-user"></i></div>
+            </div>`;
+            chatBox.insertAdjacentHTML('beforeend', userHtml);
+            inputField.value = '';
+            chatBox.scrollTo(0, chatBox.scrollHeight);
+
+            // Add loading indicator
+            const loadingId = 'loading-' + Date.now();
+            const loadingHtml = `
+            <div id="${loadingId}" class="flex items-start mb-4">
+                <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-3 mt-1"><i class="fas fa-robot animate-pulse"></i></div>
+                <div class="bg-gray-800/80 rounded-xl px-4 py-2 text-sm max-w-[80%] text-gray-400 italic">Thinking...</div>
+            </div>`;
+            chatBox.insertAdjacentHTML('beforeend', loadingHtml);
+            chatBox.scrollTo(0, chatBox.scrollHeight);
+
+            try {
+                const response = await fetch('/api/ai_assistant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: message })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId).remove();
+
+                const botMsg = data.response ? data.response : "Error generating response.";
+
+                const botHtml = `
+                <div class="flex items-start mb-4">
+                    <div class="w-8 h-8 rounded bg-cyan-500/20 text-cyan-400 flex items-center justify-center mr-3 mt-1"><i class="fas fa-robot"></i></div>
+                    <div class="bg-gray-800/80 rounded-xl px-4 py-2 text-sm max-w-[80%] whitespace-pre-wrap">${botMsg}</div>
+                </div>`;
+                chatBox.insertAdjacentHTML('beforeend', botHtml);
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                chatBox.insertAdjacentHTML('beforeend', `<div class="text-red-400 text-sm text-center my-2">Network Error connecting to AI.</div>`);
+            }
+            chatBox.scrollTo(0, chatBox.scrollHeight);
+        });
+
+        // Community Requests Submission & Data Fetching
+        async function fetchRequests() {
+            try {
+                const response = await fetch('/api/panchayat/requests');
+                const data = await response.json();
+                if (data.success) {
+                    const list = document.getElementById('requestsList');
+                    if (data.requests.length === 0) {
+                        list.innerHTML = '<p class="text-center text-gray-500 py-10">No requests yet.</p>';
+                        return;
+                    }
+                    list.innerHTML = '';
+                    data.requests.forEach(req => {
+                        const badgeClass = req.urgency === 'High' ? 'badge-danger' : (req.urgency === 'Medium' ? 'badge-warning' : 'badge-success');
+                        const card = `
+                        <div class="glass-panel p-6 hover-lift">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h4 class="font-semibold text-lg">${req.title}</h4>
+                                    <p class="text-xs text-gray-400 mt-1">${req.category} · ${req.timestamp}</p>
+                                </div>
+                                <span class="badge ${badgeClass}">${req.urgency}</span>
+                            </div>
+                            <p class="text-sm text-gray-400 mb-4">${req.description}</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs ${req.status === 'Pending' ? 'text-yellow-500' : 'text-green-500'} font-bold">STATUS: ${req.status}</span>
+                                <button class="px-4 py-2 rounded-lg bg-cyan-400/10 text-cyan-400 hover:bg-cyan-400/20 transition-all">
+                                    <span class="telugu">మద్దతు</span> <i class="fas fa-heart ml-1"></i>
+                                </button>
+                            </div>
+                        </div>`;
+                        list.insertAdjacentHTML('beforeend', card);
+                    });
+                }
+            } catch (err) {
+                console.error("Fetch requests error:", err);
+            }
+        }
+
+        document.getElementById('submissionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+
+            const payload = {
+                title: document.getElementById('req_title').value,
+                category: document.getElementById('req_cat').value,
+                description: document.getElementById('req_desc').value,
+                urgency: document.querySelector('input[name="urgency"]:checked').value,
+                user_name: localStorage.getItem('userName') || 'Guest'
+            };
+
+            try {
+                const res = await fetch('/api/panchayat/requests', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert("Request submitted successfully!");
+                    e.target.reset();
+                    fetchRequests();
+                }
+            } catch (err) {
+                alert("Submission failed.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> <span class="telugu">అభ్యర్థన సమర్పించండి</span>';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchRequests();
+        });
+
+        function adminLogin() {
+            const pwd = prompt("Enter Panchayat Admin Password:");
+            if (pwd === "admin123") {
+                localStorage.setItem('isAdmin', 'true');
+                window.location.href = "panchayat_admin.html";
+            } else if (pwd !== null) {
+                alert("Incorrect password!");
+            }
+        }
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

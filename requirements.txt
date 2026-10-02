@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+motor
+python-dotenv
+google-generativeai
+certifi
+dnspython
+passlib[bcrypt]
+Flask
+Werkzeug
+requests
+pillow
+python-multipart

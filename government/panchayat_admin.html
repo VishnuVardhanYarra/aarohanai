@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panchayat Admin Control Panel | Aarohan Governance</title>
+
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0F1E;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Custom Classes */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 197, 94, 0.2));
+            padding: 1px;
+        }
+
+        .gradient-border>div {
+            background: #0A0F1E;
+            border-radius: 16px;
+            height: 100%;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #06b6d4, #22c55e);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.warning {
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
+        .badge-warning {
+            background: rgba(234, 179, 8, 0.2);
+            color: #eab308;
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        .badge-info {
+            background: rgba(6, 182, 212, 0.2);
+            color: #06b6d4;
+        }
+
+        /* Navigation */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            color: #94a3b8;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(34, 197, 94, 0.2));
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        /* Form Elements */
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2394a3b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 16px center;
+            background-repeat: no-repeat;
+            background-size: 20px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Range Slider */
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            appearance: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #06b6d4, #22c55e);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 24px;
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #06b6d4;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #94a3b8;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            border-color: #06b6d4;
+            color: #06b6d4;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #06b6d4, #22c55e);
+            border-radius: 4px;
+        }
+
+        /* Section Padding */
+        section {
+            scroll-margin-top: 100px;
+        }
+
+        /* Scheme Card */
+        .scheme-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .scheme-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Audit Log */
+        .audit-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .audit-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* AI Suggestion */
+        .ai-suggestion {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(34, 197, 94, 0.1));
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Notification Area -->
+    <div id="notification" class="notification hidden"></div>
+
+    <!-- Main Layout -->
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="w-72 glass-panel m-4 p-4 fixed left-0 top-0 bottom-0">
+            <div class="flex items-center space-x-2 mb-8 px-4">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-green-500 flex items-center justify-center">
+                    <i class="fas fa-satellite-dish text-white text-lg"></i>
+                </div>
+                <div>
+                    <span
+                        class="text-xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">
+                        Panchayat Admin
+                    </span>
+                    <p class="text-xs text-gray-400">v2.0 · Secure Portal</p>
+                </div>
+            </div>
+
+            <nav class="space-y-2">
+                <a href="#projects" class="nav-link active" data-nav="projects">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Projects & Budget Entry</span>
+                </a>
+                <a href="#funds" class="nav-link" data-nav="funds">
+                    <i class="fas fa-coins"></i>
+                    <span>Fund Utilization</span>
+                </a>
+                <a href="#schemes" class="nav-link" data-nav="schemes">
+                    <i class="fas fa-tasks"></i>
+                    <span>Scheme Management</span>
+                </a>
+                <a href="#community-requests" class="nav-link" data-nav="community-requests">
+                    <i class="fas fa-users"></i>
+                    <span>Community Requests</span>
+                </a>
+                <div class="border-t border-white/10 my-4"></div>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="absolute bottom-4 left-4 right-4">
+                <div class="glass-panel p-4">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-green-500 flex items-center justify-center">
+                            <span class="font-bold" id="adminInitial">AD</span>
+                        </div>
+                        <div class="overflow-hidden">
+                            <p class="font-medium truncate" id="adminNameDisplay">K.Venkateswar Rao</p>
+                            <p class="text-xs text-gray-400 truncate" id="adminRoleDisplay">Panchayat Admin
+                            </p>
+                            <p class="text-[10px] text-gray-500 font-mono" id="adminIdDisplay">ID: ---</p>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between text-xs">
+                        <span class="text-green-400 flex items-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-500 mr-1 animate-pulse"></span> Online
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 ml-80 p-4">
+            <!-- Top Navigation -->
+            <div class="glass-panel p-4 mb-6 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h2 class="text-xl font-semibold">Panchayat Administrative Dashboard</h2>
+                    <span class="badge badge-info">Secure Entry Mode</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="btn-outline">
+                        <i class="fas fa-save mr-2"></i>Save Draft
+                    </button>
+                    <button class="btn-primary">
+                        <i class="fas fa-globe mr-2"></i>Publish
+                    </button>
+                    <div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center">
+                        <i class="fas fa-bell text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Suggestion Panel -->
+            <div class="ai-suggestion mb-6" data-aos="fade-down">
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center">
+                        <i class="fas fa-robot text-cyan-400"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-semibold mb-1">AI Insight: Unusual Spending Pattern Detected</h4>
+                        <p class="text-sm text-gray-400">Material costs in Ward 3 are 15% above approved estimates.
+                            Consider reviewing procurement process for potential optimization.</p>
+                    </div>
+                    <button class="btn-outline text-sm">Dismiss</button>
+                </div>
+            </div>
+
+            <!-- Project and Sanctioned Budget Entry Section -->
+            <section id="projects" class="mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-project-diagram text-cyan-400 mr-3"></i>
+                    Project & Sanctioned Budget Entry
+                </h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Main Form -->
+                    <div class="lg:col-span-2 glass-panel p-6" data-aos="fade-right">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="form-label">Project Title</label>
+                                <input type="text" class="form-input" placeholder="e.g., Concrete Road Construction">
+                            </div>
+                            <div>
+                                <label class="form-label">Project ID</label>
+                                <input type="text" class="form-input bg-gray-800/50" value="PRJ-2024-0123" readonly>
+                            </div>
+                            <div>
+                                <label class="form-label">Village Name</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Select Village</option>
+                                    <option class="bg-slate-900">Ward 1 - Main Bazaar</option>
+                                    <option class="bg-slate-900">Ward 2 - Lakshmipuram</option>
+                                    <option class="bg-slate-900">Ward 3 - Gandhi Nagar</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Project Category</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Road</option>
+                                    <option class="bg-slate-900">Water Canal</option>
+                                    <option class="bg-slate-900">School Development</option>
+                                    <option class="bg-slate-900">Solar Installation</option>
+                                    <option class="bg-slate-900">Street Lights</option>
+                                    <option class="bg-slate-900">Drainage</option>
+                                </select>
+                            </div>
+                            <div class="col-span-2">
+                                <label class="form-label">Project Description</label>
+                                <textarea rows="3" class="form-input"
+                                    placeholder="Detailed description of the project..."></textarea>
+                            </div>
+                            <div>
+                                <label class="form-label">Sanctioned Amount (₹)</label>
+                                <input type="text" class="form-input" placeholder="25,00,000">
+                            </div>
+                            <div>
+                                <label class="form-label">Funding Source</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Central Government</option>
+                                    <option class="bg-slate-900">State Government</option>
+                                    <option class="bg-slate-900">District Fund</option>
+                                    <option class="bg-slate-900">MLA/MP Fund</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Sanction Order No.</label>
+                                <input type="text" class="form-input" placeholder="F.No-123/2024">
+                            </div>
+                            <div>
+                                <label class="form-label">Sanction Date</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Expected Completion</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Project Status</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Not Started</option>
+                                    <option class="bg-slate-900">In Progress</option>
+                                    <option class="bg-slate-900">Completed</option>
+                                    <option class="bg-slate-900">Delayed</option>
+                                </select>
+                            </div>
+                            <div class="col-span-2">
+                                <label class="form-label">Completion Percentage</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="0" max="100" value="35" class="range-slider flex-1">
+                                    <span class="text-cyan-400 font-bold">35%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label class="form-label">Supporting Documents</label>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="upload-area">
+                                    <i class="fas fa-file-pdf text-2xl text-red-400 mb-2"></i>
+                                    <p class="text-xs text-gray-400">Sanction Letter</p>
+                                </div>
+                                <div class="upload-area">
+                                    <i class="fas fa-file-alt text-2xl text-blue-400 mb-2"></i>
+                                    <p class="text-xs text-gray-400">Technical Approval</p>
+                                </div>
+                                <div class="upload-area">
+                                    <i class="fas fa-file-word text-2xl text-green-400 mb-2"></i>
+                                    <p class="text-xs text-gray-400">Work Plan</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-3 mt-6">
+                            <button class="btn-secondary">Save as Draft</button>
+                            <button class="btn-primary"
+                                onclick="showNotification('success', 'Project saved successfully!')">Submit
+                                Project</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview Panel -->
+                    <div class="glass-panel p-6" data-aos="fade-left">
+                        <h4 class="font-semibold mb-4 flex items-center">
+                            <i class="fas fa-eye text-cyan-400 mr-2"></i>
+                            Live Preview
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-white/5 rounded-xl">
+                                <p class="text-sm text-gray-400">Project ID</p>
+                                <p class="font-mono text-cyan-400">PRJ-2024-0123</p>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-xl">
+                                <p class="text-sm text-gray-400">Sanctioned Amount</p>
+                                <p class="text-2xl font-bold text-green-400">₹25,00,000</p>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-xl">
+                                <p class="text-sm text-gray-400">Funding Source</p>
+                                <p>Central Government (75:25)</p>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-xl">
+                                <p class="text-sm text-gray-400">Status</p>
+                                <span class="badge badge-warning">In Progress - 35%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fund Utilization Entry Section -->
+            <section id="funds" class="mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-coins text-green-400 mr-3"></i>
+                    Fund Utilization Entry
+                </h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Budget Utilization Panel -->
+                    <div class="glass-panel p-6" data-aos="fade-right">
+                        <h4 class="font-semibold mb-4">Budget Overview</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm text-gray-400">Total Sanctioned</p>
+                                <p class="text-2xl font-bold text-cyan-400">₹1,25,00,000</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Total Spent</p>
+                                <p class="text-2xl font-bold text-yellow-400">₹98,75,000</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400">Remaining Balance</p>
+                                <p class="text-2xl font-bold text-green-400">₹26,25,000</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-400 mb-2">Utilization Rate</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill warning" style="width: 79%"></div>
+                                </div>
+                                <p class="text-right text-sm text-yellow-400 mt-1">79% · Warning: Near 80% threshold</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expense Entry Form -->
+                    <div class="lg:col-span-2 glass-panel p-6" data-aos="fade-left">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="col-span-2">
+                                <label class="form-label">Select Project</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">PRJ-2024-0123 - Concrete Road, Ward 3</option>
+                                    <option class="bg-slate-900">PRJ-2024-0124 - Solar Installation, Ward 1</option>
+                                    <option class="bg-slate-900">PRJ-2024-0125 - School Development</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Expense Category</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Material</option>
+                                    <option class="bg-slate-900">Labor</option>
+                                    <option class="bg-slate-900">Machinery</option>
+                                    <option class="bg-slate-900">Transportation</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Material Name</label>
+                                <input type="text" class="form-input" placeholder="e.g., Cement">
+                            </div>
+                            <div>
+                                <label class="form-label">Quantity</label>
+                                <input type="number" class="form-input" placeholder="100">
+                            </div>
+                            <div>
+                                <label class="form-label">Unit Rate (₹)</label>
+                                <input type="text" class="form-input" placeholder="350" id="unitRate">
+                            </div>
+                            <div>
+                                <label class="form-label">Total Cost (₹)</label>
+                                <input type="text" class="form-input bg-gray-800/50" value="35,000" readonly>
+                            </div>
+                            <div>
+                                <label class="form-label">Vendor Name</label>
+                                <input type="text" class="form-input" placeholder="M/s Construction Co.">
+                            </div>
+                            <div>
+                                <label class="form-label">Invoice Number</label>
+                                <input type="text" class="form-input" placeholder="INV-2024-056">
+                            </div>
+                            <div>
+                                <label class="form-label">Invoice Date</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="form-label">Upload Invoice</label>
+                                <div class="upload-area">
+                                    <i class="fas fa-cloud-upload-alt text-2xl text-cyan-400 mb-2"></i>
+                                    <p class="text-sm text-gray-400">Click to upload invoice document</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end space-x-3 mt-6">
+                            <button class="btn-secondary">Add Another</button>
+                            <button class="btn-primary"
+                                onclick="showNotification('success', 'Expense recorded successfully!')">Record
+                                Expense</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Government Scheme Management Section -->
+            <section id="schemes" class="mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-tasks text-purple-400 mr-3"></i>
+                    Government Scheme Management
+                </h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Add/Edit Scheme Form -->
+                    <div class="glass-panel p-6" data-aos="fade-right">
+                        <h4 class="font-semibold mb-4">Add New Scheme</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="form-label">Scheme Name</label>
+                                <input type="text" class="form-input" placeholder="e.g., PM Kisan Samman Nidhi">
+                            </div>
+                            <div>
+                                <label class="form-label">Category</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Farmers</option>
+                                    <option class="bg-slate-900">Youth</option>
+                                    <option class="bg-slate-900">Infrastructure</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Description</label>
+                                <textarea rows="2" class="form-input" placeholder="Scheme description..."></textarea>
+                            </div>
+                            <div>
+                                <label class="form-label">Eligibility Criteria</label>
+                                <textarea rows="2" class="form-input"
+                                    placeholder="Eligibility conditions..."></textarea>
+                            </div>
+                            <div>
+                                <label class="form-label">Required Documents</label>
+                                <input type="text" class="form-input" placeholder="Aadhar, Land records, etc.">
+                            </div>
+                            <div>
+                                <label class="form-label">Benefit Amount (₹)</label>
+                                <input type="text" class="form-input" placeholder="6,000">
+                            </div>
+                            <div>
+                                <label class="form-label">Application Deadline</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div>
+                                <label class="form-label">Official Link</label>
+                                <input type="url" class="form-input" placeholder="https://scheme.gov.in">
+                            </div>
+                            <div>
+                                <label class="form-label">Scheme Status</label>
+                                <select class="form-select">
+                                    <option class="bg-slate-900">Active</option>
+                                    <option class="bg-slate-900">Closed</option>
+                                </select>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button class="btn-secondary flex-1">Clear</button>
+                                <button class="btn-primary flex-1"
+                                    onclick="showNotification('success', 'Scheme added successfully!')">Add
+                                    Scheme</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scheme Cards List -->
+                    <div class="lg:col-span-2 space-y-4" data-aos="fade-left">
+                        <h4 class="font-semibold mb-2">Active Schemes (6)</h4>
+
+                        <!-- Scheme Card 1 -->
+                        <div class="scheme-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="flex items-center space-x-3">
+                                        <h5 class="font-semibold">PM Kisan Samman Nidhi</h5>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                    <p class="text-sm text-gray-400 mt-1">Income support of ₹6000/year to farmer
+                                        families</p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="w-8 h-8 rounded-lg bg-blue-400/10 text-blue-400 hover:bg-blue-400/20">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg bg-red-400/10 text-red-400 hover:bg-red-400/20">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mt-4 text-sm">
+                                <div>
+                                    <p class="text-gray-400">Category</p>
+                                    <p>Farmers</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Benefit</p>
+                                    <p class="text-green-400">₹6,000/year</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Deadline</p>
+                                    <p>Dec 31, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scheme Card 2 -->
+                        <div class="scheme-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="flex items-center space-x-3">
+                                        <h5 class="font-semibold">Digital India Initiative</h5>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                    <p class="text-sm text-gray-400 mt-1">Free digital literacy training for rural youth
+                                    </p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="w-8 h-8 rounded-lg bg-blue-400/10 text-blue-400 hover:bg-blue-400/20">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg bg-red-400/10 text-red-400 hover:bg-red-400/20">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mt-4 text-sm">
+                                <div>
+                                    <p class="text-gray-400">Category</p>
+                                    <p>Youth</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Training</p>
+                                    <p class="text-green-400">Free + Device</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Seats</p>
+                                    <p>250 available</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scheme Card 3 -->
+                        <div class="scheme-card">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="flex items-center space-x-3">
+                                        <h5 class="font-semibold">Ayushman Bharat</h5>
+                                        <span class="badge badge-success">Active</span>
+                                    </div>
+                                    <p class="text-sm text-gray-400 mt-1">Health coverage up to ₹5 lakh per family</p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button
+                                        class="w-8 h-8 rounded-lg bg-blue-400/10 text-blue-400 hover:bg-blue-400/20">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg bg-red-400/10 text-red-400 hover:bg-red-400/20">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 mt-4 text-sm">
+                                <div>
+                                    <p class="text-gray-400">Category</p>
+                                    <p>Healthcare</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Coverage</p>
+                                    <p class="text-green-400">₹5,00,000</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Beneficiaries</p>
+                                    <p>1,250 enrolled</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audit Log Preview -->
+            <section class="mb-8">
+                <div class="glass-panel p-6" data-aos="fade-up">
+                    <h4 class="font-semibold mb-4 flex items-center">
+                        <i class="fas fa-history text-cyan-400 mr-2"></i>
+                        Recent Audit Log
+                    </h4>
+                    <div class="space-y-2">
+                        <div class="audit-item">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 rounded-full bg-green-400"></div>
+                                <span class="text-sm">Project PRJ-2024-0123 updated by Admin Devi Singh</span>
+                            </div>
+                            <span class="text-xs text-gray-400">2 min ago</span>
+                        </div>
+                        <div class="audit-item">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+                                <span class="text-sm">New expense added to Ward 3 project</span>
+                            </div>
+                            <span class="text-xs text-gray-400">15 min ago</span>
+                        </div>
+                        <div class="audit-item">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <span class="text-sm">Scheme PM Kisan updated - deadline extended</span>
+                            </div>
+                            <span class="text-xs text-gray-400">1 hour ago</span>
+                        </div>
+                        <div class="audit-item">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 rounded-full bg-purple-400"></div>
+                                <span class="text-sm">Budget utilization crossed 75% - Alert triggered</span>
+                            </div>
+                            <span class="text-xs text-gray-400">2 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Requests Section -->
+            <section id="community-requests" class="mb-8">
+                <h3 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-bullhorn text-orange-400 mr-3"></i>
+                    Community Requests & Feedback
+                </h3>
+
+                <div class="glass-panel p-6" data-aos="fade-up">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-white/10 text-gray-400 text-sm">
+                                    <th class="pb-4 font-medium">Request Detail</th>
+                                    <th class="pb-4 font-medium">Category</th>
+                                    <th class="pb-4 font-medium">User</th>
+                                    <th class="pb-4 font-medium">Urgency</th>
+                                    <th class="pb-4 font-medium">Status</th>
+                                    <th class="pb-4 font-medium">Date</th>
+                                    <th class="pb-4 font-medium">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminRequestsTable">
+                                <!-- Requests populated here -->
+                                <tr>
+                                    <td colspan="7" class="py-10 text-center text-gray-500">
+                                        <i class="fas fa-spinner fa-spin mr-2"></i> Loading requests...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 100;
+                        const elementPosition = targetElement.offsetTop - offset;
+
+                        window.scrollTo({
+                            top: elementPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                // Update active state
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Active navigation highlight on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let current = '';
+            const scrollPosition = window.scrollY + 150;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href').replace('#', '');
+                if (href === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        window.addEventListener('load', updateActiveNav);
+
+        // Notification function
+        function showNotification(type, message) {
+            const notification = document.getElementById('notification');
+            notification.className = `notification ${type} glass-panel p-4`;
+            notification.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle text-green-400' : 'fa-exclamation-circle text-red-400'} text-xl"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            notification.classList.remove('hidden');
+
+            setTimeout(() => {
+                notification.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Calculate total cost
+        const unitRate = document.getElementById('unitRate');
+        if (unitRate) {
+            unitRate.addEventListener('input', function (e) {
+                const quantity = document.querySelector('input[placeholder="100"]')?.value || 0;
+                const total = parseInt(e.target.value || 0) * parseInt(quantity || 0);
+                const totalField = document.querySelector('input[value="35,000"]');
+                if (totalField) {
+                    totalField.value = total.toLocaleString('en-IN');
+                }
+            });
+        }
+
+        // Range slider display
+        const rangeSlider = document.querySelector('.range-slider');
+        const rangeValue = document.querySelector('.range-slider + span');
+        if (rangeSlider && rangeValue) {
+            rangeSlider.addEventListener('input', function (e) {
+                rangeValue.textContent = e.target.value + '%';
+            });
+        }
+
+        // Admin Requests Loading Logic
+        async function loadAdminRequests() {
+            try {
+                const response = await fetch('/api/panchayat/requests');
+                const data = await response.json();
+                if (data.success) {
+                    const table = document.getElementById('adminRequestsTable');
+                    if (data.requests.length === 0) {
+                        table.innerHTML = '<tr><td colspan="7" class="py-10 text-center text-gray-400">No community requests found.</td></tr>';
+                        return;
+                    }
+                    table.innerHTML = '';
+                    data.requests.forEach(req => {
+                        const urgencyBadge = req.urgency === 'High' ? 'badge-danger' : (req.urgency === 'Medium' ? 'badge-warning' : 'badge-success');
+                        const statusBadge = req.status === 'Pending' ? 'badge-warning' : 'badge-success';
+
+                        const row = `
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-all text-sm">
+                            <td class="py-4">
+                                <p class="font-medium text-white">${req.title}</p>
+                                <p class="text-xs text-gray-400">${req.description.substring(0, 40)}...</p>
+                            </td>
+                            <td class="py-4 text-gray-300">${req.category}</td>
+                            <td class="py-4 text-gray-300">${req.user_name}</td>
+                            <td class="py-4"><span class="badge ${urgencyBadge}">${req.urgency}</span></td>
+                            <td class="py-4"><span class="badge ${statusBadge}">${req.status}</span></td>
+                            <td class="py-4 text-xs text-gray-500 font-mono">${req.timestamp}</td>
+                            <td class="py-4">
+                                <div class="flex space-x-2">
+                                    <button class="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center hover:bg-cyan-400/20 transition-all">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="w-8 h-8 rounded-lg bg-red-400/10 text-red-400 flex items-center justify-center hover:bg-red-400/20 transition-all">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>`;
+                        table.insertAdjacentHTML('beforeend', row);
+                    });
+                }
+            } catch (err) {
+                console.error("Admin fetch requests error:", err);
+            }
+        }
+
+        function loadAdminProfile() {
+            const adminData = localStorage.getItem('adminDetails');
+            if (adminData) {
+                const admin = JSON.parse(adminData);
+                document.getElementById('adminNameDisplay').innerText = admin.fullName;
+                document.getElementById('adminRoleDisplay').innerText = admin.role;
+                document.getElementById('adminIdDisplay').innerText = `ID: ${admin.adminId}`;
+                document.getElementById('adminInitial').innerText = admin.fullName.charAt(0).toUpperCase();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminRequests();
+            loadAdminProfile();
+        });
+    </script>
+    <script src="../auth.js"></script>
+</body>
+
+</html>

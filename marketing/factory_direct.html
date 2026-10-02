@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factory Sales & Land Rent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(165deg, #f0f7e8 0%, #deedd0 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .farmer-portal {
+            max-width: 1400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            border-radius: 2.8rem;
+            padding: 2rem;
+            box-shadow: 0 30px 45px -25px #2a4f1e, 0 6px 0 0 #e5f0da inset;
+            border: 1px solid rgba(180, 210, 140, 0.7);
+            transition: transform 0.25s ease;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #1b4f1b;
+            margin-bottom: 1.8rem;
+            border-left: 10px solid #e2a643;
+            padding-left: 1.2rem;
+        }
+
+        .section-title i {
+            color: #b37b2c;
+            font-size: 2.2rem;
+        }
+
+        .factory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .factory-card {
+            background: #fefcf0;
+            border-radius: 2.5rem;
+            padding: 1.8rem 1.5rem;
+            border: 2px solid #fad893;
+            box-shadow: 0 12px 0 #bfaa7a;
+            cursor: pointer;
+        }
+
+        .factory-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 0 #b89f68;
+        }
+
+        .factory-card i {
+            font-size: 2.5rem;
+            color: #c07d27;
+        }
+
+        .factory-card h3 {
+            font-size: 1.5rem;
+            color: #2d542d;
+            margin-top: 8px;
+        }
+
+        .factory-card .price-badge {
+            background: #ffefcb;
+            border-radius: 30px;
+            padding: 0.3rem 1.2rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .rental-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.2rem;
+            align-items: end;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .form-field label {
+            font-weight: 600;
+            color: #2b542b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-field input,
+        .form-field select {
+            background: white;
+            border: 2px solid #c6e0b0;
+            border-radius: 50px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: #308530;
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 0 #1b521b;
+            cursor: pointer;
+            border: 1px solid #98c583;
+        }
+
+        .badge {
+            background: #ebf5e0;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            color: #1a5a1a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            border: 1px solid #b6da96;
+        }
+
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        @media (max-width:800px) {
+            .rental-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="farmer-portal">
+
+        <div class="card" style="padding: 1.5rem 2rem;">
+            <div class="flex-between">
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <a href="#" onclick="event.preventDefault(); history.back()"
+                        style="text-decoration:none; color:#3a5c2a; font-weight:600; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-arrow-left"></i> వెనుకకు / Back
+                    </a>
+                    <span class="badge"><i class="fas fa-map-marker-alt"></i> ఆంధ్రప్రదేశ్ & తెలంగాణ</span>
+                </div>
+            </div>
+            <div style="margin-top: 0.5rem; font-size: 1.4rem; font-weight: 600; color: #1b421b;">🏭 Factory Direct
+                Procurement & 🌱 Land Leasing</div>
+        </div>
+
+        <!-- FACTORIES (direct buy) -->
+        <div class="card">
+            <div class="section-title">
+                <i class="fas fa-industry"></i> కర్మాగారాలు (AP & TG) · Factories buying directly
+            </div>
+            <div class="factory-grid">
+                <div class="factory-card" onclick="alert('📞 Call 1800-PEP-APTG to schedule Potato delivery.')">
+                    <i class="fas fa-industry"></i>
+                    <h3>PepsiCo India</h3>
+                    <p><i class="fas fa-map-pin"></i> AP/TG Regional Centers (ప్రాంతీయ కేంద్రాలు)</p>
+                    <div class="price-badge">బంగాళాదుంప / Potato · ₹26/kg</div>
+                </div>
+                <div class="factory-card" onclick="alert('📞 Call 1800-MAZZA to schedule Mango delivery.')">
+                    <i class="fas fa-glass-cheers"></i>
+                    <h3>Mazza (PepsiCo)</h3>
+                    <p><i class="fas fa-map-pin"></i> చిత్తూరు జిల్లా, AP · మామిడి పల్ప్</p>
+                    <div class="price-badge">మామిడి / Mango (Totapuri) · ₹38/kg</div>
+                </div>
+                <div class="factory-card" onclick="alert('📞 Nava Bharat Sugar support: 1800-888-SUGAR')">
+                    <i class="fas fa-cane"></i>
+                    <h3>Nava Bharat Sugar</h3>
+                    <p><i class="fas fa-map-pin"></i> సామర్లకోట, AP · చెరకు కొనుగోలు</p>
+                    <div class="price-badge">చెరకు / Sugarcane · ₹355/టన్</div>
+                </div>
+                <div class="factory-card" onclick="alert('📞 Pushing direct call to Heinz procurement manager.')">
+                    <i class="fas fa-blender"></i>
+                    <h3>Heinz India</h3>
+                    <p><i class="fas fa-map-pin"></i> మెదక్, తెలంగాణ · టమాట</p>
+                    <div class="price-badge">టమాట / Tomato · ₹15/kg</div>
+                </div>
+                <div class="factory-card" onclick="alert('📞 Contacting broker for Lakshmi Rice Mill.')">
+                    <i class="fas fa-wheat-alt"></i>
+                    <h3>Lakshmi Rice Mill</h3>
+                    <p><i class="fas fa-map-pin"></i> ఏలూరు, AP · వరి కొనుగోలు</p>
+                    <div class="price-badge">వరి / Paddy · ₹2180/క్వింటాల్</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAND RENTAL FORM -->
+        <div class="card">
+            <div class="section-title"><i class="fas fa-hand-holding-heart"></i> భూమి అద్దెకు ఇవ్వడానికి · List land for
+                rent</div>
+            <form id="rentForm">
+                <div class="rental-grid">
+                    <div class="form-field">
+                        <label><i class="fas fa-user"></i> పూర్తి పేరు / Name *</label>
+                        <input type="text" id="ownerName" placeholder="రైతు పేరు" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-map-location"></i> ప్రాంతం / Location *</label>
+                        <input type="text" id="ownerLocation" placeholder="ఊరు, పిన్కోడ్" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-ruler-combined"></i> ఎకరాలు / Acres *</label>
+                        <input type="number" step="0.1" id="acres" placeholder="e.g. 5" required>
+                    </div>
+                    <div class="form-field">
+                        <label><i class="fas fa-rupee-sign"></i> ధర (ఎకరాకు) / Price *</label>
+                        <input type="number" id="price" placeholder="₹" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; gap: 1.8rem; margin: 1.8rem 0;">
+                    <label
+                        style="display: flex; align-items: center; gap:0.7rem; background:#edf8e2; padding:0.5rem 1.5rem; border-radius:50px; border:2px solid #b1d192;"><input
+                            type="checkbox" id="irrigated"> నీటి వసతి / Irrigated</label>
+                    <label
+                        style="display: flex; align-items: center; gap:0.7rem; background:#edf8e2; padding:0.5rem 1.5rem; border-radius:50px; border:2px solid #b1d192;"><input
+                            type="checkbox" id="borewell"> బోర్ / Borewell</label>
+                    <select id="soilType" style="padding:0.6rem 1.5rem; border-radius:50px; border:2px solid #b1d192;">
+                        <option value="None">నేల రకం / Soil type</option>
+                        <option value="Black">నల్లరేగడి / Black cotton</option>
+                        <option value="Red">ఎర్రమట్టి / Red soil</option>
+                        <option value="Sandy">ఇసుక / Sandy</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end;">
+                    <button type="submit" class="btn-primary" id="listRentBtn"><i class="fas fa-paper-plane"></i> భూమిని
+                        అద్దెకు ఇవ్వండి · List for rent</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RECENT OFFERS -->
+        <div class="card" style="background: #faf4e1;">
+            <div class="flex-between">
+                <span style="font-size:1.4rem; color:#b37b2c"><i class="fas fa-newspaper"></i> <strong>ఇటీవలి అద్దె
+                        ఆఫర్లు / Recent offers</strong></span>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:1rem; margin-top:1rem;">
+                <div class="badge" style="justify-content:space-between; background:#fff;">రాములు · 2.5 ఎకరాలు ·
+                    ₹45,000/ఎకర · గుంటూరు</div>
+                <div class="badge" style="justify-content:space-between; background:#fff;">లింగయ్య · 5 ఎకరాలు ·
+                    ₹38,000/ఎకర · నల్గొండ</div>
+                <div class="badge" style="justify-content:space-between; background:#fff;">సుశీల · 3 ఎకరాలు ·
+                    ₹52,000/ఎకర · కడప</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('rentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('listRentBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            btn.disabled = true;
+
+            const data = {
+                ownerName: document.getElementById('ownerName').value,
+                location: document.getElementById('ownerLocation').value,
+                acres: document.getElementById('acres').value,
+                pricePerAcre: document.getElementById('price').value,
+                irrigated: document.getElementById('irrigated').checked,
+                borewell: document.getElementById('borewell').checked,
+                soilType: document.getElementById('soilType').value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch('/api/rent_land', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const resData = await response.json();
+                    alert(`✅ Land Rental Listed Successfully! Setup in Database (ID: ${resData.id})\\n\\nBrokers will contact you shortly.`);
+                    document.getElementById('rentForm').reset();
+                } else {
+                    alert('❌ Database Error. Make sure backend is running.');
+                }
+            } catch (error) {
+                alert('❌ Backend is not running or network error occurred!');
+            }
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> భూమిని అద్దెకు ఇవ్వండి · List for rent';
+            btn.disabled = false;
+        });
+    </script>
+</body>
+
+</html>
+
+
